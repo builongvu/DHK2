@@ -1,0 +1,292 @@
+<div class="vis-header-3-weight ">
+  <h4>{{'management.service.title.editService' | translate}}</h4>
+  <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;" (click)="close()">&times;</span>
+</div>
+<div class="row target-edit-cpn">
+  <div class="col-xl-12">
+    <div class="w-100">
+
+      <div class="vis-card-body">
+
+        <form [formGroup]="editServiceForm">
+          <!--          teen chi tieu va ma chi tieu-->
+          <div class="row align-items-center">
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.name' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12  h-46">
+              <mat-form-field class="full-width">
+                <input formControlName="name" class="input-custom" matInput maxlength=100 (ngModelChange)="checkNameEmpty()">
+                <mat-error *ngIf="hasError('name','required')">
+                  {{'management.service.error.required' | translate}}
+                </mat-error>
+                <mat-error *ngIf="hasError('name','pattern')">
+                  {{'management.service.error.malformed' | translate}}
+                </mat-error>
+                <mat-hint *ngIf="mblnServiceName == true">{{'management.service.error.malformed' | translate}}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.code' | translate}}<span
+                style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12  h-46">
+              <mat-form-field class="full-width">
+                <input formControlName="code" class="input-custom" maxlength=50 matInput [(ngModel)]="serviceCode"
+                  (ngModelChange)="checkCodeConflict()">
+
+                <mat-error *ngIf="hasError('code','required')">
+                  {{'management.service.error.required' | translate}}
+                </mat-error>
+
+                <mat-error *ngIf="hasError('code','pattern')">
+                  {{'management.service.error.malformed' | translate}}
+                </mat-error>
+
+                <mat-hint *ngIf="conflictCode == true">{{'management.service.error.codeConflict' | translate}}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+          </div>
+          <!--          chi tieu cha va nhom chi tieu-->
+          <div class="row align-items-center mt-2">
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.parent' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <app-config-tree id="aaa" class="target-container" [items]="marrNodeTreeviewServicesStatus" [(value)]="value"
+                [config]="config" (valueChange)="onChange($event)">
+              </app-config-tree>
+              <div class="error">
+                {{ checkParentIDService == true ? ('management.service.error.parentError' | translate) : ''}}
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.group' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12 group-trans target-level-container">
+              <select formControlName="groupId" class="select-search">
+                <option *ngFor="let group of marrGroups" value="{{group.id}}">{{group.name}}
+                </option>
+              </select>
+              <div
+                *ngIf="editServiceForm.get('groupId').invalid && (editServiceForm.get('groupId').dirty || editServiceForm.get('groupId').touched)">
+                <div *ngIf="hasError('groupId','required')" class="error">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- keenh va chu ky-->
+          <div class="row align-items-center">
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.channel' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12 target-level-container h-46">
+              <ng-multiselect-dropdown class="full-width" #multiSelectChannels [(ngModel)]="selectedItems"
+                formControlName="channels" [data]="channels" [settings]="settings" [disabled]="false"
+                [placeholder]="'management.service.form.choose' | translate">
+              </ng-multiselect-dropdown>
+              <div
+                *ngIf="editServiceForm.get('channels').invalid && (editServiceForm.get('channels').dirty || editServiceForm.get('channels').touched)">
+                <div *ngIf="hasError('channels','required')" class="error">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.serviceCycle' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12 cycle-trans">
+
+              <select formControlName="serviceCycle" class="select-search mb-2" [(ngModel)]="serviceCyclee">
+                <option *ngFor="let cycle of marrServiceCycle" value="{{cycle.code}}">{{cycle.name}}</option>
+              </select>
+
+              <div
+                *ngIf="editServiceForm.get('serviceCycle').invalid && (editServiceForm.get('serviceCycle').dirty || editServiceForm.get('serviceCycle').touched)">
+                <div class="error" *ngIf="hasError('serviceCycle','required')">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- tu ngay va den ngay-->
+          <div class="row align-items-center">
+            <div class="col-xl-2 col-md-2 col-sm-12 ">{{'management.service.info.fromDate' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12 h-46">
+              <mat-form-field class="full-width">
+                <input matInput class="input-custom" [matDatepicker]="fromDate" [min]="mdtMinDate" [max]="mdtMaxDate"
+                  formControlName="fromDate" (dateChange)="checkFromDate($event)" [(ngModel)]="fromDateInput">
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+
+                <mat-hint *ngIf="fromDateValidator == true">{{'management.service.error.fromDateError' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDateNull == true">{{'management.service.error.required' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDatePattern == true">{{'management.service.error.malformed' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDateEndlessToDate == true">
+                  {{'management.service.error.endDateLessThanStartDate' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDateYear == true">{{'management.service.error.dateYear' | translate}}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.toDate' | translate}}</div>
+            <div class="col-xl-4 col-md-4 col-sm-12 h-46">
+              <mat-form-field class="full-width">
+                <input matInput class="input-custom" [matDatepicker]="toDate" [min]="mdtMinDate" [max]="mdtMaxDate" formControlName="toDate"
+                  (dateChange)="checkToDate($event)">
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+
+                <mat-hint *ngIf="toDateValidator == true">{{'management.service.error.fromDateError' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="toDateValidPatter == true">{{'management.service.error.malformed' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="toDateValidToday == true">{{'management.service.error.fromDateError' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="toDateYear == true">{{'management.service.error.dateYear' | translate}}
+                </mat-hint>
+
+              </mat-form-field>
+            </div>
+
+          </div>
+          <!--loai CT va thu tu-->
+          <div class="row align-items-center mt-3">
+            <div class="col-xl-2 col-md-2 col-sm-12 ">{{'management.service.info.serviceType' | translate}}<span
+                style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <select formControlName="serviceType" class="select-search trans-late">
+                <option [value]="1">{{'management.service.info.plan' | translate}}</option>
+                <option [value]="0">{{'management.service.info.nonPlan' | translate}}</option>
+              </select>
+
+              <div
+                *ngIf="editServiceForm.get('serviceType').invalid && (editServiceForm.get('serviceType').dirty || editServiceForm.get('serviceType').touched)">
+                <div *ngIf="hasError('serviceType','required')" class="error">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-2 col-sm-12 ">{{'management.service.info.unitCode' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+
+              <select class="select-search" formControlName="unitCode">
+                <option *ngFor="let unit of marrUnits" value="{{unit.code}}">{{unit.name}}</option>
+              </select>
+
+              <div
+                *ngIf="editServiceForm.get('unitCode').invalid && (editServiceForm.get('unitCode').dirty || editServiceForm.get('unitCode').touched)">
+                <div *ngIf="hasError('unitCode','required')" class="error">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!--DVT va trANG THAI-->
+          <div class="row align-items-center mt-4">
+
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.status' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <select class="select-search" formControlName="status">
+                <option [value]="1">{{'management.service.info.work' | translate}}</option>
+                <option [value]="0">{{'management.service.info.nonwork' | translate}}</option>
+              </select>
+              <div
+                *ngIf="editServiceForm.get('status').invalid && (editServiceForm.get('status').dirty || editServiceForm.get('status').touched)">
+                <div class="error" *ngIf="hasError('status','required')">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-md-2 col-sm-12 ">{{'management.service.info.calcType' | translate}}
+              <span style="color: red;">&#42;</span></div>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <select formControlName="calcType" class="select-search">
+                <option *ngFor="let calc of marrServiceCalc" value="{{calc.code}}">{{calc.name}}</option>
+              </select>
+              <div
+                *ngIf="editServiceForm.get('calcType').invalid && (editServiceForm.get('calcType').dirty || editServiceForm.get('calcType').touched)">
+                <div class="error" *ngIf="hasError('calcType','required')">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--cong thuc-->
+          <div class="row align-items-center mt-4">
+            <div class="col-xl-2 col-md-2 col-sm-12">{{'management.service.info.exp' | translate}}</div>
+            <div class="col-xl-10 col-md-10 col-sm-12">
+              <a style="color: blue; text-decoration: underline; cursor: pointer;" (click)="downloadGuildEXP()">
+                {{'management.service.button.guildExp' | translate}}
+              </a>
+            </div>
+          </div>
+          <!--text area-->
+          <div class="row align-items-center mt-3">
+            <div class="col-12">
+              <mat-form-field class="text-mat full-width">
+                <textarea [maxLength]=300 matInput formControlName="exp" cdkTextareaAutosize cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="10">
+              </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+
+        <div class="w-100 d-flex justify-content-center flex-wrap">
+          <button class="btn btn-primary mb-2 mx-2 click-btn" (click)="close()"><i class="fa fa-times"></i>
+            {{'management.service.button.cancel' | translate}}
+          </button>
+          <button class="btn btn-primary mb-2 mx-2 click-btn" type="submit" (click)="confirmEdit(showEdit)" [disabled]="!editServiceForm.valid || conflictCode || conflictOrderService || fromDateValidator ||fromDatePattern
+            || fromDateNull || fromDateEndlessToDate || fromDateYear || toDateValidator || toDateValidPatter || toDateValidToday || toDateYear || mblnServiceName || checkParentIDService
+            ">
+            <i class="fa fa-save"></i>
+            {{'management.service.button.save' | translate}} </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #showEdit>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span><img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+          alt="">{{'management.service.message.confirm' | translate}}</span>
+
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 85.64px;"><i
+        class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=editService() style="width: 85.64px;"><i
+        class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

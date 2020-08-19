@@ -1,0 +1,40 @@
+input {
+  border: none;
+  border-bottom: 1px solid #a7aeb5;
+  border-radius: 0;
+}
+
+.dropdown-divider {
+  border: none !important;
+}
+
+input:focus {
+  border-bottom: 2px solid #0aa6d5;
+  border-radius: 0;
+  outline: none !important;
+}
+.form-check-label{
+  cursor: pointer;
+}
+
+.treeview-container {
+  scrollbar-color: lightgray #fffff;
+  scrollbar-width: thin;
+}
+/dee/.treeview-container[_ngcontent-c10]{
+  background: red;
+}
+/deep/ .treeview-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+
+/deep/ .treeview-container::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+
+.highlighted {
+  //background-color: lightgray;
+  font-weight: bold;
+}

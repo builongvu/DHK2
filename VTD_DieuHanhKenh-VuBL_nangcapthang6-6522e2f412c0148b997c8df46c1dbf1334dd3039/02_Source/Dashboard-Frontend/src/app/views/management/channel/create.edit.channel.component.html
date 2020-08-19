@@ -1,0 +1,152 @@
+<div class="card">
+  <div class="card-header">
+    <span *ngIf="id==0">
+      <i class="fa fa-user-plus"></i>
+      <strong>{{'management.channel.title.add' | translate}}</strong>
+    </span>
+    <span *ngIf="id>0">
+      <i class="fa fa-user"></i>
+      <strong>{{'management.channel.title.edit' | translate}}</strong>
+    </span>
+
+  </div>
+  <form [formGroup]="addChannelForm" (ngSubmit)="onAddSubmit()">
+    <div class="card-body" *ngIf="id==0">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="channelCode">{{'management.channel.field.code' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" formControlName="channelCode" class="form-control" id="channelCode" placeholder="{{'management.channel.placeholder.code' | translate}}">
+                <div *ngIf="addForm.code.invalid && (addForm.code.dirty || addForm.code.touched)" class="alert alert-danger">
+                  <div *ngIf="addForm.code.errors.required">
+                    {{'management.channel.message.code_require' | translate}}
+                  </div>
+                  <div *ngIf="addForm.code.errors.maxlength">
+                    {{'management.channel.message.code_max_length' | translate}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="offset-md-2 col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="channelName">{{'management.channel.field.name' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" formControlName="channelName" class="form-control" id="channelName" placeholder="{{'management.channel.placeholder.code' | translate}}">
+                <div *ngIf="addForm.name.invalid && (addForm.name.dirty || addForm.name.touched)" class="alert alert-danger">
+                  <div *ngIf="addForm.name.errors.required">
+                    {{'management.channel.message.name_require' | translate}}
+                  </div>
+                  <div *ngIf="addForm.name.errors.maxlength">
+                    {{'management.channel.message.name_max_length' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="select-status-add">{{'management.channel.field.status' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <select id="select-status-add" name="selectStatus" class="form-control" formControlName="status">
+                  <option [ngValue]="actFlg.value" *ngFor="let actFlg of status">{{actFlg.name}}</option>
+                </select>
+                <div *ngIf="addForm.status.invalid && (addForm.status.dirty || addForm.status.touched)" class="alert alert-danger">
+                  <div *ngIf="addForm.status.errors.required">
+                    {{'management.channel.message.status_require' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary" type="submit">{{'dashboard.global.button.save' | translate}}</button>
+        <button class="btn btn-secondary" routerLink="/channel-management">{{'dashboard.global.button.cancel' | translate}}</button>
+      </div>
+    </div>
+    <!--[End] Create Channel-->
+  </form>
+
+  <!--[Start] Edit Channel -->
+  <form *ngIf="channel && id>0" [formGroup]="editChannelForm" (ngSubmit)="onEditSubmit()">
+    <div class="card-body" *ngIf="channel && id>0">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="code-edit-id">{{'management.channel.field.code' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" formControlName="eCode" class="form-control" id="code-edit-id" placeholder="{{'management.channel.placeholder.code' | translate}}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="offset-md-2 col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="name-edit-id">{{'management.channel.field.name' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input type="text" formControlName="eName" class="form-control" id="name-edit-id" placeholder="{{'management.channel.placeholder.name' | translate}}">
+                <div *ngIf="editForm.eName.invalid && (editForm.eName.dirty || editForm.eName.touched)" class="alert alert-danger">
+                  <div *ngIf="editForm.eName.errors.required">
+                        {{'management.channel.message.name_require' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="select-status-edit">{{'management.channel.field.status' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <select id="select-status-edit" name="selectStatus" class="form-control" formControlName="eStatus">
+                  <option [ngValue]="actFlg.value" *ngFor="let actFlg of status">{{actFlg.name}}</option>
+                </select>
+                <div *ngIf="editForm.status.invalid && (editForm.status.dirty || editForm.status.touched)" class="alert alert-danger">
+                  <div *ngIf="editForm.status.errors.required">
+                    {{'management.channel.message.status_require' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary" type="submit">{{'dashboard.global.button.update' | translate}}</button>
+        <button class="btn btn-secondary" routerLink="/channel-management">{{'dashboard.global.button.cancel' | translate}}</button>
+      </div>
+    </div>
+  </form>
+  <!--[End] Edit Channel-->
+
+</div>

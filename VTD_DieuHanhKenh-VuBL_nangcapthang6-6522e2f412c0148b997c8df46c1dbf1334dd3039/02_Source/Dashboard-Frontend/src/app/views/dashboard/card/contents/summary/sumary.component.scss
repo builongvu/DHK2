@@ -1,0 +1,46 @@
+.rank-top {
+  align-self: center;
+  .rank-container{
+    display: flex;
+    justify-content: space-around;
+    padding: .3rem .5rem;
+    //cursor: pointer;
+    p{
+      margin-bottom: 0 !important;
+      font-weight: bold;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      height: 40px;
+      line-height: 40px;
+    }
+    .percent{
+      flex:2;
+      padding-right: .7rem;
+
+    }
+    .name{
+      flex: 8;
+      text-align: center;
+    }
+
+    .num{
+      flex: 2;
+      text-align: right;
+    }
+  }
+}
+.nodata{
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poiter{
+  cursor: pointer;
+}

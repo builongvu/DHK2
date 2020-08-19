@@ -1,0 +1,46 @@
+<div class="animated fadeIn list-target-cpn">
+  <div class="col-lg-12 pd-0">
+    <div class="row">
+      <div class="col-lg-3 p-l-0 p-r-5 d-flex">
+        <div class="card margin-bottom w-100">
+          <div class="card-header font-weight-bold">
+            <div class="header">
+              {{'management.service.title.listSerive' | translate}}</div>
+          </div>
+          <app-config-tree-select class="card-body" [items]="marrNodeTreeviewServicesStatus" [config]="mobjConfig"
+                                  (valueChange)="onValueChange($event)" style="padding: 0.35em;">
+          </app-config-tree-select>
+        </div>
+      </div>
+      <div class="col-lg-9 p-l-0 p-r-0 d-flex">
+        <div class="card margin-bottom">
+          <div class="vis-card-body">
+            <div id="tabs">
+              <mat-tab-group>
+                <mat-tab label="{{'management.service.title.inforService' | translate}}">
+                  <div class="target-info">
+                    <app-target-detail></app-target-detail>
+                  </div>
+                </mat-tab>
+
+
+                <mat-tab label="{{'management.service.title.warningService' | translate}}">
+                  <app-mng-warrning></app-mng-warrning>
+                </mat-tab>
+
+                <mat-tab label="{{'management.service.title.historiesService' | translate}}">
+                  <app-target-history></app-target-history>
+
+                </mat-tab>
+                <mat-tab label="{{'management.weight.serviceWeight' | translate}}">
+                  <app-target-weigth></app-target-weigth>
+                </mat-tab>
+
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

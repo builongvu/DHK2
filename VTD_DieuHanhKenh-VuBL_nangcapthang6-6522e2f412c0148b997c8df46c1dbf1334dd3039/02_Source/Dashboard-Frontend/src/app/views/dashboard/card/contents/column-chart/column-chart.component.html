@@ -1,0 +1,7 @@
+<div class="detailchart" *ngIf="!noDataD && !isDblClick"><p class="detail-text" (click)="showDetail()">Bấm vào đây để xem thêm</p></div>
+<div class="detailchart" *ngIf="!noDataD && isDblClick"><p class="detail-text back" (click)="showDetail()">Quay lại</p></div>
+<div class="chart" id="{{'containercolumn' + chartId}}"  *ngIf="!noDataD"></div>
+<div *ngIf="noDataD" style="display: flex; align-items: center; justify-content: center; height: 100%">
+  <img src="assets/img/waining.png" width="25px" height="25px" alt="waining">
+  <span>&ensp;{{'management.layout.nodata' | translate}}</span>
+</div>

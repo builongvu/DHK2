@@ -1,0 +1,452 @@
+<div class="w-100 group-target">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <label class="col-md-1 col-form-label text-no-pr">
+              {{'management.group.filter.product' | translate}}
+            </label>
+            <div class=" col-md-5">
+              <div class="fix-mt target-level-container mtop">
+                <app-configwr-tree class="product" [(value)]="value" [items]="marrNodeTreeviewServices"
+                                   (valueChange)="Onchange($event)" [config]="mobjConfig">
+                </app-configwr-tree>
+              </div>
+            </div>
+
+            <label class="col-md-1 col-form-label text-no-pr">
+              {{'management.group.filter.code' | translate}}
+            </label>
+            <div class="col-md-5">
+              <mat-form-field class="example-full-width">
+                <input matInput #message maxlength="256" name="code" [(ngModel)]="mstrSCodeGroup"
+                       autocomplete="off">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row align-items-center mt">
+            <label class="col-md-1 col-form-label text-no-pr">
+              {{'management.group.filter.name' | translate}}
+            </label>
+            <div class="col-md-5">
+              <mat-form-field class="example-full-width">
+                <input matInput #message maxlength="256" name="name" [(ngModel)]="mstrSNameGroup"
+                       autocomplete="off">
+              </mat-form-field>
+            </div>
+
+            <label class="col-md-1 col-form-label text-no-pr">
+              {{'management.group.table.head.status' | translate}}
+            </label>
+            <div class="col-md-5">
+              <select class="select-search" name="productId" [(ngModel)]="searchStatus">
+                <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+                <option value="1">{{'management.service.info.work' | translate}}</option>
+                <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted ">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-center flex-wrap">
+              <button class="btn btn-primary m-2 btn-click" (click)="getSearch(true)">
+                <i class="fa fa-search"></i> {{'management.group.button.search' | translate}}
+              </button>
+              <button class="btn btn-primary m-2 btn-click" (click)="openDialog(newgroup,true)">
+                <i class="fa fa-plus"></i> {{'management.group.button.add' | translate}}
+              </button>
+
+              <button class="m-2 btn btn-primary btn-click" (click)="downloadGroupTemplate()"><i
+                class="fa fa-download"></i>
+                {{'management.target.button.download' | translate}}
+              </button>
+              <button class="btn btn-primary m-2 btn-click" (click)="confirm(template)">
+                <i class="fa fa-upload"></i> {{'management.group.button.up' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- </form> -->
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="header-table">
+          <tr class="text-center">
+            <th>
+              <div class="custom-control custom-checkbox mright-1"
+                   *ngIf="marrDataTable && marrDataTable.length>0">
+                <input class="custom-control-input" name="cCheckAll" [(ngModel)]="cCheckAll"
+                       type="checkbox" id="cCheckAll">
+                <label class="custom-control-label" for="cCheckAll" (click)="selectAll()"></label>
+              </div>
+            </th>
+            <!-- <th></th> -->
+            <th class="pointer">
+              {{'management.group.table.head.ordinalNumbers' | translate}}
+            </th>
+            <th class="pointer">
+              {{'management.group.table.head.product' | translate}}
+            </th>
+            <th class="pointer">
+              {{'management.group.table.head.code' | translate}}
+            </th>
+            <th sclass="pointer">
+              {{'management.group.table.head.name' | translate}}
+            </th>
+            <th class="pointer">
+              {{'management.group.table.head.changeDatetime' | translate}}
+            </th>
+            <th class="pointer">
+              {{'management.group.table.head.userUpdate' | translate}}
+            </th>
+            <th class="pointer">
+              {{'management.group.table.head.status' | translate}}
+            </th>
+            <th>
+            </th>
+          </tr>
+          </thead>
+          <tbody *ngIf="!marrDataTable || marrDataTable.length == 0">
+          <td colspan="9" class="text-center">
+            {{'management.group.table.body.noData' | translate}}
+          </td>
+          </tbody>
+          <tbody *ngIf="marrDataTable">
+          <tr
+            *ngFor="let data of marrDataTable | paginate: { id: 'targetGroup', itemsPerPage: mnbrPageSize, currentPage: mnbrP, totalItems: mnbrTotal}; index as i">
+            <td class="text-center">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" [(ngModel)]="data.cCheckBox"
+                       [id]="data.id" (click)="select(data.id)">
+                <label class="custom-control-label" [for]="data.id">
+                </label>
+              </div>
+            </td>
+            <td class="text-center">{{mobjPager.page * mnbrPageSize - (mnbrPageSize - 1) + i}}</td>
+            <td class="text-left">
+              <div class="ellipsis" tooltip="{{data.productName}}" placement="top">
+                {{data.productName}}</div>
+            </td>
+            <td>
+              <div class="ellipsis" tooltip="{{data.code}}" placement="top">{{data.code}}</div>
+            </td>
+            <td>
+              <div class="ellipsis" tooltip="{{data.name}}" placement="top">{{data.name}}</div>
+            </td>
+            <td class="text-center">
+              <div class="ellipsis" tooltip="{{data.changeDatetime1}}" placement="top">
+                {{data.changeDatetime1}}
+              </div>
+            </td>
+            <td class="text-left">
+              <div class="ellipsis" tooltip="{{data.userUpdate}}" placement="top">{{data.userUpdate}}
+              </div>
+            </td>
+            <td class="text-center ellipsis" data-toggle="tooltip" placement="top"
+                title="{{data.status == 1 ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate)}}">
+              {{data.status == 1 ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate)}}
+            </td>
+            <td class="text-justify">
+              <a data-toggle="modal"
+                 tooltip="{{'management.group.message.updateToolTip' | translate }}"
+                 data-target="#updateModal" (click)="openDialog(data,false)" class="pointer"><i
+                class="fa fa-edit"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="total-row" *ngIf="marrDataTable && marrDataTable.length>0">
+        <p>
+          {{'management.warningconfig.from' | translate}}{{mnbrP * 10 - 9}}
+          {{'management.warningconfig.to' | translate}} {{mnbrP * 10
+        < mnbrTotal ? mnbrP * 10 : mnbrTotal }} {{ 'management.warningconfig.of' | translate}}
+          {{mnbrTotal}} {{ 'management.warningconfig.record' | translate}} </p>
+        <pagination-controls *ngIf="marrDataTable" id="targetGroup" (pageChange)="pageChange($event)"
+                             maxSize="10" directionLinks="true" autoHide="false" responsive="false"
+                             previousLabel="{{'management.group.table.pager.previous' | translate}}"
+                             nextLabel="{{'management.group.table.pager.next' | translate}}"
+                             screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+
+      <div class="w-100 d-flex justify-content-center align-items-center py-3"
+           *ngIf="marrDataTable && marrDataTable.length>0">
+        <button type="button" class="btn btn-primary click-btn mr-2"
+                [disabled]="sstatus != '1' && sstatus != '-1'" (click)="openConfirm(confirmLock,0)">
+          <i class="fa fa-lock" aria-hidden="true"></i> {{'management.service.info.lock' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary click-btn ml-2"
+                [disabled]="sstatus != '0' && sstatus != '-1'" (click)="openConfirm(confirmLock,1)">
+          <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+          {{'management.service.info.unLock' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-template #template>
+    <div class="modal-header pd-6">
+      <h4 class="modal-title pull-left">{{'management.group.modal.groupHeader' | translate}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input class="input-upload" type="file" accept=".xlsx" name="file" (change)="selectFile($event)" size="6MB">
+      <div *ngIf="mblnCheckFileNull == true" style="color: red">{{'management.group.modal.fileNull' | translate}}
+      </div>
+      <div *ngIf="!mstrMessageUpload || mstrMessageUpload.length == 0" style="color: #20a8d8">
+        {{mstrstatus}}</div>
+      <div *ngIf="mstrMessageUpload && mstrMessageUpload.length>0" style="color: red">
+        {{mstrMessageUpload}}</div>
+      <div *ngIf="mstrResultFileName">
+        {{'management.target.modal.resultDownload' | translate}} (
+        <a href="#/vtt-target-group-management" (click)="downloadResult()"
+           class="a-upload">{{'management.target.modal.here' | translate}}</a>)
+      </div>
+    </div>
+    <div class="modal-footer pd-6">
+      <button type="button" class="btn btn-secondary click-btn" (click)="onBack()"><i class="fa fa-sign-out">
+      </i> {{'management.group.button.back' | translate}}
+      </button>
+      <button (click)="upLoad()" class="btn btn-primary click-btn" type="button"><i class="fa fa-upload">
+      </i>{{'management.warningconfig.upload' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #updateBtnModal>
+    <div class="modal-body pd-13">
+      <p style="margin:0px;" class=" d-flex align-middle "><i class="fa fa-question-circle text-primary"
+                                                              style="font-size: 22px; padding-right: 10px"></i> {{'management.group.modal.sure?' | translate}}
+      </p>
+    </div>
+    <div class="modal-footer pd-6">
+      <button type="button" class="btn btn-secondary click-btn" (click)="closeModal(updateModal)">
+        <i class="fa fa-times"></i> {{'management.group.button.no' | translate}}
+      </button>
+      <button (click)="update()" class="btn btn-primary click-btn" type="button" style="width: 66.39px">
+        <i class="fa fa-check"></i> {{'management.group.button.yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #updateModal>
+    <form [formGroup]="mobjFormUpdate">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{'management.group.groupservice' | translate}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()" size="6MB">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body alignLaF">
+        <div class="row">
+          <label class="col-md-2 col-form-label">{{'management.group.filter.code' | translate}}</label>
+          <div class="col-md-4 padding-left-0">
+            <mat-form-field class="example-full-width" (click)="focusField('nameField')"
+                            [ngClass]="{'hasErrorField':!mblnIsValidNameField}">
+              <input matInput #message maxlength="50" [readonly]="isDisable" formControlName="code">
+              <mat-error *ngIf="hasError('code','required')">
+                {{'management.group.field.error.codenull' | translate}}
+              </mat-error>
+              <mat-error *ngIf="hasError('code','pattern')">
+                {{'management.group.field.error.code' | translate}}
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+          <label class="col-md-2 col-form-label">{{'management.group.filter.name' | translate}}</label>
+          <div class="col-md-4 padding-left-0">
+            <mat-form-field class="example-full-width" (click)="focusField('nameField')"
+                            [ngClass]="{'hasErrorField':!mblnIsValidNameField}">
+              <input matInput #message maxlength="256" formControlName="name">
+              <mat-error *ngIf="hasError('name','required')">
+                {{'management.group.field.error.namenull' | translate}}
+              </mat-error>
+              <!-- <mat-error *ngIf="hasErrorW('name','pattern')">
+    {{'management.group.field.error.name' | translate}}
+</mat-error> -->
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div style="display: none">
+            <label class="col-form-label">Id</label>
+            <div>
+              <mat-form-field class="example-full-width">
+                <input matInput #message maxlength="256" formControlName="id" readonly="true">
+              </mat-form-field>
+            </div>
+          </div>
+          <label class="col-md-2 col-form-label label-select" style="padding-top:1px">
+            {{'management.group.filter.product' | translate}}
+          </label>
+          <div class="col-md-4 padding-left-0">
+            <select class="select-search" formControlName="productId">
+              <option *ngFor="let product of marrProducts" value="{{product.mlngId}}">{{product.mstrName}}
+              </option>
+            </select>
+            <mat-error *ngIf="productId.invalid && (productId.dirty || productId.touched)">
+              {{'management.group.field.error.product' | translate}}
+            </mat-error>
+            <div
+              *ngIf="newSerivceGroupForm.get('product').invalid && (newSerivceGroupForm.get('product').dirty || newSerivceGroupForm.get('product').touched)">
+              <div *ngIf="hasError('product','required')" class="error">
+                {{'management.service.error.required' | translate}}
+              </div>
+            </div>
+          </div>
+          <label class="col-md-2 col-form-label label-select" style="padding-top:1px">
+            {{'management.group.table.head.status' | translate}}
+          </label>
+          <div class="col-md-4 padding-left-0">
+            <select class="select-search" formControlName="status">
+              <option value="1">{{'management.service.info.work' | translate}}</option>
+              <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+            </select>
+            <mat-error *ngIf="status.invalid && (status.dirty || status.touched)">
+              {{'management.group.field.error.status' | translate}}
+            </mat-error>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-primary btn-click mr-2 mb-2" data-dismiss="modal"
+                (click)="closeModal()">
+          <i class="fa fa-times"></i> {{'management.warningconfig.Cancel' | translate}}
+        </button>
+        <button (click)="confirmUpdate(updateBtnModal,mobjFormUpdate)"
+                class="btn btn-primary btn-click ml-2 mb-2" [disabled]="!mobjFormUpdate.valid" type="button">
+          <i class="fa fa-save"></i> {{'management.warningconfig.Save' | translate}}
+        </button>
+      </div>
+
+    </form>
+
+  </ng-template>
+  <ng-template #confirmLock>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1" *ngIf="!mblnConfirm"> {{'management.warningconfig.lock?' | translate}}</span>
+      <span class="mx-1" *ngIf="mblnConfirm"> {{'management.warningconfig.unlock?' | translate}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="m-2 btn btn-secondary click-btn" (click)="onBack()"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="lock()" *ngIf="!mblnConfirm"><i
+        class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+      <button class="m-2 btn btn-primary click-btn" (click)="unlock()" *ngIf="mblnConfirm"><i
+        class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <!--  addd-->
+  <ng-template #addMoldal>
+    <form [formGroup]="newSerivceGroupForm">
+      <div class="modal-header">
+        <h4>{{'management.group.groupservice' | translate}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="vis-body p-3">
+        <!--row 1-->
+        <div class="row align-items-center">
+          <div class="col-md-2">{{'management.group.filter.product' | translate}}
+          </div>
+          <div class="col-md-4 group-pbt">
+            <app-configwr-tree class="product" [(value)]="value1" [items]="marrNodeTreeviewServices"
+                               (valueChange)="Onchange1($event)" [config]="mobjConfig">
+            </app-configwr-tree>
+            <div
+              *ngIf="newSerivceGroupForm.get('product').invalid && (newSerivceGroupForm.get('product').dirty || newSerivceGroupForm.get('product').touched)">
+              <div *ngIf="hasError('product','required')" class="error">
+                {{'management.service.error.required' | translate}}
+              </div>
+            </div>
+          </div>
+          <label class="col-md-2">{{'management.group.filter.code' | translate}}</label>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+              <input matInput #message maxlength="50" name="code" formControlName="code"
+                     autocomplete="off" [(ngModel)]="mstrServiceCode"
+                     (ngModelChange)="mstrServiceCode = $event.toUpperCase()" (change)="checkCodeConflict()">
+
+              <mat-error *ngIf="hasError('code','required')">
+                {{'management.service.error.required' | translate}}
+              </mat-error>
+
+              <mat-error *ngIf="hasError('code','pattern')">
+                {{'management.service.error.malformed' | translate}}
+              </mat-error>
+
+              <mat-hint *ngIf="conflictCode == true">
+                {{'management.service.error.codeConflict' | translate}}
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--row 2-->
+        <div class="row align-items-center">
+          <label class="col-md-2">{{'management.group.filter.name' | translate}}</label>
+          <div class="col-md-4">
+            <mat-form-field class="example-full-width" (click)="focusField('nameField')"
+                            [ngClass]="{'hasErrorField':!mblnIsValidNameField}">
+              <input matInput #message maxlength="50" name="name" [(ngModel)]="mstrNewName"
+                     formControlName="name" autocomplete="off">
+              <mat-error *ngIf="hasError('name','required')">
+                {{'management.service.error.required' | translate}}
+              </mat-error>
+              <mat-error *ngIf="hasError('name','pattern')">
+                {{'management.service.error.malformed' | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <label class="col-md-2">{{'management.group.table.head.status' | translate}}
+          </label>
+          <div class="col-md-4 group-pbt-4">
+            <select class="select-search" formControlName="status" disabled>
+              <option [value]="null" disabled>{{'management.service.form.choose' | translate}}
+              </option>
+              <option [value]="'1'">{{'management.service.info.work' | translate}}</option>
+              <option [value]="'0'">{{'management.service.info.nonwork' | translate}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 d-flex justify-content-center pt-2 mt-1">
+        <button class="btn btn-primary btn-click mb-2 mx-2" (click)="onBackConfirm()"><i
+          class="fa fa-times"></i>
+          {{'management.service.button.cancel' | translate}}
+        </button>
+        <button class="btn btn-primary btn-click mb-2 mx-2" (click)="confirmAd(comfirmAdd)"
+                [disabled]="!newSerivceGroupForm.valid || conflictCode != false">
+          <i class="fa fa-save"></i>{{'management.service.button.save' | translate}}
+        </button>
+      </div>
+    </form>
+  </ng-template>
+  <!--  confirm add-->
+  <ng-template #comfirmAdd>
+    <div class="modal-body pd-13">
+      <p style="margin:0px;" class=" d-flex align-middle "><i class="fa fa-question-circle text-primary"
+                                                              style="font-size: 22px; padding-right: 10px"></i> {{'management.group.modal.addnew' | translate}}
+      </p>
+    </div>
+    <div class="modal-footer pd-6">
+      <button type="button" class="btn btn-secondary" (click)="closeModal(addMoldal)">
+        <i class="fa fa-times"></i> {{'management.group.button.no' | translate}}
+      </button>
+      <button class="btn btn-primary" (click)="insertData()">
+        <i class="fa fa-check"></i> {{'management.group.button.yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+</div>

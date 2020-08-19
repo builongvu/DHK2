@@ -1,0 +1,83 @@
+<div class="w-100 history-target">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="header-table">
+        <tr>
+          <th style="text-align: center;">{{'management.service.history.no' | translate }}</th>
+          <th>{{'management.service.history.action' | translate }}</th>
+          <th>{{'management.service.info.name' | translate }}</th>
+          <th>{{'management.service.history.columnName' | translate }}</th>
+          <th>{{'management.service.history.oldValue' | translate }}</th>
+          <th>{{'management.service.history.newValue' | translate }}</th>
+          <th>{{'management.service.history.user' | translate }}</th>
+          <th>{{'management.service.history.changeTime' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="service.id == 0 || !logService">
+        <tr>
+          <td colspan="8" align="center" style="background: white">
+            {{'management.warningconfig.Nodata' | translate}}</td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="logService && logService.length == 0 && service.id != 0">
+        <tr>
+          <td colspan="8" align="center" style="background: white">
+            {{'management.warningconfig.Nodata' | translate}}</td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="logService && logService.length > 0">
+        <tr *ngFor="let log of logService | paginate: { itemsPerPage: 10, currentPage: p }; index as i">
+          <td style="text-align: center;">{{ log.no }}</td>
+          <td style="text-align: center;">
+            <div
+              [tooltip]="log.actionCode == '00' ? ('management.service.history.create' | translate) : (log.actionCode == '01' ? (('management.service.history.update' | translate)) : ('management.service.history.delete' | translate))"
+              placement="bottom">
+            </div>
+            {{log.actionCode == '00' ? ('management.service.history.create' | translate) : (log.actionCode == '01' ? (('management.service.history.update' | translate)) : ('management.service.history.delete' | translate))}}
+          </td>
+          <td>
+            <div [tooltip]="service.name" placement="bottom">
+              {{ service.name }}</div>
+          </td>
+          <td>
+            <div [tooltip]="log.columnName" placement="bottom">{{ log.columnName | translate}}</div>
+          </td>
+          <td>
+            <div [tooltip]="log.oldValue" placement="bottom">{{ log.oldValue }}</div>
+          </td>
+          <td>
+            <div [tooltip]="log.newValue" placement="bottom">{{ log.newValue }}</div>
+          </td>
+          <td>
+            <div [tooltip]="log.user" placement="bottom">{{ log.user }}</div>
+          </td>
+          <td style="text-align: center;">
+            <div [tooltip]="log.actionDateTime | date:'dd/MM/yyyy HH:mm:ss'" placement="bottom">
+              {{ log.actionDateTime | date:'dd/MM/yyyy HH:mm:ss' }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row" *ngIf="logService && logService.length > 0">
+    <div class="col-xl-6 col-md-6 col-sm-12 col-form-label">
+      {{'management.warningconfig.from' | translate}}
+      {{recordInPageMin}} {{'management.warningconfig.to' | translate}} {{recordInPage}}
+      {{ 'management.service.form.inTotal' | translate}}
+      {{logService.length}}
+      {{'management.warningconfig.record' | translate}}
+    </div>
+
+    <div class="col-xl-6 col-md-6 col-sm-12 col-form-label">
+      <ul style="float:right;" class="pagination">
+        <pagination-controls *ngIf="logService.length > 0"
+          previousLabel="{{'management.target.table.pager.previous' | translate}}"
+          nextLabel="{{'management.target.table.pager.next' | translate}}" (pageChange)="pageChanged($event)">
+        </pagination-controls>
+      </ul>
+    </div>
+  </div>
+</div>

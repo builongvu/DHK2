@@ -1,0 +1,179 @@
+<div class="dialog-send-cpn">
+  <div class="dialog-container">
+    <div class="vis-card-header">
+      <h4 class="text-left">
+        {{mobjNewWarning.mlngId == -1 ? ('management.warningconfig.addWarning' | translate):('management.warningconfig.updateWarning' | translate)}}
+      </h4>
+      <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;"
+        (click)="close()">&times;</span>
+    </div>
+    <div class="card-body">
+      <!-- Chỉ tiêu -->
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label fix-mb">{{'management.warningconfig.service' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8" *ngIf="mobjNewWarning.mlngId == -1">
+              <app-configwr-tree class="service-add" [items]="marrNodeTreeviewServices" [(value)]="value"
+                (valueChange)="OnchangeNew($event)" (click)="checkService()" [config]="config">
+              </app-configwr-tree>
+            </div>
+            <div class="col-md-8" *ngIf="mobjNewWarning.mlngId != -1">
+              <select disabled name="bb" class="select-search">
+                <option value="-1">{{Service}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="height: 20px !important; text-align: left !important; color: red !important;">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              {{ vblnCheckService == true ? ('management.service.error.required' | translate) : ""}}
+            </div>
+          </div>
+        </div>
+        <!-- Loại cảnh báo -->
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label fix-mb">{{'management.warningconfig.warning_level' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container">
+                <select name="mnbrNewWarningLv" class="select-search" aria-placeholder="Chọn"
+                  [(ngModel)]="mnbrNewWarningLv" (click)="checkWarninglv()">
+                  <option value="-1" hidden>{{'management.warningconfig.select' | translate}}</option>
+                  <option *ngFor="let w of marrWarninglevels" value="{{w.code}}">{{w.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="height: 20px !important; text-align: left !important; color: red !important;">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              {{ vblnCheckWarninglv == true ? ('management.service.error.required' | translate) : ""}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Hình thức cảnh báo -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label fix-mb">{{'management.warningconfig.warning_form' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class=" custom-checkbox form-check-inline" style="height: 28px; margin-left: 9%;">
+                <input class="custom-control-input" type="checkbox" name="sms" id="mblnNewEmail"
+                  [(ngModel)]="mblnNewEmail" (ngModelChange)="checkSmsemail()">
+                <label class="custom-control-label" style="margin-bottom: -3px;" for="mblnNewEmail">Email</label>
+              </div>
+              <div class=" custom-checkbox form-check-inline" style="height: 28px; margin-left: 10%;">
+                <input class="custom-control-input" type="checkbox" name="email" id="mblnNewSms"
+                  [(ngModel)]="mblnNewSms" (ngModelChange)="checkSmsemail()">
+                <label class="custom-control-label" style="margin-bottom: -3px;" for="mblnNewSms">Sms</label>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="height: 20px !important; text-align: left !important; color: red !important;">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              {{ vblnCheckSmsemail == true ? ('management.service.error.required' | translate) : ""}}</div>
+          </div>
+        </div>
+        <!-- Mức cảnh báo -->
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label fix-mb">{{'management.warningconfig.inform_level' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container">
+                <select name="mnbrNewInformLv" class="select-search" (click)="checkInformlv()"
+                  [(ngModel)]="mnbrNewInformLv">
+                  <option value="-1" hidden>{{'management.warningconfig.select' | translate}}</option>
+                  <option *ngFor="let w of marrInformlevels" value="{{w.code}}">{{w.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="height: 20px !important; text-align: left !important; color: red !important;">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              {{ vblnCheckInformlv == true ? ('management.service.error.required' | translate) : ""}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Nội dung cảnh báo -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label fix-mb">{{'management.warningconfig.content' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container">
+                <select name="mnbrNewContent" (click)="checkContent()" class="select-search"
+                  [(ngModel)]="mnbrNewContent">
+                  <option value="-1" hidden>{{'management.warningconfig.select' | translate}}</option>
+                  <option *ngFor="let w of marrWarningContent" value="{{w.mlngId}}">{{w.mstrContent}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="height: 20px !important; text-align: left !important; color: red !important;">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              {{ vblnCheckContent == true ? ('management.service.error.required' | translate) : ""}}</div>
+          </div>
+        </div>
+        <!-- Trạng thái -->
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="col-form-label fix-mb">{{'management.warningconfig.status' | translate}}</label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container">
+                <select name="mobjNewWarningmstrStatus" [disabled]="mobjNewWarning.mlngId == -1" class="select-search"
+                  [(ngModel)]="mobjNewWarning.mstrStatus">
+                  <option value="1">{{'management.service.info.work' | translate}}</option>
+                  <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width: 100%;" class="text-center">
+      <button type="button" class="m-2 btn btn-primary click-btn" mat-button mat-dialog-close><i
+          class="fa fa-times"></i>
+        {{'management.warningconfig.Cancel' | translate}}</button>
+      <button type="button" class="m-2 btn btn-primary click-btn"
+        [disabled]="vblnCheckInformlv != false || vblnCheckService != false || vblnCheckSmsemail != false || vblnCheckWarninglv != false || vblnCheckContent != false"
+        (click)="confirm(warningsend)"><i class="fa fa-save"></i>
+        {{'management.warningconfig.Save' | translate}}</button>
+    </div>
+  </div>
+  <ng-template #warningsend>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1">{{'management.warningconfig.ok?' | translate}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="SaveAdd()"><i class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,31 @@
+<div *ngIf="noTopLeft" class="nodata">
+  <img src="assets/img/waining.png" width="25px" height="25px" alt="waining">
+  <span> {{'management.layout.nodata' | translate}}</span>
+</div>
+<div *ngIf="!noTopLeft" class="rank-top" (click)="clickTop()">
+  <div *ngFor="let top of listTop, index as topindex" [style.color]="top['color']">
+    <div class="rank-container" >
+      <p class="top-unit"> {{top['name']}}:</p>
+      <div class="unit-name" *ngIf="topindex == 0 && listData1">
+        <span data-toggle="tooltip"
+              data-placement="top" title="{{listData1}}">{{listData1}}</span>
+
+<!--        <span *ngFor="let unit of top['data'], index as i" data-toggle="tooltip"-->
+<!--              data-placement="top" title="{{listData1}}">{{top['data'][i]}}-->
+<!--&lt;!&ndash;          <span *ngIf="top['data'] != []"> {{top['data'][i]}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          <span *ngIf="top['data'] == []"> Không có dữ liệu</span>&ndash;&gt;-->
+<!--          <span *ngIf="i < top['data'].length - 1">,</span>-->
+<!--        </span>-->
+      </div>
+
+      <div class="unit-name" *ngIf="topindex == 1 && listData2">
+        <span data-toggle="tooltip"
+            data-placement="top" title="{{listData2}}">{{listData2}}</span>
+<!--        <span *ngFor="let unit of top['data'], index as i" data-toggle="tooltip"-->
+<!--              data-placement="top" title="{{listData2}}"> {{top['data'][i]}}-->
+<!--          <span *ngIf="i < top['data'].length - 1">,</span>-->
+<!--        </span>-->
+      </div>
+    </div>
+  </div>
+</div>

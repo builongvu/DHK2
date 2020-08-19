@@ -1,0 +1,277 @@
+<div class="target-weigth">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <form autocomplete="off" novalidate>
+          <div class="card-body padding-0">
+            <div class="form-group row align-items-center">
+
+              <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.serviceName' | translate}}</label>
+              <div class="col-xl-4 col-md-4 col-sm-12">
+                <input name="product1" class="width-100 border-bot mb-25 disable-date" [ngModel]="serviceName"
+                       [readOnly]="true" [disabled]="true" data-toggle="tooltip" data-placement="top"
+                       title="{{serviceName}}">
+              </div>
+
+              <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.unit' | translate}}</label>
+              <div class="col-xl-4 col-md-4 col-sm-12 treeview-unit">
+                <app-config-tree class="target-container shopCodeScore" [items]="nodeTreeViews" [(value)]="value"
+                                 (valueChange)="unitChange($event)" [config]="mobjConfigScore">
+                </app-config-tree>
+              </div>
+
+              <label class="col-xl-2 col-md-2 col-sm-12 mr-bt-calc">{{'management.weight.staff' | translate}}</label>
+              <div class="col-xl-4 col-md-4 col-sm-12 mr-bt-calc">
+                <app-config-tree class="target-container shopCodeScore" [items]="staffTrees" [(value)]="staffTreeChose"
+                                 (valueChange)="staffChange($event)" [config]="mobjConfigScore">
+                </app-config-tree>
+              </div>
+
+
+              <label class="col-xl-2 col-md-2 col-sm-12 mr-bt-calc">{{'management.weight.score' | translate}}</label>
+              <div class="col-xl-4 col-md-4 fix-mr col-sm-12 mr-bt-calc mb-25">
+                <input name="product4" class="width-100 border-bot disable-date" [ngModel]="score" [readOnly]="true"
+                       [disabled]="true">
+              </div>
+
+              <label class="col-xl-2 col-md-2 col-sm-12 mr-bt-calc">{{'management.weight.scoreMax' | translate}}</label>
+              <div class="col-xl-4 col-md-4 fix-mr col-sm-12 mr-bt-calc mb-25">
+                <input name="product5" class="width-100 border-bot disable-date" [value]="getScoreMaxFilter(scoreMax)" [readOnly]="true"
+                       [disabled]="true">
+              </div>
+
+              <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.status' | translate}}</label>
+              <div class="col-xl-4 col-md-4 fix-mh-45 col-sm-12 pad-4">
+                <select name="product5" class="width-100 border-bot select-search-score" [(ngModel)]="status">
+                  <!--                  <option [value]="null"></option>-->
+                  <option value="1">{{'management.weight.active' | translate}}</option>
+                  <option value="0">{{'management.weight.notActive' | translate}}</option>
+                </select>
+              </div>
+
+              <label class="col-xl-2 col-md-2 col-sm-12 fix-mh">{{'management.weight.fromDate' | translate}}</label>
+              <div class="col-xl-4 col-md-4 fix-mh col-sm-12">
+                <mat-form-field class="date-width disable-date">
+                  <input matInput [matDatepicker]="dp1" (dateInput)="noMethod()" [readonly]="true" [disabled]="true"
+                         [formControl]="mdtDateFrom" (dateChange)="dateChange($event)">
+                  <mat-datepicker-toggle matSuffix [for]="dp1" [disabled]="true"></mat-datepicker-toggle>
+                  <mat-datepicker #dp1 (monthSelected)="chosenMonthHandlerFrom($event, dp1)"
+                                  (yearSelected)="chosenMonthHandlerFrom($event, dp1)" [disabled]="true"
+                                  panelClass="example-month-picker">
+                  </mat-datepicker>
+                  <!--                {{mdtDate.value._d.getTime()}}-->
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-2 col-md-2 col-sm-12 fix-mr3">{{'management.weight.toDate' | translate}}</div>
+              <div class="col-xl-4 col-md-4 col-sm-12 fix-bt-45r">
+                <mat-form-field class="date-width disable-date">
+                  <input matInput [matDatepicker]="dp2" (dateInput)="noMethod()" [readonly]="true" [disabled]="true"
+                         [formControl]="mdtDateTo">
+                  <mat-datepicker-toggle matSuffix [for]="dp2" [disabled]="true"></mat-datepicker-toggle>
+                  <mat-datepicker #dp2 (monthSelected)="chosenMonthHandlerTo($event, dp2)"
+                                  (yearSelected)="chosenMonthHandlerTo($event, dp2)" [disabled]="true"
+                                  panelClass="example-month-picker">
+                  </mat-datepicker>
+                  <!--                {{mdtDate.value._d.getTime()}}-->
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="card-footer border-top-0 padding-top-0">
+            <div class="row">
+              <div class="col-md-12 d-flex justify-content-center flex-wrap">
+                <button class="btn btn-primary mb-2 mx-2 mt-4 btn-center" (click)="search()">
+                  <i class="fa fa-search"></i> {{'management.target.button.search' | translate}}</button>
+                <button class="btn btn-primary mb-2 mx-2 mt-4 btn-center" (click)="showModalCreate()"
+                        [disabled]="showCreateButton">
+                  <i class="fa fa-plus"></i> {{'management.weight.add' | translate}}
+                </button>
+                <button class="btn btn-primary mb-2 mx-2 mt-4 btn-center" (click)="fileDownload()">
+                  <i class="fa fa-download"></i> {{'management.weight.download' | translate}}
+                </button>
+                <button class="btn btn-primary mb-2 mx-2 mt-4 btn-center" (click)="confirm(upload)">
+                  <i class="fa fa-upload"></i> {{'management.weight.upload' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-title">
+    <p>{{'management.weight.listService' | translate}}</p>
+  </div>
+  <div class="row">
+    <div style="position: relative" class="col-lg-12">
+      <!--      <div *ngIf="!dataTable" style="text-align: center"><h3>không có dữ liệu</h3></div>-->
+      <!--      <div *ngIf="dataTable">-->
+      <div class="responsive-table score-table">
+        <table class="table table-striped table-hover">
+          <thead class="header-table">
+          <tr>
+            <th>
+              <div class="custom-control custom-checkbox" *ngIf="dataTables && dataTables.length>0">
+                <input type="checkbox" class="custom-control-input" [(ngModel)]="mblnCheckAll" id="customCheckAll">
+                <label class="custom-control-label" for="customCheckAll" (click)="checkAll()">
+                  <span></span>
+                </label>
+              </div>
+              <!--              <mat-checkbox *ngIf="dataTables" style=" margin-top: auto; margin-bottom: -.4rem"  [checked]="ckall"-->
+              <!--                            [hidden]="dataTables.length == 0"-->
+              <!--                            (change)="onChangeAll($event)"></mat-checkbox>-->
+            </th>
+            <th>{{'management.weight.stt' | translate}}</th>
+            <th>{{'management.weight.unit' | translate}}</th>
+            <th>{{'management.weight.staff' | translate}}</th>
+            <th>{{'management.weight.serviceName' | translate}}</th>
+            <th>{{'management.weight.score' | translate}}</th>
+            <th>{{'management.weight.scoreMax' | translate}}</th>
+            <th>{{'management.weight.fromDate' | translate}}</th>
+            <th>{{'management.weight.toDate' | translate}}</th>
+            <th>{{'management.weight.status' | translate}}</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody *ngIf="dataTables .length == 0">
+          <td colspan="10" align="center">{{'management.target.table.body.noData' | translate}}</td>
+          </tbody>
+          <tbody *ngIf="dataTables">
+          <tr
+            *ngFor="let row of dataTables | paginate: { id: 'planMontly', itemsPerPage: 10, currentPage: currentP, totalItems: dataTables.length}, index as i">
+            <td>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" [(ngModel)]="row.check" (click)="select(row.id)"
+                       [id]="i+1">
+                <label class="custom-control-label" [for]="i+1">
+                  <span></span>
+                </label>
+              </div>
+              <!--              <mat-checkbox [checked]="row.checked"-->
+              <!--                            (change)="onChange($event,i)"></mat-checkbox>-->
+            </td>
+            <td align="center">{{currentP * pageSize - (pageSize - 1) + i}}</td>
+            <td align="left" (click)="renderFilter(row)" data-toggle="tooltip" data-placement="top"
+                title="{{row['shopName']}}">
+              <div class="ellipsis">{{row['shopName']}}</div>
+            </td>
+            <td align="left" data-toggle="tooltip" (click)="renderFilter(row)" data-placement="top"
+                title="{{row['staffName']}}">
+              <div class="ellipsis">{{row['staffName']}}</div>
+            </td>
+            <td align="left" (click)="renderFilter(row)" data-toggle="tooltip" data-placement="top"
+                title="{{row['nameService']}}">
+              <div class="ellipsis">{{row['nameService']}}</div>
+            </td>
+            <td align="right" (click)="renderFilter(row)">{{getScore(row['score'])}}</td>
+            <td align="right" (click)="renderFilter(row)">{{getScore(row['scoreMax'])}}</td>
+            <td align="center" (click)="renderFilter(row)">{{getCreateDate(row['fromDate'])}}</td>
+            <td align="center" (click)="renderFilter(row)">{{getCreateDate(row['toDate'])}}</td>
+            <td align="center">
+              <span *ngIf="row['status'] == 1" data-toggle="tooltip" data-placement="top"
+                    title="{{'management.weight.active' | translate}}">{{'management.weight.active' | translate}}</span>
+              <span *ngIf="row['status'] != 1" data-toggle="tooltip" data-placement="top"
+                    title="{{'management.weight.notActive' | translate}}">{{'management.weight.notActive' | translate}}</span>
+            </td>
+            <td align="center" data-toggle="modal" data-target="#editModal" style="cursor: pointer"
+                (click)="showModalEdit(row)" data-placement="top" title="{{'management.weight.edit' | translate}}">
+              <span data-toggle="tooltip" data-placement="top" title="{{'management.weight.edit' | translate}}"><i
+                class="fa fa-edit"></i></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="total-row" *ngIf="dataTables.length > 0">
+        <p>{{'management.weight.from' | translate}} {{currentP * pageSize - (pageSize - 1)}} {{'management.weight.to' | translate}}
+          <span *ngIf="currentP*pageSize <  dataTables.length">{{currentP * pageSize}}</span>
+          <span
+            *ngIf="currentP*pageSize >= dataTables.length">{{dataTables.length}}</span> {{'management.weight./sum' | translate}} {{dataTables.length}} {{'management.weight.record' | translate}}
+        </p>
+        <pagination-controls (pageChange)="pageChange($event)" id="planMontly" maxSize="7" directionLinks="true"
+                             autoHide="false" responsive="false"
+                             previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                             nextLabel="{{'management.target.table.pager.next' | translate}}"
+                             screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+
+      <div class="col-md-12 d-flex justify-content-center flex-wrap" *ngIf="dataTables.length > 0">
+        <button type="button" class="btn btn-primary mb-2 mx-2 mt-4 btn-center" (click)="openConfirm(confirmm,0)"
+                [disabled]="mstrstatus != '1' && mstrstatus != '-1'">
+          <i class="fa fa-lock" aria-hidden="true"></i> {{'management.weight.lock' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary mb-2 mx-2 mt-4 btn-center" (click)="openConfirm(confirmm,1)"
+                [disabled]="mstrstatus != '0' && mstrstatus != '-1'">
+          <i class="fa fa-unlock-alt" aria-hidden="true"></i> {{'management.weight.unlock' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--upload------------------------------------------------------>
+  <ng-template #upload>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left title-upload">{{'management.weight.serviceWeight' | translate}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file"
+             (change)="selectFile($event)" size="6MB">
+      <div *ngIf="mblnCheckFileNull" style="color: red">{{'management.target.modal.fileNull' | translate}}</div>
+      <div
+        *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull"
+        style="color: #20a8d8">
+        {{'management.target.modal.uploaded' | translate}}: {{mnbrSumSuccessfulRecord}}
+        /{{mnbrSumRecord}} {{'management.target.table.record.record' | translate}}</div>
+      <div
+        *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull">
+        {{'management.target.modal.resultDownload' | translate}} (
+        <span (click)="downloadResult(mstrResultFileName)"
+              class="down-upload">{{'management.target.modal.here' | translate}}</span>)
+        <!--        <span-->
+        <!--          *ngIf="!mblnIsClickHere" class="down-upload"-->
+        <!--          (click)="downloadResult(mstrResultFileName)">{{'management.target.modal.here' | translate}}-->
+        <!--        </span>)-->
+      </div>
+      <div *ngIf="mnbrCode == 200 && mstrMessageUpload && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull"
+           style="color: red">
+        {{mstrMessageUpload}}</div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary click-btn-upload" (click)="onBack()"><i class="fa fa-sign-out"></i>
+        {{'management.target.button.back' | translate}}
+      </button>
+      <button (click)="upLoad()" class="btn btn-primary click-btn-upload" type="button"><i class="fa fa-upload"></i>
+        {{'management.target.button.upload' | translate}}
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #confirmm>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1" *ngIf="!mblnConfirm"> {{'management.warningconfig.lock?' | translate}}</span>
+      <span class="mx-1" *ngIf="mblnConfirm"> {{'management.warningconfig.unlock?' | translate}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="m-2 btn btn-secondary click-btn btn-center" (click)="back()"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn btn-center" (click)="LockUnlock(0)" *ngIf="!mblnConfirm"><i
+        class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+      <button class="m-2 btn btn-primary click-btn btn-center" (click)="LockUnlock(1)" *ngIf="mblnConfirm"><i
+        class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+</div>

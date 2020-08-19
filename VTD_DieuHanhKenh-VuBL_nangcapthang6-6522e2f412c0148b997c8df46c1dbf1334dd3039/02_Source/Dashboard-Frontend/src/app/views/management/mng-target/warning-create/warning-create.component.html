@@ -1,0 +1,164 @@
+<div class="vis-header-3-weight ">
+  <h4>
+    {{'management.service.title.addWarning' | translate}}
+  </h4>
+  <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;" (click)="close()">&times;</span>
+</div>
+<div class="row warning-creat ">
+  <div class="col-xl-12">
+    <div class="w-100">
+      <div class="vis-card-body">
+        <form [formGroup]="newTargetWarningForm">
+          <input hidden matInput formControlName="wId" disabled>
+          <div class="form-group row align-items-center">
+
+            <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.service.info.name' | translate}}
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <mat-form-field class="full-width">
+                <input matInput style="color: darkgray;" tooltip="{{service.name}}" placement="bottom"
+                  formControlName="serviceName" [(ngModel)]="service.name" readonly disabled>
+              </mat-form-field>
+            </div>
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label width-100 border-bot">{{'management.service.info.channel' | translate}}
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12 fix-mt target-level-container" style="height: 46.42px;">
+              <select #select formControlName="channelCode" (click)="checkChannels()" class="select-search"
+                (change)="checkChannel()" [(ngModel)]="validChannel">
+                <option [value]="null" disabled>{{'management.service.form.choose' | translate}}
+                </option>
+                <option *ngFor="let channel of marrChannels" value="{{channel.code}}">{{channel.name}}
+                </option>
+              </select>
+              <div *ngIf="vblnCheckChannel">
+                <div *ngIf="hasError('channelCode','required')" class="error">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row align-items-center">
+
+            <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.service.info.appParam' | translate}}
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <select formControlName="appParamCode" class="select-search width-100 border-botthinh-app">
+                <option [value]="null" disabled>{{'management.service.form.choose' | translate}}
+                </option>
+                <option *ngFor="let appParam of app" value="{{appParam.code}}">{{appParam.name}}
+                </option>
+              </select>
+              <div
+                *ngIf="newTargetWarningForm.get('appParamCode').invalid && (newTargetWarningForm.get('appParamCode').dirty || newTargetWarningForm.get('appParamCode').touched)">
+                <div *ngIf="hasError('appParamCode','required')" class="error">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div>
+            </div>
+            <label class="col-xl-2 col-md-2 col-sm-12 col-form-label"
+              style="padding-bottom: 6px !important;">{{'management.service.info.status' | translate}}
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12" style="padding-bottom: 12px !important;">
+              <select class="select-search" formControlName="status" disabled>
+                <option style="color: darkgray;" [value]="'1'" disabled>
+                  {{'management.service.info.work' | translate}}</option>
+                <option style="color: darkgray;" [value]="'0'">
+                  {{'management.service.info.nonwork' | translate}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row align-items-center">
+
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label width-100 border-bot">{{'management.service.info.tovalue' | translate}}
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <mat-form-field class="full-width">
+                <input formControlName="fromvalue" matInput [maxLength]=4>
+                <mat-error *ngIf="hasError('fromvalue','required')">
+                  {{'management.service.error.required' | translate}}
+                </mat-error>
+
+                <mat-error *ngIf="hasError('fromvalue','pattern')">
+                  {{'management.service.error.malformed' | translate}}
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label border-bot">{{'management.service.info.fromvalue' | translate}}
+
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <mat-form-field class="full-width">
+                <input class="full-width" formControlName="tovalue" matInput [maxLength]=4>
+
+                <mat-error *ngIf="hasError('tovalue','required')">
+                  {{'management.service.error.required' | translate}}
+                </mat-error>
+
+                <mat-error *ngIf="hasError('tovalue','pattern')">
+                  {{'management.service.error.malformed' | translate}}
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+
+
+          </div>
+          <div class="form-group row align-items-center">
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.service.info.exp' | translate}}</label>
+            <div class="col-xl-10 col-md-10 col-sm-12">
+              <mat-form-field class="full-width">
+                <textarea class="m-t-0" cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="exp" matInput
+                  [maxLength]=100 cdkAutosizeMaxRows="10" style="resize: vertical; overflow: auto;">
+                                    </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="d-flex justify-content-center flex-wrap">
+        <button class="btn btn-primary mb-2 mx-2 btn-center-thinh" (click)="close()" style="width:76px"><i
+            class="fa fa-times"></i>
+          {{'management.service.button.cancel' | translate}}
+        </button>
+        <button class="btn btn-primary  mb-2 mx-2 btn-center-thinh" type="submit"
+          [disabled]="!newTargetWarningForm.valid" (click)="confirmCreate(show)" style="width:76px">
+          <i class="fa fa-save"></i>
+          {{'management.service.button.save' | translate}} </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #show>
+  <div class="row">
+    <div class="col-md-10 modal-body">
+      <h5  style="font-weight: normal;"> <img style="margin: 0 3px 3px 0; padding-left: 3px;" src="assets/icons8-question-mark-16.png"
+          alt="">{{'management.service.message.confirm' | translate}}</h5>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none;margin: 0 3px 3px 0;">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 88.64px;"><i
+        class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=save() style="width: 88.64px;"><i
+        class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

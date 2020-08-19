@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <form autocomplete="off" [formGroup]="newSqlForm">
+        <div class="card-body">
+          <div class="form-group row align-items-center" style="margin: 0px auto; width: 100%">
+            <label class="col-md-1 col-sm-12 col-form-label h-46"> {{'management.report.filter.unit' | translate}} <span
+                style="color: red;">&#42;</span></label>
+            <div class="col-md-5 col-sm-12 fix-mt target-level-container h-46">
+              <app-configwr-tree class="tree" [(value)]="value" [items]="nodeTreeViews" (valueChange)="onChange($event)"
+                [config]="mobjConfig">
+              </app-configwr-tree>
+              <!-- <select name="unit" [(ngModel)]="mstrShopCode" class="select-search">
+                <option *ngFor="let unit of marrUnits" value="{{unit.shopCode}}">{{unit.shopName}}</option>
+              </select> -->
+            </div>
+
+            <label class="col-md-1 col-sm-12 col-form-label h-46">{{'management.report.filter.sql' | translate}} <span
+                style="color: red;">&#42;</span></label>
+            <div class="col-md-5 col-sm-12 fix-mt target-level-container h-46">
+
+              <app-configwr-tree class="tree" [(value)]="valueSql" [items]="marrSqlNew" (valueChange)="onChangeSQL($event)"
+                [config]="mobjConfig" (click)="checkService()">
+              </app-configwr-tree>
+              <div class="error">
+                {{ vblnCheckService == true ? ('management.service.error.required' | translate) : ""}}
+              </div>
+              <!-- <div
+                *ngIf="newSqlForm.get('sql').invalid && (newSqlForm.get('sql').dirty || newSqlForm.get('sql').touched)">
+                <div class="error" *ngIf="hasError('sql','required')">
+                  {{'management.service.error.required' | translate}}
+                </div>
+              </div> -->
+
+
+
+            </div>
+
+            <label class="col-md-1 col-sm-12 col-form-label h-46 mat">{{'management.report.filter.fromDate' | translate}} <span
+                style="color: red;">&#42;</span></label>
+            <div class="col-md-5 col-sm-12 mat">
+              <mat-form-field>
+                <input matInput #focus [matDatepicker]="dpFromDate" [formControl]="mdtFromDate" (dateInput)="noMethod()"
+                  (dateChange)="checkFromDate($event)" [max]="mdtMaxDate" [min]="mdtMinDate">
+                <mat-datepicker-toggle matSuffix [for]="dpFromDate"></mat-datepicker-toggle>
+                <mat-datepicker #dpFromDate startView="multi-year" panelClass="example-month-picker">
+                </mat-datepicker>
+
+                <mat-hint *ngIf="fromDateValidator == true">{{'management.error.checkFromDate' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDateNull == true">{{'management.service.error.required' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDatePattern == true">{{'management.service.error.malformed' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="sameMonthYear == true">{{'management.error.sameMonth' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDateYear == true">{{'management.service.error.dateYear' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="fromDateEndlessToDate == true">
+                  {{'management.service.error.endDateLessThanStartDate' | translate}}
+                </mat-hint>
+
+              </mat-form-field>
+            </div>
+
+            <label class="col-md-1 col-sm-12 col-form-label h-46 mat">{{'management.report.filter.toDate' | translate}}
+              <span style="color: red;">&#42;</span></label>
+            <div class="col-md-5 col-sm-12 mat">
+              <mat-form-field>
+                <input matInput #focus [matDatepicker]="dpToDate" [formControl]="mdtToDate" (dateInput)="noMethod()"
+                  (dateChange)="checkToDate($event)" [max]="mdtMaxDate" [min]="mdtMinDate">
+                <mat-datepicker-toggle matSuffix [for]="dpToDate"></mat-datepicker-toggle>
+                <mat-datepicker #dpToDate startView="multi-year" panelClass="example-month-picker">
+                </mat-datepicker>
+
+                <mat-hint *ngIf="toDateValidator == true">{{'management.error.checkFromDate' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="toDateNull == true">{{'management.service.error.required' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="toDatePattern == true">{{'management.service.error.malformed' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="sameMonthYearTo == true">{{'management.error.sameMonth' | translate}}
+                </mat-hint>
+
+                <mat-hint *ngIf="toDateYear == true">{{'management.service.error.dateYear' | translate}}
+                </mat-hint>
+
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted ">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-center flex-wrap">
+              <button class="btn btn-primary mb-2 mx-2" (click)="fileDownload()"><i class="fa fa-download"></i>
+                {{'management.report.button.export' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

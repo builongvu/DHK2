@@ -1,0 +1,262 @@
+<div class="w-100 staff-vds-list">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mt-1">
+        <div class="card-body no-pad-card2">
+          <form (ngSubmit)="submit()" [formGroup]="vdsForm">
+            <div class="form-group row align-items-center mt-4">
+              <div class="col-md-4">
+                <input type="radio" formControlName="position" [value]="false">
+                <span class="pdl-2">{{'management.group.table.head.allStaffUnit' | translate}} </span>
+              </div>
+              <div class="col-md-4">
+                <input type="radio" formControlName="position" [value]="true">
+                <span class="pdl-2">{{'management.group.table.head.staffOfUnit' | translate}}</span>
+              </div>
+            </div>
+            <div class="form-group row align-items-center mt-4">
+              <div class="col-md-4"><input type="radio" formControlName="shopWarning" value="1">
+                <span class="pdl-2">{{'management.group.table.head.receiveWarning' | translate}}</span>
+              </div>
+              <div class="col-md-4"><input type="radio" formControlName="shopWarning" value="0">
+                <span class="pdl-2">{{'management.group.table.head.notWarning' | translate}}</span>
+              </div>
+            </div>
+            <div class="form-group row justify-content-center align-items-center">
+              <div class="col-md-2">{{'management.group.table.head.shopName' | translate}}</div>
+              <div class="col-md-4">
+                <app-config-tree style="pointer-events: none"
+                                 class="target-container shopCodeScore" [items]="nodeTreeViews" [(value)]="value"
+                                 (valueChange)="unitChange($event)" [config]="mobjConfigScore">
+                </app-config-tree>
+              </div>
+              <div class="col-md-2 no-pad">{{'management.group.table.head.channel' | translate}}</div>
+              <div class="col-md-4">
+                <input readonly type="text" class="cvNumber" formControlName="vdsChannelCode"/>
+              </div>
+            </div>
+            <div class="form-group row justify-content-center align-items-center">
+              <div class="col-md-2">{{'management.group.table.head.staffCode' | translate}}</div>
+              <div class="col-md-4"><input type="text" formControlName="staffCode" class="cvNumber">
+                <span class="separator"> </span>
+              </div>
+              <div class="col-md-2 no-pad no-padr">{{'management.group.table.head.staffName' | translate}}</div>
+              <div class="col-md-4"><input type="text" formControlName="staffName" class="cvNumber">
+                <span class="separator"> </span>
+              </div>
+            </div>
+            <div class="form-group row justify-content align-items-center">
+              <div class="col-md-2">{{'management.group.table.head.staffType' | translate}}</div>
+              <div class="col-md-4">
+                <select class="select-option" formControlName="staffType">
+                  <option value=''>{{'management.group.table.head.AllStaff' | translate}}</option>
+                  <option value="1">{{'management.group.table.head.businessStaff' | translate}}</option>
+                  <option value="0">{{'management.group.table.head.otherStaff' | translate}}</option>
+                </select>
+              </div>
+              <div class="col-md-2 no-pad mt-responsive">Email</div>
+              <div class="col-md-4"><input type="text" formControlName="email" class="cvNumber">
+                <span class="separator"> </span>
+              </div>
+            </div>
+            <div class="form-group row justify-content align-items-center">
+              <div class="col-md-2">{{'management.group.table.head.phoneNumber' | translate}}</div>
+              <div class="col-md-4"><input type="text" formControlName="phoneNumber" class="cvNumber">
+                <span class="separator"> </span>
+              </div>
+            </div>
+            <div class="w-100 text-center mt-4 vis-btn-group">
+              <button type="submit" class="btn btn-primary"><i
+                class="fa fa-search"></i> {{'management.target.button.search' | translate}}
+              </button>
+              <button type="button" (click)="openDialogCreate()" class="btn btn-primary ml-2"><i class="fa fa-plus"></i>
+                {{'management.weight.add' | translate}}
+              </button>
+              <!--            <button class="btn btn-primary ml-2" (click)="confirmCreate(addstaff)"><i class="fa fa-save"></i> Luu lai-->
+              <!--            </button>-->
+              <button type="button" class="btn btn-primary ml-2" (click)="confirm(upload)"><i
+                class="fa fa-upload"></i> {{'management.weight.upload' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="header-table">
+          <tr>
+            <th> {{'management.group.table.head.ordinalNumbers' | translate}}</th>
+            <th>{{'management.group.table.head.staffCode' | translate}}</th>
+            <th>{{'management.group.table.head.staffName' | translate}}</th>
+            <th>{{'management.group.table.head.phoneNumber' | translate}}</th>
+            <th>Email</th>
+            <th>{{'management.group.table.head.shopCode' | translate}}</th>
+            <th>{{'management.group.table.head.groupChannel' | translate}}</th>
+            <th>{{'management.group.table.head.shopName' | translate}}</th>
+            <th>{{'management.declareVDS.thaotac' | translate}}</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="isDataSearch">
+          <td colspan="9" align="center">{{'management.target.table.body.noData' | translate}}</td>
+          </tbody>
+          <tbody *ngIf="staffsTable">
+          <tr (click)="setRowtoForm(data)"
+              *ngFor="let data of staffsTable | paginate: {id: 'planMontly', itemsPerPage: 10, currentPage: currentP, totalItems: staffsTable.length }; index as i">
+            <td>{{currentP * pageSize - (pageSize - 1) + i}}</td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title="{{data['staffCode']}}">
+                {{data['staffCode']}}
+              </div>
+            </td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title="{{data['staffName']}}">
+                {{data['staffName']}}
+              </div>
+            </td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title="{{data['phoneNumber']}}">
+                {{data['phoneNumber']}}
+              </div>
+            </td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title="{{data['email']}}">
+                {{data['email']}}
+              </div>
+            </td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title="{{data['shopCode']}}">
+                {{data['shopCode']}}
+              </div>
+            </td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title="{{data['vdsChannelName']}}">
+                {{data['vdsChannelName']}}
+              </div>
+            </td>
+            <td>
+              <div data-toggle="tooltip" data-placement="top" title=" {{data['shopName']}}">
+                {{data['shopName']}}
+              </div>
+            </td>
+            <td align="center">
+              <span data-toggle="tooltip" data-placement="top" style="cursor: pointer; padding-right: 0.4rem"
+                      title="{{'management.group.message.updateToolTip' | translate }}" (click)="openDialog(data)"><i
+                  class="fa fa-edit "></i></span>
+              <span data-toggle="tooltip" data-placement="top" style="cursor: pointer"
+                    title="{{'management.group.message.deleteToolTip' | translate }}"
+                    (click)="delStaffConfirm(data,deleteStaff)"><i
+                class="fa fa-trash-o"></i></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between" *ngIf="!isDataSearch">
+        <p>{{'management.weight.from' | translate}} {{currentP * pageSize - (pageSize - 1)}} {{'management.weight.to' | translate}}
+          <span *ngIf="currentP*pageSize <  staffsTable.length">{{currentP * pageSize}}</span>
+          <span
+            *ngIf="currentP*pageSize >= staffsTable.length">{{staffsTable.length}}</span> {{'management.weight./sum' | translate}} {{staffsTable.length}} {{'management.weight.record' | translate}}
+        </p>
+        <pagination-controls (pageChange)="pageChange($event)" id="planMontly" maxSize="7" directionLinks="true"
+                             autoHide="false" responsive="false"
+                             previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                             nextLabel="{{'management.target.table.pager.next' | translate}}"
+                             screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                             screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #addstaff>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{'management.service.message.confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=createSaffToUnit() style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+<ng-template #deleteStaff>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="del">{{'management.group.table.head.delStaff' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=delSaffFromUnit() style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+<!--upload------------------------------------------------------>
+<ng-template #upload>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left title-upload">{{'management.weight.staffVDS' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+      <span aria-hidden="true" style="border: none">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file"
+           (change)="selectFile($event)" size="6MB">
+    <div *ngIf="mblnCheckFileNull" style="color: red">{{'management.target.modal.fileNull' | translate}}</div>
+    <div
+      *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull"
+      style="color: #20a8d8">
+      {{'management.target.modal.uploaded' | translate}}: {{mnbrSumSuccessfulRecord}}
+      /{{mnbrSumRecord}} {{'management.target.table.record.record' | translate}}</div>
+    <div
+      *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull">
+      {{'management.target.modal.resultDownload' | translate}} (
+      <span (click)="downloadResult(mstrResultFileName)"
+            class="down-upload">{{'management.target.modal.here' | translate}}</span>)
+      <!--        <span-->
+      <!--          *ngIf="!mblnIsClickHere" class="down-upload"-->
+      <!--          (click)="downloadResult(mstrResultFileName)">{{'management.target.modal.here' | translate}}-->
+      <!--        </span>)-->
+    </div>
+    <div *ngIf="mnbrCode == 200 && mstrMessageUpload && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull"
+         style="color: red">
+      {{mstrMessageUpload}}</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)="onBack()"><i class="fa fa-sign-out"></i>
+      {{'management.target.button.back' | translate}}
+    </button>
+    <button (click)="upLoad()" class="btn btn-primary click-btn-upload" type="button"><i class="fa fa-upload"></i>
+      {{'management.target.button.upload' | translate}}
+    </button>
+  </div>
+</ng-template>

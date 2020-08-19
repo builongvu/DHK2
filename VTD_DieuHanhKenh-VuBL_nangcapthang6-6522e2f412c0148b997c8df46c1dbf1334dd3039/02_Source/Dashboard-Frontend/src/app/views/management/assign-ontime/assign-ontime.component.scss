@@ -1,0 +1,75 @@
+$border-bottom: rgba(0, 0, 0, 0.42);
+
+.ontime-cpn {
+  .Date {
+    background: none;
+    outline: none;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $border-bottom;
+
+    &:focus + .separator {
+      transform: scaleX(1) translateY(-2px);
+      opacity: 1;
+    }
+  }
+  .lbname {
+    padding-top: 3% !important;
+  }
+  .separator {
+    height: 2px;
+    width: 100%;
+    background: #3f51b5;
+    display: block;
+    transform: scaleX(0) translateY(-2px);
+    transform-origin: 50%;
+    opacity: 0;
+    transition: all 0.15s linear;
+  }
+
+  .flex-25 {
+    flex-basis: 25%;
+  }
+
+  .flex-50 {
+    flex-basis: 50%;
+    position: relative;
+  }
+
+  .flex-10 {
+    flex-basis: 20%;
+    text-align: center;
+  }
+
+  .error-date {
+    color: red;
+    position: absolute;
+    bottom: auto;
+    left: 0;
+  }
+
+  .btn-update {
+    padding-right: 4%;
+  }
+
+  .card {
+    margin-bottom: 0 !important;
+    height: calc(100vh - 154px);
+    .my-header-card {
+      padding: 0.5rem;
+    }
+  }
+
+  .foot {
+    position: absolute;
+    bottom: 0;
+    padding-right: 0.5rem;
+  }
+  /deep/ .toast-success {
+    background-color: #63B8FF !important;
+    color: black !important;
+  }
+}
+.click-btn {
+  width: 110px !important;
+}

@@ -1,0 +1,102 @@
+<header (click)="newMessage()" class="fixed-header">
+  <div class="{{visible ? 'brand' : 'brand-small'}} box-shadown">
+    <div class="{{visible ? 'img-brand' : 'hide-img'}}">
+      <img *ngIf="visible" class="img-fluid" src="assets/img/brand/logo-digital.png" alt="brand-logo">
+    </div>
+    <button #body (click)="toggle()" class="humberger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  <div class="img-bg">
+    <ul class="custom-ul">
+      <li class="nav-item border-radius">
+        <sa-language-selector></sa-language-selector>
+      </li>
+      <li class="nav-item dropdown" dropdown placement="bottom right">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+           dropdownToggle (click)="false">
+          <img src="../../../assets/img/VT-dashboard/ic_user.svg" class="img-avatar img-fluid user-img"
+               alt="{{username}}" data-toggle="tooltip"
+               data-placement="top" title="{{username}}"/>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+          <div class="dropdown-item">{{username}}</div>
+          <div class="divider"></div>
+          <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</header>
+<div (window:resize)="onResize($event)" class="my-body">
+  <nav (click)="newMessage()" class="{{visible ? 'side-nav-open': 'side-nav-hide' }} side-nav responsive-nav">
+    <mat-nav-list class="list-base">
+      <div class="sidebar1">
+        <nav class="sidebar-nav1">
+          <mat-tree class="sidebar-nav1__tree"
+                    [dataSource]="dataSource"
+                    [treeControl]="treeControl">
+
+            <mat-tree-node matTreeNodePadding
+                           *matTreeNodeDef="let node"
+                           [matTreeNodePaddingIndent]="(node.level * treeIndent) / node.level"
+                           class="sidebar-nav1__node">
+              <a [routerLink]="node.routerLink"
+                 routerLinkActive="active__child"
+                 [routerLinkActiveOptions]="{exact: false}"
+                 class="sidebar-nav1__link">
+                  <span class="sidebar-nav1__link-left">
+                    <span>
+                      <i *ngIf="!node.img" class="{{node.icon}}" style="width:44px; height: 44px"></i>
+                      <img *ngIf="node.img" style="width:44px; height: 44px" [src]="getSantizeUrl(node.img)"/>
+                    </span>
+
+                  <span class="sidebar-nav1__text">{{node.name}}</span>
+                  </span>
+              </a>
+            </mat-tree-node>
+            <mat-tree-node class="sidebar-nav1__node"
+                           matTreeNodePadding
+                           matTreeNodeToggle
+                           [matTreeNodeToggleRecursive]="true"
+                           [matTreeNodePaddingIndent]="treeIndent"
+                           *matTreeNodeDef="let node; when: hasChild">
+              <a href="javascript:void(0)" class="sidebar-nav1__link">
+                <span class="sidebar-nav1__link-left">
+                  <span>
+                    <i *ngIf="!node.img" class="{{node.icon}}" style="width:44px; height: 44px"></i>
+                    <img *ngIf="node.img" style="width:44px; height: 44px" [src]="getSantizeUrl(node.img)"/>
+                  </span>
+
+                  <span class="sidebar-nav1__text">{{node.name}}</span>
+                </span>
+                <span class="sidebar-nav1__link-right">
+                  <mat-icon>{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                </span>
+              </a>
+            </mat-tree-node>
+          </mat-tree>
+        </nav>
+      </div>
+    </mat-nav-list>
+  </nav>
+  <main id="main" class="{{visible ? 'opac' : '' }} main fixed-layout">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb" *ngIf="isDashboard">
+        <li class="breadcrumb-item">{{'management.layout.home' | translate}}</li>
+        <li class="breadcrumb-item" *ngFor="let item of items">{{item}}</li>
+      </ol>
+    </nav>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.container-fluid -->
+  </main>
+</div>
+<div (click)="newMessage()" class="{{visible ? 'fixed-width fixed-responsive' : 'full-footer'}} fixed-footer">
+  <small>&copy;{{'management.layout.banquyen' | translate}}</small>
+  <small class="ml-auto">{{'management.layout.phattrien' | translate}}</small>
+</div>
+

@@ -1,0 +1,336 @@
+$border-bottom: rgba(0, 0, 0, 0.42);
+.click-btn {
+    width: 110px;
+}
+
+.vis-header-3-weight {
+    padding: 0.5rem;
+    margin: 0 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.32);
+}
+
+.warning-creat {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    .full-width {
+        width: 100% !important;
+    }
+    select:disabled {
+        color: black !important;
+    }
+    select[disabled] {
+        color: black !important;
+        background-color: white !important;
+    }
+    .select-search:focus {
+        border-style: dotted;
+        border-width: 0.5px;
+    }
+    .form-group {
+        margin-bottom: 0.1rem;
+    }
+    /deep/ .dropdown button {
+        border: none;
+        border-bottom: 1px solid black;
+        border-radius: 0;
+    }
+    /deep/ .btn-outline-secondary {
+        color: black !important;
+        &:hover {
+            outline: none;
+            background-color: unset;
+        }
+        &:focus {
+            outline: none;
+            background-color: unset;
+        }
+        &:active {
+            outline: none;
+            background-color: unset;
+        }
+    }
+    /deep/ .show>.btn-outline-secondary.dropdown-toggle .btn-outline-secondary:not(:disabled):not(.disabled):active,
+    .btn-outline-secondary:not(:disabled):not(.disabled).active,
+    .show>.btn-outline-secondary.dropdown-toggle {
+        background-color: white !important;
+        margin-bottom: 4px !important;
+    }
+    /deep/ div {
+        outline: unset !important;
+    }
+    .target-container {
+        /deep/ .show {
+            .btn-outline-secondary.dropdown-toggle {
+                &:focus {
+                    box-shadow: unset !important;
+                }
+            }
+        }
+        /deep/ .dropdown {
+            &:after {
+                right: 0.3rem !important;
+            }
+            .btn-outline-secondary {
+                border: none;
+            }
+            /deep/ button {
+                &:focus {
+                    box-shadow: unset !important;
+                }
+                &::after {
+                    right: 0.2rem !important;
+                    color: rgba(0, 0, 0, 0.54) !important;
+                }
+                background-color: unset !important;
+                border-bottom: 1px solid $border-bottom !important;
+                margin-bottom: 4px;
+                padding-right: 0;
+                margin-right: 0;
+                padding-left: 0.2rem;
+            }
+            .btn {
+                padding: 0;
+                border-radius: unset;
+            }
+        }
+        /deep/ .dropdown-menu {
+            //dropmenu here
+            width: 100% !important;
+            border-radius: unset;
+            // transform: translateX(-10px);
+            /deep/ .dropdown-container {
+                //container here
+                padding: 0;
+                padding-left: 0.6rem !important;
+                padding-right: 0.3rem !important;
+                /deep/ .treeview-header {
+                    width: 100%;
+                    .dropdown-divider {
+                        border: none;
+                    }
+                    // transform: translateX(8px);
+                    //treeview header here
+                    /deep/ .row-filter {
+                        //row-filter here
+                        /deep/ .col-12 {
+                            //col-12 here
+                            /deep/ .form-control {
+                                border-radius: unset;
+                                border: none;
+                                border-bottom: 1px solid #e4e5e6;
+                                outline: none !important;
+                                &:focus {
+                                    border-color: #3f51b5 !important;
+                                    outline: none !important;
+                                    box-shadow: none;
+                                }
+                                //form-control here
+                                width: 100%;
+                                // transform: translateX(-12.5px)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // /deep/ div.treeview-header input:focus {
+        // outline: none !important;
+        // }
+    }
+    #responsive {
+        padding-top: 12.58px;
+        padding-bottom: 12.58px;
+    }
+    //day icon datepicker sang phai
+    /deep/ .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+        margin-left: 3px;
+    }
+    //day icon dropdown datetime sang phai
+    /deep/ .mat-form-field-type-mat-native-select .mat-form-field-infix::after {
+        margin-right: 3px !important;
+    }
+    /deep/ .mat-select-value {
+        overflow: unset !important;
+    }
+    #pad {
+        padding-bottom: 2px;
+    }
+    /deep/ .ng-trigger-transformPanel {
+        //min-width: unset !important;
+        //width: 100% !important;
+        margin-top: 22px !important;
+        //margin-left: 16px !important;
+        //border-radius: 0 !important;
+    }
+    /deep/ .mat-form-field-appearance-legacy .mat-form-field-infix {
+        padding: 0 !important;
+        padding-bottom: 2px !important;
+    }
+    /deep/ .mat-datepicker-content .mat-calendar {
+        width: 275px !important;
+        //height: 350px !important;
+    }
+    /deep/ .ng-trigger-transformPanel {
+        //min-width: unset !important;
+        //width: 100% !important;
+        margin-top: 0 !important;
+        //margin-left: 16px !important;
+        //border-radius: 0 !important;
+    }
+    /deep/ .dropdown-toggle {
+        &:after {
+            border-top: 0.38em solid !important;
+            border-right: 0.35em solid transparent !important;
+            border-left: 0.35em solid transparent !important;
+        }
+    }
+    mat-hint {
+        color: #f44336 !important;
+        font-weight: 400;
+        line-height: 1.125;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+    }
+    .error {
+        color: #f44336 !important;
+        font-weight: 400;
+        line-height: 1.125;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 75%;
+        padding-top: 5px;
+    }
+    .vis-card-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .vis-card-body {
+        padding: 0 0.25em;
+    }
+    button {
+        margin-top: 0 !important;
+    }
+    .select-search {
+        width: 100%;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid $border-bottom;
+        height: 28.92px;
+    }
+    @media screen and (max-width: 768px) {
+        .fix-mb {
+            margin: 1rem 0;
+        }
+        .fix-mt {
+            margin-top: 1rem;
+        }
+    }
+    .m-b-16 {
+        margin-bottom: 16px;
+    }
+    .ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-top: 1px;
+    }
+    textarea.mat-input-element.cdk-textarea-autosize {
+        //resize: none;
+        //  height: 21px !important;
+    }
+    .target-level-container {
+        /deep/ .mat-form-field {
+            margin-bottom: 0.4rem !important;
+        }
+        /deep/ .show {
+            .btn-outline-secondary.dropdown-toggle {
+                background-color: unset;
+            }
+        }
+        /deep/ .dropdown {
+            /deep/ button {
+                margin-top: 0;
+                margin-bottom: 0.25rem;
+                &:active {
+                    outline: none;
+                    background-color: unset;
+                }
+                &:focus {
+                    box-shadow: unset !important;
+                    background-color: unset;
+                }
+                &::after {
+                    right: 0.3rem;
+                }
+                border: none;
+                border-radius: unset;
+                border-bottom: 1px solid $border-bottom !important;
+                padding-right: 0;
+                margin-right: 0;
+                padding-left: 0.2rem;
+                color: black !important;
+            }
+            .btn {
+                padding: 0;
+                padding-left: 0.25rem;
+            }
+        }
+        /deep/ .dropdown-menu {
+            //dropmenu here
+            width: 100%;
+            border-radius: unset;
+            margin-top: -4px;
+            /deep/ .dropdown-container {
+                //container here
+                padding: 0;
+                padding-left: 0.6rem !important;
+                padding-right: 0.3rem !important;
+                /deep/ .treeview-header {
+                    width: 100%;
+                    //treeview header here
+                    .dropdown-divider {
+                        border: none;
+                    }
+                    /deep/ .row-filter {
+                        //row-filter here
+                        /deep/ .col-12 {
+                            //col-12 here
+                            /deep/ .form-control {
+                                border-radius: unset;
+                                border: none;
+                                border-bottom: 1px solid #e4e5e6;
+                                outline: none !important;
+                                &:focus {
+                                    border-color: #3f51b5 !important;
+                                    outline: none !important;
+                                    box-shadow: none;
+                                }
+                                //form-control here
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.m-t-0 {
+    margin-top: 0 !important;
+}
+
+.thinh-app {
+    margin-bottom: 18px;
+}
+
+.btn-center-thinh {
+    width: 100px;
+    padding-right: 0;
+    padding-left: 0;
+}

@@ -1,0 +1,112 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <!--/.col-->
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <span>{{ 'management.channel.title.main' | translate }}</span>
+          <button class="btn btn-primary" [routerLink]="['/channel-management/ce-channel-management', 0]"
+            style="float: right;">{{ 'dashboard.global.button.add' | translate }}</button>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="channel-code">{{'management.channel.field.code' | translate}}<span class="asterisk">&#42;</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <input type="text" name="channelCode" [(ngModel)]="channelSearch.code" class="form-control"
+                        id="channel-code" placeholder="{{'management.channel.placeholder.code' | translate}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="offset-md-2 col-md-5">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="channelname-id">{{'management.channel.field.name' | translate}}<span class="asterisk">&#42;</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <input type="text" name="channelName" [(ngModel)]="channelSearch.name" class="form-control" id="channelname-id"
+                        placeholder="{{'management.channel.placeholder.name' | translate}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="select-status">{{'management.channel.field.status' | translate}}<span class="asterisk">&#42;</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group">
+                      <select id="select-status" name="selectStatus" class="form-control" [(ngModel)]="channelSearch.status">
+                        <option [ngValue]="actFlg.value" *ngFor="let actFlg of status">{{actFlg.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <button class="btn btn-primary" (click)="search()">{{ 'dashboard.global.button.search' | translate }}</button>
+
+          <table class="table table-striped mt-3">
+            <thead>
+              <tr>
+                <th>{{'management.channel.field.code' | translate}}</th>
+                <th>{{'management.channel.field.name' | translate}}</th>
+                <th>{{'management.channel.field.status' | translate}}</th>
+                <th>{{'management.channel.action' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="channels && channels.length > 0">
+              <tr *ngFor="let channel of channels | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: total}">
+                <td>{{channel.code}}</td>
+                <td>{{channel.name}}</td>
+                <td>{{channel.status==1?'Hoạt động':'Ngừng hoạt động'}}</td>
+                <td>
+                  <a [routerLink]="['/channel-management/ce-channel-management', channel.id]"><i class="fa fa-pencil"></i></a>
+                  <a style="color: red; cursor: pointer; margin-left: 10px;" (click)="confirmDel(template, channel.id)"><i
+                      class="fa fa-trash-o"></i></a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="!channels || (channels && channels.length <= 0)">
+              <span>{{'dashboard.global.other.emptyItem' | translate}}</span>
+            </tbody>
+          </table>
+          <hr />
+          <ul style="float:right;" class="pagination" *ngIf="channels && channels.length > 0">
+            <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{'dashboard.global.other.note' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{'dashboard.global.other.confirmDel' | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"
+      (click)="modalRef.hide()">{{'dashboard.global.button.cancel' | translate}}</button>
+    <button type="button" class="btn btn-primary"
+      (click)="deleteChannel()">{{'dashboard.global.button.accept' | translate}}</button>
+  </div>
+</ng-template>

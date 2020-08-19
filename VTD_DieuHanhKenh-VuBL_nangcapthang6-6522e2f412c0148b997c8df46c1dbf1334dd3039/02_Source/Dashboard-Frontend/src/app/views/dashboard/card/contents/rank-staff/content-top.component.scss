@@ -1,0 +1,45 @@
+.rank-top {
+  cursor: pointer;
+  flex: 8;
+  align-self: center;
+
+  .rank-container {
+    display: flex;
+    justify-content: space-between;
+    padding: .3rem .5rem;
+
+    p {
+      margin-bottom: 0 !important;
+    }
+
+    .top-unit {
+      flex: 2.5;
+    }
+
+    .unit-name {
+      flex: 5.5;
+      align-self: center;
+      display: -webkit-box;
+      height: 40px;
+      align-self: center;
+      -webkit-line-clamp: 2;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.nodata {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

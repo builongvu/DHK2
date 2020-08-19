@@ -1,0 +1,287 @@
+<div class="warning-cpn">
+  <mat-tab-group>
+    <mat-tab label="{{'management.warningconfig.warningsend' | translate}}">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label class="col-form-label fix-mb">{{'management.warningconfig.service' | translate}}<span
+                            class="asterisk"></span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <!-- <ngx-dropdown-treeview id="colFormLabelSm" [config]="mobjConfig" [items]="marrNodeTreeviewServices"
+                        [disabled]="mblnChec" (click)="mstrKeyWord = null"
+                        [ngxDisabledOnSelector]="'button.dropdown-toggle'" (selectedChange)="selectTree($event)"
+                        (filterChange)="filterTreeView(marrNodeTreeviewServices, $event)">
+                      </ngx-dropdown-treeview> -->
+
+                        <app-configwr-tree class="configtree" [(value)]="valueChange" [items]="marrNodeTreeviewServices"
+                          (valueChange)="Onchange($event)" [config]="mobjConfig">
+                        </app-configwr-tree>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label
+                          class="col-form-label fix-mb">{{'management.warningconfig.warning_level' | translate}}<span
+                            class="asterisk"></span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="fix-mt target-level-container">
+                          <select name="warning_level" class="select-search" [(ngModel)]="mnbrWarninglevel">
+                            <option value="-1" selected>{{'management.warningconfig.select' | translate}}</option>
+                            <option *ngFor="let w of marrWarninglevels" value="{{w.code}}">{{w.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label
+                          class="col-form-label fix-mb">{{'management.warningconfig.warning_form' | translate}}<span
+                            class="asterisk"></span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class=" custom-checkbox form-check-inline" style="height: 28px; margin-left: 7%;">
+                          <input class="custom-control-input" name="email" type="checkbox" id="inlineCheckbox2"
+                            [(ngModel)]="mblnCheckEmail">
+                          <label class="custom-control-label" for="inlineCheckbox2">Email</label>
+                        </div>
+                        <div class="custom-checkbox form-check-inline" style="height: 28px; margin-left: 10%;">
+                          <input class="custom-control-input" type="checkbox" name="sms" id="inlineCheckbox3"
+                            [(ngModel)]="mblnCheckSms">
+                          <label class="custom-control-label" for="inlineCheckbox3">SMS</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label
+                          class="col-form-label fix-mb">{{'management.warningconfig.inform_level' | translate}}<span
+                            class="asterisk"></span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="fix-mt target-level-container">
+                          <select name="inform_level" class="select-search" [(ngModel)]="mstrInformlevel">
+                            <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+                            <option *ngFor="let w of marrInformlevels" value="{{w.code}}">{{w.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label class="col-form-label fix-mb">{{'management.warningconfig.status' | translate}}<span
+                            class="asterisk"></span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="fix-mt target-level-container">
+                          <select name="product" class="select-search" [(ngModel)]="mobjSearchWarning.status">
+                            <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+                            <option value="1">{{'management.service.info.work' | translate}}</option>
+                            <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="w-100 d-flex justify-content-center btn-update-config">
+              <button class="btn m-2 btn-primary" type="button" (click)="clickSearch()"><i class="fa fa-search"></i>
+                {{'management.warningconfig.search' | translate}}
+              </button>
+              <button class="btn m-2 btn-primary" type="button" (click)="OpenNew()"><i class="fa fa-plus"></i>
+                {{'management.warningconfig.add' | translate}}
+              </button>
+              <button class="m-2 btn btn-primary" (click)="download()"><i class="fa fa-download"></i>
+                {{'management.target.button.download' | translate}}
+              </button>
+              <button class="m-2 btn btn-primary" (click)="newUpload(warningsend,0)"><i class="fa fa-upload"></i>
+                {{'management.warningconfig.upload' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive warning-config-cpn">
+            <table class="table table-striped table-hover">
+              <thead class="header-table">
+                <tr>
+                  <th>
+                    <div class="custom-control custom-checkbox"
+                      *ngIf="marrWarningDataSends && marrWarningDataSends.length>0 ">
+                      <input class="custom-control-input" [(ngModel)]="mblnCheckAll" name="mblnCheckAll" type="checkbox"
+                        id="mblnCheckAll" [(ngModel)]="mblnCheckAll">
+                      <label class="custom-control-label" for="mblnCheckAll" (click)="SelectAll()"></label>
+                    </div>
+                  </th>
+                  <th>{{'management.warningconfig.stt' | translate}}</th>
+                  <th>{{'management.warningconfig.service' | translate}}</th>
+                  <th>{{'management.warningconfig.warning_level' | translate}}</th>
+                  <th>{{'management.warningconfig.warning_form' | translate}}</th>
+                  <th>{{'management.warningconfig.inform_level' | translate}}</th>
+                  <th>{{'management.warningconfig.status' | translate}}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="marrWarningDataSends.length === 0">
+                  <td colspan="8" align="center" style="background: white">
+                    {{'management.warningconfig.Nodata' | translate}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="marrWarningDataSends && marrWarningDataSends.length>0">
+                <tr
+                  *ngFor="let w of marrWarningDataSends | paginate : {id: 'warningSend',itemsPerPage: mnbrPageSize, currentPage: mnbrP, totalItems: mnbrTotal}; index as i">
+                  <td>
+                    <div class="custom-control custom-checkbox" *ngIf="w">
+                      <input type="checkbox" class="custom-control-input" [(ngModel)]="w.mblnCheckbox" [id]="w.mlngId"
+                        (click)="select(w.mlngId)">
+                      <label class="custom-control-label" [for]="w.mlngId">
+                        <span></span>
+                      </label>
+                    </div>
+                  </td>
+                  <td> {{((mnbrP - 1) * mnbrPageSize) + i + 1}}</td>
+                  <td>
+                    <div class="ellipsis" tooltip="{{w.mlngServiceId.id == -1 ? 'Tất cả' : w.mlngServiceId.name}}"
+                      placement="top" style="text-align: left">
+                      {{w.mlngServiceId.name}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ellipsis text-center" placement="top">
+                      {{w.mintWarningLevel.name}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ellipsis text-center" placement="top">
+                      {{w.mintEmail == 1 && w.mintSms == 0 ? "Email" : (w.mintEmail == 0 && w.mintSms == 1 ? "SMS" : (w.mintEmail == 1 && w.mintSms == 1 ? "Email/SMS" : "Không có"))}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ellipsis text-center" placement="top">
+                      {{w.mintInformLevel.name}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ellipsis text-center" placement="top">
+                      {{w.mstrStatus == 1 ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate) }}
+                    </div>
+                  </td>
+
+                  <td class="text-center">
+                    <button class="btn-edit" type="button" (click)="Edit(w)"
+                      tooltip="{{'management.warningconfig.edit' | translate}}">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="w-100 d-flex justify-content-between" *ngIf="mnbrTotal > 0">
+            <p style="margin-left: 5px;">{{'management.warningconfig.from' | translate}}{{mobjPager.page * 10 - 9}}
+              {{'management.warningconfig.to' | translate}}
+              {{mobjPager.page * 10 < mnbrTotal ? mobjPager.page * 10 : mnbrTotal  }}
+              {{'management.warningconfig.of' | translate}} {{mnbrTotal}}
+              {{'management.warningconfig.record' | translate}}</p>
+            <ul style="float:right;" class="pagination">
+              <pagination-controls id='warningSend' (pageChange)="pageChange($event)"
+                previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                nextLabel="{{'management.target.table.pager.next' | translate}}" (pageChange)="p = $event">
+              </pagination-controls>
+            </ul>
+          </div>
+          <div class="w-100 d-flex justify-content-center" *ngIf="mnbrTotal > 0">
+            <button type="button" class="m-2 btn btn-primary click-btn"
+              [disabled]="mstrstatus != '1' && mstrstatus != '-1'" (click)="newUpload(confirm,0)">
+              <i class="fa fa-lock" aria-hidden="true"></i> {{'management.service.info.lock' | translate}}
+            </button>
+            <button type="button" class="m-2 btn btn-primary click-btn"
+              [disabled]="mstrstatus != '0' && mstrstatus != '-1'" (click)="newUpload(confirm,1)">
+              <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+              {{'management.service.info.unLock' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="{{'management.warningconfig.warningreceive' | translate}}">
+
+      <app-warning-receive-config></app-warning-receive-config>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<ng-template #warningsend>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left title-upload">{{'management.warningconfig.uploadexcel' | translate}}</h4>
+    <button type="button" class="close pull-right" (click)="back()" aria-label="Close">
+      <span aria-hidden="true" style="border: none">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file" [(ngModel)]="uploadfile"
+      (change)="selectFile($event)" size="6MB">
+    <p *ngIf="filenull == true" style="color: red;">{{'management.warningconfig.chooseExcel' | translate}}</p>
+    <div *ngIf="status" style="color: #20a8d8">
+      {{status}}</div>
+    <div *ngIf="errors" style="color: red">
+      {{errors}}</div>
+    <div *ngIf="vstrFileName">
+      {{'management.target.modal.resultDownload' | translate}}
+      (<a href="#/warning-config" (click)="downloadResult()"
+        class="a-upload">{{'management.target.modal.here' | translate}}</a>)
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="back()"><i class="fa fa-sign-out"></i>
+      {{'management.target.button.back' | translate}}</button>
+    <button type="button" class="btn btn-primary" (click)="upLoad()"><i class="fa fa-upload"></i>
+      {{'management.warningconfig.upload' | translate}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #confirm>
+  <div class="modal-body">
+    <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+    <span class="mx-1" *ngIf="!mblnConfirm"> {{'management.warningconfig.lock?' | translate}}</span>
+    <span class="mx-1" *ngIf="mblnConfirm"> {{'management.warningconfig.unlock?' | translate}}</span>
+  </div>
+  <div class="modal-footer">
+    <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+      {{'management.warningconfig.No' | translate}}</button>
+    <button class="m-2 btn btn-primary click-btn" (click)="lock()" *ngIf="!mblnConfirm"><i class="fa fa-check"></i>
+      {{'management.warningconfig.Yes' | translate}}
+    </button>
+    <button class="m-2 btn btn-primary click-btn" (click)="unlock()" *ngIf="mblnConfirm"><i class="fa fa-check"></i>
+      {{'management.warningconfig.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

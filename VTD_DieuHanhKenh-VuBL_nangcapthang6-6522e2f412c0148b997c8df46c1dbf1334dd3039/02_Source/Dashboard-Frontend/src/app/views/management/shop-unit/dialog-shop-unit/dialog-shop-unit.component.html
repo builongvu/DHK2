@@ -1,0 +1,203 @@
+<div class="dialog-shop-unit">
+  <div class="vis-card-header">
+    <h4 class="text-left">
+      {{type == 1 ? ('management.shopunit.addnew' | translate) : ('management.shopunit.update' | translate)}}
+    </h4>
+    <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;" (click)="close()">&times;</span>
+  </div>
+  <div class="card-body">
+
+    <div class="col-xl-12 col-md-12 col-sm-12 p-0 mt-3">
+      <div class="row form-group">
+        <div class="col-xl-6 col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-xl-4 col-md-4 col-sm-4">
+              <label class="col-form-label pb-0">{{'management.shopunit.service' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-8">
+
+              <select name="product" [matTooltip]="data.shopUnit.service.name" matTooltipPosition="above"
+                class="select-search pos-ab" disabled *ngIf="type != 1">
+                <option value="1" selected>{{data.shopUnit.service.name}}</option>
+              </select>
+
+              <app-config-tree class="service-tree pos-ab" *ngIf="type == 1" (click)="clickToService()"
+                [(value)]="dvalue" [items]="marrNodeTreeviewServices" [config]="mobjConfig"
+                (valueChange)="onValueChange($event)">
+              </app-config-tree>
+              <p class="pos-re error">
+                {{mblnCheckService == true ? ('management.service.error.required' | translate) : ' '}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-xl-4 col-md-4 col-sm-4">
+              <label class="col-form-label pb-0">{{'management.shopunit.shop' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-8">
+              <select name="product" [matTooltip]="data.shopUnit.partner.shopName" matTooltipPosition="above" *ngIf="type != 1" class="select-search pos-ab" disabled>
+                <option value="1" selected>{{data.shopUnit.partner.shopName}}</option>
+              </select>
+
+              <app-config-tree class="service-tree pos-ab" *ngIf="type == 1" (click)="clickToShop()"
+                [(value)]="dvalueUnit" [items]="TreeShopCode" [config]="mobjConfig"
+                (valueChange)="onValueChangeUnit($event)">
+              </app-config-tree>
+              <p class="pos-re error">
+                {{mblnCheckShop == true ? ('management.service.error.required' | translate) : ' '}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group mtop">
+        <div class="col-xl-6 col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-xl-4 col-md-4 col-sm-4">
+              <label class="col-form-label pb-0">{{'management.shopunit.channel' | translate}}</label>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-8">
+                 <input class="input-search" disabled [(ngModel)]="!channel || channel == null || channel == 'null' ? '' : channel" >
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-md-6 col-sm-12 mt-0">
+          <div class="row">
+            <div class="col-xl-4 col-md-4 col-sm-4">
+              <label class="col-form-label pb-0">{{'management.shopunit.unit' | translate}}<span class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-8 mar-t">
+              <select class="select-search pos-ab" style="cursor: pointer;" name="unit" [(ngModel)]="newShopUnit.mstrUnitCode"
+                (click)="checkUnit()">
+                <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+                <option *ngFor="let unit of units" [value]="unit.code">{{unit.name}}</option>
+              </select>
+              <p class="pos-re error1">
+                {{mblnCheckUnit == true ? ('management.service.error.required' | translate) : ' '}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ngày -->
+      <form [formGroup]="FormSU">
+        <div class="row form-group mtop">
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <div class="row">
+              <div class="col-xl-4 col-md-4 col-sm-4">
+                <label class="col-form-label pb-0">{{'management.shopunit.fromdate' | translate}}<span class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-xl-8 col-md-8 col-sm-8">
+
+                <mat-form-field class="w-100 inputDate pos-ab">
+                  <input matInput class="input-custom" autocomplete="off" (dateChange)="checkFromDate($event)"
+                    [matDatepicker]="fromDate" formControlName="fromDate" [min]="mdtMinDate" [max]="mdtMaxDate">
+                  <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                  <mat-datepicker #fromDate></mat-datepicker>
+                  <mat-hint class="small-s" *ngIf="fromDateValidator == true">
+                    {{'management.service.error.fromDateError' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="fromDateNull == true">
+                    {{'management.service.error.required' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="fromDatePattern == true">
+                    {{'management.service.error.malformed' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="fromDateYear == true">
+                    {{'management.service.error.dateYear' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="fromDateEndlessToDate == true">
+                    {{'management.service.error.endDateLessThanStartDate' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 col-md-6 col-sm-12 mar-top">
+            <div class="row">
+              <div class="col-xl-4 col-md-4 col-sm-4">
+                <label class="col-form-label pb-0">{{'management.shopunit.todate' | translate}}</label>
+              </div>
+              <div class="col-xl-8 col-md-8 col-sm-8">
+                <mat-form-field class="w-100 inputDate pos-ab">
+                  <input matInput class="input-custom" autocomplete="off" [matDatepicker]="toDate" [min]="mdtMinDate" [max]="mdtMaxDate"
+                    formControlName="toDate" (dateChange)="checkToDate($event)">
+                  <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                  <mat-datepicker #toDate></mat-datepicker>
+                  <mat-hint class="small-s" *ngIf="toDateValidator == true">
+                    {{'management.service.error.fromDateError' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="toDateValidPatter == true">
+                    {{'management.service.error.malformed' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="toDateValidToday == true">
+                    {{'management.service.error.fromDateError' | translate}}
+                  </mat-hint>
+
+                  <mat-hint class="small-s" *ngIf="toDateYear == true">
+                    {{'management.service.error.dateYear' | translate}}
+                  </mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="row form-group ssmt">
+        <div class="col-xl-6 col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-xl-4 col-md-4 col-sm-4">
+              <label class="col-form-label pb-0">{{'management.shopunit.status' | translate}}</label>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-8">
+              <select name="product" class="select-search pos-ab" disabled *ngIf="type == 1">
+                <option value="1" selected>{{'management.service.info.work' | translate}}</option>
+              </select>
+              <select name="product" class="select-search" [(ngModel)]="newShopUnit.mstrStatus" *ngIf="type != 1">
+                <option value="1">{{'management.service.info.work' | translate}}</option>
+                <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-100 d-flex justify-content-center btn-update-config">
+      <button class="btn m-2 btn-primary click-btn" type="button" (click)="close()"><i class="fa fa-times"></i>
+        {{'management.service.button.cancel' | translate}}
+      </button>
+      <button class="btn m-2 btn-primary click-btn" type="button"
+        [disabled]="fromDateValidator ||fromDatePattern || mblnCheckUnit != false || mblnCheckShop != false || mblnCheckService != false
+      || fromDateNull || fromDateEndlessToDate || fromDateYear || toDateValidator || toDateValidPatter || toDateValidToday || toDateYear " (click)="showConfirm(confirm)"><i
+          class="fa fa-save"></i>
+        {{'management.warningconfig.Save' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+  <ng-template #confirm>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1">{{'management.warningconfig.ok?' | translate}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="save()"><i class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+
+</div>

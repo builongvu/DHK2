@@ -1,0 +1,336 @@
+<div class="dialog-send-cpn">
+  <div class="dialog-container">
+    <div class="vis-card-header">
+      <h4 class="text-left">
+        {{mobjNewObject.id == -1 ? ('management.menu.addmenu' | translate) : ('management.menu.updatemenu' | translate)}}
+      </h4>
+      <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;"
+        (click)="close()">&times;</span>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.code' | translate}}<span
+                    class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container" *ngIf="mobjNewObject.id == -1">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" type="text" class="input-obj" maxlength="50" name="code" formControlName="code"
+                      [(ngModel)]="mobjNewObject.objectCode" (ngModelChange)="checkCode()">
+                    <mat-error *ngIf="hasError('code','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="hasError('code','pattern')">
+                      {{'management.assign-ontime.validate' | translate}}
+                    </mat-error>
+                    <mat-hint *ngIf="vstrCheckCode == '1'" class="small-ob">
+                      {{'management.menu.codeduplicate' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+
+                <div class="fix-mt target-level-container update" *ngIf="mobjNewObject.id != -1">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" type="text" class="input-obj" maxlength="50" name="code" formControlName="code"
+                      [(ngModel)]="mobjNewObject.objectCode" (ngModelChange)="checkCode()">
+                    <mat-error *ngIf="hasError('code','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="hasError('code','pattern')">
+                      {{'management.assign-ontime.validate' | translate}}
+                    </mat-error>
+                    <mat-hint *ngIf="vstrCheckCode == '1'" class="small-ob">
+                      {{'management.menu.codeduplicate' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+                <!-- <div class="fix-mt target-level-container" *ngIf="mobjNewObject.id != -1">
+                  <input type="text" disabled class="select-search" formControlName="code"
+                    [(ngModel)]="mobjNewObject.objectCode" (ngModelChange)="checkCode()">
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class=" col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.name' | translate}}<span
+                    class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" type="text" class="input-obj" maxlength="100" name="name" formControlName="name"
+                      [(ngModel)]="mobjNewObject.objectName" (blur)="checkNameSpace()"
+                      (ngModelChange)="checkNameSpace()">
+                    <mat-error *ngIf="hasError('name','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-hint class="small-ob" *ngIf="trimname == false">
+                      {{'management.assign-ontime.validate' | translate}}</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.namei18' | translate}}</label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" type="text" class="input-obj" maxlength="100" name="name" formControlName="key"
+                      [(ngModel)]="mobjNewObject.objectNameI18N">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.parent' | translate}}<span
+                    class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-md-8" *ngIf="mobjNewObject.id == -1">
+                <div class="fix-mt target-level-container">
+                  <select class="select-search" name="function" disabled formControlName="parent"
+                    [(ngModel)]="mobjNewObject.parentId" style="margin-top: 5%;">
+                    <option *ngFor="let par of parents" [value]="par.id">
+                      {{par.objectName}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-8 tree" *ngIf="mobjNewObject.id != -1">
+                <div class="fix-mt target-level-container">
+                  <app-config-tree class="service-add" [(value)]="value" [items]="marrNodeTreeviewServices"
+                    [config]="mobjConfig" (valueChange)="onValueChange($event)">
+                  </app-config-tree>
+                  <div class="error12">
+                    {{checkSelectParent == true ? ('management.menu.parentnonactive' | translate) : ''}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row coll">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.url' | translate}}<span
+                    class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" class="input-obj" type="text" maxlength="200" name="url" (blur)="checkUrlSpace()"
+                      (input)="checkUrlSpace()" formControlName="url" [(ngModel)]="mobjNewObject.objectUrl">
+                    <mat-error *ngIf="hasError('url','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-hint class="small-ob" *ngIf="trimurl == false">
+                      {{'management.assign-ontime.validate' | translate}}</mat-hint>
+                    <mat-hint class="small-ob" *ngIf="urlempty == false">
+                      {{'management.service.error.required' | translate}}</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.order' | translate}}<span
+                    class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" class="input-obj" type="text" maxlength="11" name="name" formControlName="ord"
+                      [(ngModel)]="ord" (ngModelChange)="input()">
+                    <mat-error *ngIf="hasError('ord','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-hint *ngIf="vstrcheckOrd == '1'" class="small-ob">
+                      {{'management.assign-ontime.validate' | translate}}
+                    </mat-hint>
+                    <mat-hint *ngIf="vstrcheckOrd == '2'" class="small-ob">
+                      {{'management.menu.small' | translate}}
+                    </mat-hint>
+                    <mat-hint *ngIf="vstrcheckOrd == '3'" class="small-ob">
+                      {{'management.menu.duplicate' | translate}}
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.icon' | translate}}<span
+                    class="asterisk">&#42;</span></label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container">
+                  <mat-form-field>
+                    <input autocomplete="off" matInput class="input-obj" type="text" maxlength="200" name="icon" (blur)="checkiconSpace()"
+                      (input)="checkiconSpace()" formControlName="icon" [(ngModel)]="mobjNewObject.objectIcon">
+                    <mat-error *ngIf="hasError('icon','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-hint class="small-ob" *ngIf="trimicon == false">
+                      {{'management.assign-ontime.validate' | translate}}</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label fix-mb">{{'management.menu.image' | translate}}</label>
+              </div>
+              <div class="col-md-8">
+                <div class="fix-mt target-level-container">
+                  <!-- <input matInput class="input-obj" type="text" maxlength="200" formControlName="img" name="img"
+                      [(ngModel)]="mobjNewObject.objectImg"> -->
+
+                  <div class="row">
+                    <div class="col-xl-9">
+                      <div class="row mtrow">
+                        <input style="cursor: pointer" style="width: 0 !important;" accept="image/*" type="file"
+                          name="img" (change)="selectFile($event)" size="6MB" id="customFile">
+                        <label class="buttonup" for="customFile">{{'management.menu.selectImg' | translate}}</label>
+                        <div class="ellipsis filename"
+                          tooltip="{{mobjNewObject.objectImg ? mobjNewObject.objectImg : ('management.menu.noimage' | translate)}}"
+                          placement="top">
+                          {{mobjNewObject.objectImg ? mobjNewObject.objectImg : ('management.menu.noimage' | translate)}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3" *ngIf="url">
+                      <img [src]="url" class="image-upload">
+                      <i aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;position: relative;right: -90%;top: 0;"
+                        (click)="deleteImage()">&times;</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row" style="margin-top: 13px !important;">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="label-bottom fix-mb">{{'management.menu.objecttype' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container">
+                <select class="select-search" name="object" (blur)="checkObjEmp()" (click)="checkObjEmp()"
+                  [(ngModel)]="mobjNewObject.objectType">
+                  <option [value]='-1' hidden>
+                    {{'management.warningconfig.select' | translate}}
+                  </option>
+                  <option [value]='0'>{{'management.menu.group' | translate}}</option>
+                  <option [value]='1'>{{'management.menu.function' | translate}}</option>
+                </select>
+                <div class="error1">
+                  {{checkobject == 1 ? ('management.service.error.required' | translate) : ''}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=" col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="label-bottom fix-mb">{{'management.menu.functiontype' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container">
+                <select class="select-search" name="function" (click)="check()" (blur)="check()"
+                  [(ngModel)]="mobjNewObject.functionType">
+                  <option value='-1' hidden>
+                    {{'management.warningconfig.select' | translate}}
+                  </option>
+                  <option value='0'>
+                    {{'management.menu.normal' | translate}}
+                  </option>
+                  <option value='1'>
+                    {{'management.menu.dashboard' | translate}}
+                  </option>
+                </select>
+                <div class="error1">
+                  {{checkfunction == 1 ? ('management.service.error.required' | translate) : ''}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 16px !important;">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <label class="label-bottom fix-mb">{{'management.menu.status' | translate}}<span
+                  class="asterisk">&#42;</span></label>
+            </div>
+            <div class="col-md-8">
+              <div class="fix-mt target-level-container" *ngIf="mobjNewObject.id != -1">
+                <select class="select-search" name="object" [(ngModel)]="mobjNewObject.status">
+                  <option [value]='0'>{{'management.service.info.nonwork' | translate}}</option>
+                  <option [value]='1'>{{'management.service.info.work' | translate}}</option>
+                </select>
+              </div>
+              <div class="fix-mt target-level-container" *ngIf="mobjNewObject.id == -1">
+                <select class="select-search" name="object" disabled [(ngModel)]="mobjNewObject.status">
+                  <option [value]='1'>{{'management.service.info.work' | translate}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div style="width: 100%;padding-bottom: -5px !important;" class="text-center">
+      <button class="m-2 btn btn-primary click-btn" mat-button mat-dialog-close><i class="fa fa-times"></i>
+        {{'management.warningconfig.Cancel' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="openConfirm(confirm)"
+        [disabled]="!form.valid || checkSelectParent == true || checkfunction != 0 || vstrCheckCode != '0' || checkobject!= 0 || vstrcheckOrd != '0' || trimname != true || trimicon != true || trimurl != true "><i
+          class="fa fa-save"></i>
+        {{'management.warningconfig.Save' | translate}}
+      </button>
+    </div>
+
+    <ng-template #confirm>
+      <div class="modal-body">
+        <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+        <span class="mx-1">{{'management.warningconfig.ok?' | translate}}</span>
+      </div>
+      <div class="modal-footer">
+        <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+          {{'management.warningconfig.No' | translate}}</button>
+        <button class="m-2 btn btn-primary click-btn" (click)="save()"><i class="fa fa-check"></i>
+          {{'management.warningconfig.Yes' | translate}}
+        </button>
+      </div>
+    </ng-template>
+  </div>

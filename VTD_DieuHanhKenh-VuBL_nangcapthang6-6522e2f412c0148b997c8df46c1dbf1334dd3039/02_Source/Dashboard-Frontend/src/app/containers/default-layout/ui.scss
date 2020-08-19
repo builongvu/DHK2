@@ -1,0 +1,300 @@
+$zindex-dropdown:                   1000 !default;
+$dropdown-min-width:                10rem !default;
+$dropdown-padding-y:                .5rem !default;
+$dropdown-spacer:                   .125rem !default;
+$font-size-base:                  .875rem !default;
+$gray-900: #212529 !default;
+$dropdown-bg:                       #fff !default;
+$dropdown-border-width:             1px !default;
+$gray-300: #dee2e6 !default;
+$border-radius:               .25rem !default;
+$dropdown-box-shadow:               0 .5rem 1rem rgba(0,0,0, .175) !default;
+
+ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+}
+.sidebar1 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-nav1 {
+
+  &__tree {
+  }
+
+  &__node {
+    width: 100%;
+    overflow: visible;
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+
+  &__icon {
+    //margin-right: 0.5rem;
+    //margin-left: 0.5rem;
+  }
+
+  &__link:link,
+  &__link:visited {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.4rem .7rem;
+    text-decoration: none;
+    color: currentColor;
+  }
+
+  &__link-left {
+    display: flex;
+    align-items: center;
+  }
+  &__link-right{
+    height: 24px;
+  }
+}
+
+.active {
+  &__parent {
+    color: blue !important;
+  }
+
+  &__child {
+    color: blue !important;
+  }
+}
+
+.wrapper{
+  display: flex;
+}
+.fixed-layout{
+  height: calc(100vh - 100px);
+  width: 100%;
+  overflow-y: auto;
+  background-color: white;
+
+}
+.list-base{
+  padding-top:0 !important;
+}
+.side-nav{
+  border-right: 1px solid rgba(0,0,0,.2);
+  height: calc(100vh - 50px);
+  overflow: auto;
+  transition: all 500ms ease-in-out;
+  min-width: 230px;
+  padding-right: 1px;
+  max-width: 230px;
+  padding-bottom: 1rem;
+  background-color: #FFFFFF;
+  scrollbar-color:lightgray #fffff;
+  scrollbar-width: thin;
+}
+.side-nav-hide{
+  margin-left: -230px;
+  transition: all 500ms ease-in-out;
+  visibility: hidden;
+  opacity: .5;
+}
+.side-nav-open{
+  margin-right: 0;
+  transition: all 500ms ease-in-out;
+  opacity: 1;
+  visibility: visible;
+}
+
+.side-nav::-webkit-scrollbar {
+  width: .5em;
+  height: .5em;
+}
+
+.side-nav::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+.side-nav::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+.fixed-footer{
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  background-color: #f0f3f5;
+  left: 0;
+  transition: all 500ms ease-in-out;
+  small{
+    font-size: .9em;
+    margin: 0 .5rem;
+  }
+}
+.fixed-width{
+  width: calc(100vw - 230px);
+  margin-left: 230px;
+}
+.full-footer{
+  width: 100vw;
+  margin-left: 0;
+}
+.fixed-header{
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  .humberger{
+    background: transparent;
+    padding: 0 1rem;
+    border: none;
+    span
+    {
+      display: block;
+      width: 24px;
+      height: 3px;
+      margin-bottom: 5px;
+      position: relative;
+      background: #0F436A;
+      border-radius: 3px;
+      z-index: 1;
+    }
+
+    &:focus, &:active{
+      border: none;
+      outline: none;
+    }
+  }
+  .brand{
+    transition: all 500ms ease-in-out;
+    display: flex;
+    min-width: 230px;
+    padding-left:1.8rem;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    .img-brand{
+      width: 145px;
+      height: 50px;
+    }
+    .hide-img{
+      height: 0;
+      width: 0;
+      transition: all 500ms ease-in-out;
+    }
+  }
+  .brand-small{
+    transition: all 500ms ease-in-out;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0A4877;
+     button{
+       span{
+         background-color:#FFFFFF;
+       }
+     }
+  }
+  .img-bg{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: flex-end;
+    background: url('../../../assets/img/VT-dashboard/header.png') no-repeat center center/cover;
+    .custom-ul{
+      display: flex;
+      align-items: center;
+      font-size: .8rem;
+      .border-radius{
+        width: 118px;
+        display: flex;
+        padding-left: 5px;
+        justify-content: center;
+        align-items: center;
+        height: 30.59px;
+        border-radius: .9rem;
+        background: #ffffff;
+      }
+      .user-img{
+        height: 35px;
+        width: 35px;
+      }
+
+    }
+  }
+  background-color: #f4f3ef;
+}
+
+.my-body{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow-x: hidden
+}
+@media screen and (max-width: 991px) {
+  .responsive-nav {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 102;
+  }
+  .fixed-header {
+    z-index: 109;
+  }
+  .opac{
+    background: rgba(0,0,0,.1);
+  }
+  .fixed-responsive{
+    width: 100vw !important;
+    margin: 0 !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .fixed-header {
+    z-index: 109;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    .box-shadown {
+      padding-left: .7rem !important;
+      flex-direction: row-reverse;
+      background-color: #FAFBFC !important;
+    }
+
+    .img-bg {
+      background:none;
+      background-color: #FAFBFC;
+    }
+
+    .humberger {
+      span {
+        background-color: #0F436A !important;
+      }
+    }
+  }
+}
+.my-dropdown-menu{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1001;
+  display: block; // none by default, but block on "open" of the menu
+  min-width: $dropdown-min-width;
+  font-size:.875rem;
+  color: $gray-900;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  background-color: $dropdown-bg;
+  background-clip: padding-box;
+  border: 1px solid $gray-300;
+  border-radius:$border-radius;
+  transform: translate3d(-98px, 1px, 0px);
+}
+

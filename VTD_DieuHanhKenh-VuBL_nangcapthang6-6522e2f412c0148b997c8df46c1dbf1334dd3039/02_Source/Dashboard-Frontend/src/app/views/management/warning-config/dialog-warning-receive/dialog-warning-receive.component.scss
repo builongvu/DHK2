@@ -1,0 +1,322 @@
+$border-bottom: rgba(0, 0, 0, 0.42);
+.click-btn {
+  width: 110px;
+}
+.dialog-warning-receive-cpn {
+  .dialog-container {
+    width: 75vw;
+    max-height: 70vh;
+    max-width: 80vw;
+    .vis-card-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.3rem;
+    }
+    .col-form-label {
+      padding-bottom: 0 !important;
+    }
+
+    select:disabled {
+      color: black !important;
+    }
+
+    select[disabled] {
+      color: black !important;
+      background-color: white !important;
+    }
+    // giảm khoảng cách giữa search-container và table
+
+    .card {
+      margin-bottom: 0.25rem !important;
+
+      button {
+        white-space: nowrap;
+      }
+    }
+
+    label {
+      margin-left: 5px;
+    }
+    .col-md-4 {
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+    }
+    // giảm khoảng cách giữa button và ô input-search
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-control {
+      border: 1px solid #adadad !important;
+    }
+
+    .span-validate {
+      color: red;
+    }
+
+    /// style for multi-select /
+    .example-month-picker .mat-calendar-period-button {
+      pointer-events: none;
+    }
+
+    .example-month-picker .mat-calendar-arrow {
+      display: none;
+    }
+
+    .example-form,
+    mat-form-field {
+      width: 100%;
+    }
+    .p-d-l {
+      padding-left: 2rem;
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 0 !important;
+    }
+
+    th.mat-sort-header-sorted {
+      color: black;
+    }
+
+    /deep/ .mat-paginator-icon {
+      width: 22px !important;
+    }
+
+    // multi three dot
+
+    /deep/ .mat-form-field-appearance-legacy .mat-form-field-infix {
+      padding: 4px 0 !important;
+    }
+
+    form-group {
+      margin-bottom: 0 !important;
+    }
+
+    .card-body {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0 !important;
+    }
+
+    .card-footer {
+      padding: 0 !important;
+      border: none !important;
+    }
+
+    .card-footer {
+      border: none !important;
+    }
+
+    .btn-update {
+      margin-bottom: 0.5rem;
+
+      button {
+        width: 100px;
+      }
+    }
+
+    @media screen and (max-width: 1310px) {
+      .responsive-table {
+        overflow-x: scroll;
+      }
+    }
+
+    /deep/ .dropdown-btn[_ngcontent-c4] .ng-star-inserted {
+      color: black !important;
+
+      &:hover {
+        background: none !important;
+        border: none !important;
+      }
+    }
+
+    .select-search {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid $border-bottom;
+      height: 22px;
+    }
+
+    .select-search:focus {
+      border-style: dotted;
+      border-width: 0.5px;
+    }
+
+    /deep/ .toast-success {
+      background-color: #63b8ff !important;
+      color: black !important;
+    }
+
+    /deep/ .toast-error {
+      background-color: #ff8173 !important;
+      color: black !important;
+    }
+
+    /deep/ .toast-warning {
+      background-color: #fad49d !important;
+      color: black !important;
+      //border: #20a8d8 !important;
+    }
+
+    /deep/ .ngx-pagination {
+      margin-bottom: 0 !important;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .click-btn {
+      width: 110px;
+    }
+
+    .click-btn-upload {
+      width: 100px;
+    }
+
+    .title-upload {
+      font-size: 1.2rem;
+    }
+
+    /deep/ .modal-header {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .input-upload {
+      cursor: pointer;
+      outline: none;
+    }
+
+    //
+    ///deep/ #tooltip-top > .tooltip-inner {
+    //  background-color: #fff !important;
+    //  color: #000 !important;
+    //  border: 1px solid #062e56;
+    //}
+    /deep/ .tooltip-inner {
+      background-color: black !important;
+      color: white;
+    }
+
+    .shopCode {
+      /deep/ .show {
+        .btn-outline-secondary.dropdown-toggle {
+          &:focus {
+            box-shadow: unset !important;
+          }
+        }
+      }
+
+      /deep/ .dropdown {
+        &:after {
+          right: 0.3rem !important;
+        }
+
+        .btn-outline-secondary {
+          border: none;
+        }
+
+        /deep/ button {
+          padding-left: 3px !important;
+          &:focus {
+            box-shadow: unset !important;
+            border-style: dotted;
+            border-width: 0.5px;
+          }
+
+          &::after {
+            right: 0.2rem !important;
+            color: rgba(0, 0, 0, 0.54) !important;
+          }
+
+          background-color: unset !important;
+          border-bottom: 1px solid $border-bottom !important;
+          margin-bottom: 4px;
+          //transform: translateX(-10px);
+          // width: 101%;
+          padding-right: 0;
+          margin-right: 0;
+          padding-left: 0.2rem;
+          height: 23px;
+        }
+
+        .btn {
+          padding: 0;
+          border-radius: unset;
+        }
+      }
+
+      /deep/ .dropdown-menu {
+        //dropmenu here
+        width: 100%;
+        border-radius: unset;
+        margin-top: -2px;
+        // transform: translateX(-10px);
+        /deep/ .dropdown-container {
+          //container here
+          padding: 0;
+          padding-left: 0.6rem !important;
+          padding-right: 0.3rem !important;
+
+          /deep/ .treeview-header {
+            width: 100%;
+
+            .dropdown-divider {
+              border: none;
+            }
+
+            // transform: translateX(8px);
+            //treeview header here
+            /deep/ .row-filter {
+              //row-filter here
+              /deep/ .col-12 {
+                //col-12 here
+                /deep/ .form-control {
+                  border-radius: unset !important;
+                  border: none !important;
+                  border-bottom: 1px solid #e4e5e6 !important;
+                  outline: none !important;
+
+                  &:focus {
+                    border-color: #3f51b5 !important;
+                    outline: none !important;
+                    box-shadow: none;
+                  }
+
+                  //form-control here
+                  width: 100%;
+                  // transform: translateX(-12.5px)
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /deep/ .dropdown-toggle {
+      &:after {
+        border-top: 0.38em solid !important;
+        border-right: 0.35em solid transparent !important;
+        border-left: 0.35em solid transparent !important;
+      }
+    }
+
+    .mat-tab-body-content {
+      overflow: visible !important;
+    }
+
+    .card-header {
+      background-color: #ffffff !important;
+      padding: 0.7rem 5px 0;
+      border-bottom: 1px solid #c8ced3;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+}

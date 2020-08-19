@@ -1,0 +1,145 @@
+<div class="group-vtt-list">
+  <!-- <div>{{'management.groupvttchannel.title' | translate}}</div> -->
+
+  <div class="card" style="margin-bottom: 0.9em;">
+    <div class="row">
+      <div class="col-12">
+        <div class="card-body">
+          <div class="row">
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label fix-mr label-fix">{{'management.groupvttchannel.group' | translate}}
+            </label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+
+              <app-configwr-tree class="configtree" [(value)]="valueVttChannel" [items]="marrChannelVTTNew"
+                (valueChange)="onChange($event)" [config]="mobjConfig">
+              </app-configwr-tree>
+            </div>
+
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label fix-mr label-fix">{{'management.groupvttchannel.status' | translate}}
+            </label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <select class="select-search" [(ngModel)]="statusSelected">
+                <option [value]="-1" selected>{{'management.service.form.choose' | translate}}</option>
+                <option [value]="'1'">{{'management.service.info.work' | translate}}</option>
+                <option [value]="'0'">{{'management.service.info.nonwork' | translate}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center flex-wrap">
+        <button class="btn btn-primary mb-3 mx-2" (click)="search()">
+          <i class="fa fa-search"></i> {{'management.groupvttchannel.search' | translate}}
+        </button>
+        <button class="btn btn-primary mb-3 mx-2" (click)="openDialogCreateGroup()">
+          <i class="fa fa-plus"></i> {{'management.groupvttchannel.createGroup' | translate}}
+        </button>
+        <button class="btn btn-primary mb-3 mx-2" (click)="openDialogCreateGroupPoisition()"> <i
+            class="fa fa-plus"></i> {{'management.groupvttchannel.createPoisitionStaff' | translate}}</button>
+        <button class="btn btn-primary mb-3 mx-2" (click)="openDialogCreateGroupShop()"> <i class="fa fa-plus"></i>
+          {{'management.groupvttchannel.createShop' | translate}}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-12">
+    <div class="row">
+      <div class="table-responsive detail-table">
+      <table class="table table-striped table-hover">
+        <thead class="header-table">
+        <tr class="text-center">
+          <th>{{'management.target.table.header.order' | translate}}</th>
+          <th>{{'management.groupvttchannel.groupcode' | translate}}</th>
+          <th>{{'management.groupvttchannel.groupChannel' | translate}}</th>
+          <th>{{'management.groupvttchannel.classifyType' | translate}}</th>
+          <th>{{'management.groupvttchannel.idPoisition' | translate}}</th>
+          <th>{{'management.groupvttchannel.codePosition' | translate}}</th>
+          <th>{{'management.groupvttchannel.namePosotion' | translate}}</th>
+          <th>{{'management.groupvttchannel.channelType' | translate}}</th>
+          <th>{{'management.groupvttchannel.status' | translate}}</th>
+        </tr>
+        </thead>
+
+        <tbody *ngIf="marrVttGroupChannelDTO.length == 0">
+        <tr>
+          <td colspan="9" align="center" style="background: white">
+            {{'management.warningconfig.Nodata' | translate}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="marrVttGroupChannelDTO.length > 0">
+        <tr
+          *ngFor="let groupVTT of marrVttGroupChannelDTO | paginate: {id:'vtt', itemsPerPage: 10, currentPage: page, totalItems: totalRow}">
+          <td class="text-center">{{groupVTT.no}}</td>
+          <td>
+            <div class="text-overf" [tooltip]="groupVTT.groupChannelCode">
+              {{groupVTT.groupChannelCode}}
+            </div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="groupVTT.groupChannelName">
+              {{groupVTT.groupChannelName}}
+            </div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="groupVTT.classification">
+              {{groupVTT.classification}}</div>
+          </td>
+          <td class="text-right text-overf">
+            <div [tooltip]="groupVTT.positionId">
+              {{groupVTT.positionId}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="groupVTT.positionCode"> {{groupVTT.positionCode}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="groupVTT.positionName"> {{groupVTT.positionName}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="groupVTT.channelTypeId"> {{groupVTT.channelTypeId}}</div>
+          </td>
+          <td>
+            <div class="text-overf text-center"
+                 [tooltip]="groupVTT.status == 0 ? ('management.service.info.nonwork' | translate) : 'management.service.info.work' | translate">
+              {{groupVTT.status == 0 ? ('management.service.info.nonwork' | translate) : 'management.service.info.work' | translate}}
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="total-row" *ngIf="marrVttGroupChannelDTO.length > 0">
+        <div class="card-body"
+             style="background:#fff; font-weight: normal; padding-top: 0 !important; padding-bottom: 0 !important;">
+          <div class="row">
+
+            <div class="col-xl-4 col-md-4 col-sm-12 col-form-label">
+              {{'management.warningconfig.from' | translate}} {{minItemPerpage}}
+              {{'management.warningconfig.to' | translate}} {{maxItemPerpage}}
+              {{ 'management.service.form.inTotal' | translate}} {{ totalRow }}
+              {{'management.warningconfig.record' | translate}}
+            </div>
+
+            <div class="col-xl-8 col-md-8 col-sm-12 col-form-label">
+              <ul style="float:right;" class="pagination" *ngIf="marrVttGroupChannelDTO">
+                <pagination-controls *ngIf="marrVttGroupChannelDTO.length > 0" id="vtt"
+                                     previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                                     nextLabel="{{'management.target.table.pager.next' | translate}}" (pageChange)="pageChanged($event)">
+                </pagination-controls>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+

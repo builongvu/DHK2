@@ -1,0 +1,97 @@
+<div class="row m-0" style="height: 100%">
+  <div *ngFor="let content of contents, index as con" style="height: 100%"
+       class="{{content['chartSize'] == '1_1'? ' col-12':
+        content['chartSize'] == '1_3'? ' col-4 d1111':
+        content['chartSize'] == '2_3'? ' col-8 d2222': 'col-12'}} p-0">
+    <div *ngIf="content['type'] === 'TABLE_VIEW'"
+         class="{{content['type'] === 'TABLE_VIEW'? 'table-view': ''}}">
+      <table-card class="db-table-card" [data-table]="content" (clickService)="clickService($event)"
+                  [isZoomCard]="isZoomCard" [isExcelShow]="isExcelContent" [cardLength]="cardLength"
+                  [contentsLength]="contents.length"
+                  [dashboardModel]="dashModel" [drilldownLength]="drilldownLength"></table-card>
+    </div>
+
+    <div style="height: 100%" *ngIf="content['type'] === 'LINE_CHART'"
+         [ngStyle]="zoomColum ?  myStyle : herStyle"
+         (dblclick)="content['expand'] == false && contents.length > 1 ?zoom() : ''"
+         class="{{content['type'] === 'LINE_CHART'? 'line-chart': ''}}">
+      <line-chart style="height: 100%" class="db-normal-card custom-chart {{content['chartSize'] == '1_3'? ' border-chart':
+        content['chartSize'] == '2_3'? 'border-chart': ''}}" [chart-datas]="content" [isDblClick]="zoomColum"
+                  [titleCard]="titleCard"
+                  (zoomLine)="content['expand'] == false && contents.length > 1 ?zoom() : zoomDetail(con)"
+                  *ngIf="isDblClick == false" [contentLength]="contents.length">
+      </line-chart>
+      <line-chart style="height: 100%" class="db-normal-card custom-chart {{content['chartSize'] == '1_3'? ' border-chart':
+        content['chartSize'] == '2_3'? 'border-chart': ''}}" [chart-datas]="content" [isDblClick]="zoomColum"
+                  [titleCard]="titleCard"
+                  (zoomLine)="content['expand'] == false && contents.length > 1 ?zoom() : zoomDetail(con)"
+                  *ngIf="isDblClick == true" [contentLength]="contents.length">
+      </line-chart>
+      <div *ngIf="!isSpinner" class="full-spinner">
+        <mat-spinner color="accent" diameter="30"></mat-spinner>
+      </div>
+    </div>
+    <div *ngIf="content['type'] === 'CONTENT_TOP'"
+         class="{{content['type'] === 'CONTENT_TOP'? 'content-top': ''}}">
+      <content-top class="top-element" [dataTop]="content" (onClickTop)="clickTop($event)"></content-top>
+      <!--      <div class="img-unit fix-top">-->
+      <!--        <img src="assets/img/rank/xep-hang.svg" alt="rank-top">-->
+      <!--      </div>-->
+    </div>
+
+    <div *ngIf="content['type'] === 'SUMMARY_VIEW'"
+         class="{{content['type'] === 'SUMMARY_VIEW'? 'content-top': ''}}">
+      <summary-top class="top-element" [summary]="content" (clickTop)="onClickTop($event)"></summary-top>
+      <div class="img-unit">
+        <img src="assets/img/rank/dv_dat_chi_tieu.svg" alt="rank-top">
+      </div>
+    </div>
+
+    <div *ngIf="content['type'] === 'CONTINUITY_FAIL'"
+         class="{{content['type'] === 'SUMMARY_VIEW'? 'content-top': ''}}" style="height: 100%">
+      <app-consecutive-warning class="top-element" [content]="content"
+                               (changeCodeSpark2)="changeCodeSpark2($event, content['drilldownObject'])"
+                               [codeWarning]="codeWarning" [dashModel]="dashModel"></app-consecutive-warning>
+    </div>
+
+    <div *ngIf="content['type'] === 'TOP_BY_SERVICE'"
+         class="{{content['type'] === 'SUMMARY_VIEW'? 'content-top': ''}} " style="height: 100%">
+      <app-spark3 class="top-element" [content]="content"
+                  (detailSpark3)="detailSpark3($event,  content['drilldownObject'])"></app-spark3>
+    </div>
+
+    <div *ngIf="content['type'] === 'BAR_CHART'" [style.border]=""
+         class="{{content['type'] === 'BAR_CHART'? 'line-chart': ''}}"
+         (dblclick)="content['expand'] == false ?zoom() : zoomDetail(con)"
+         [ngStyle]="zoomColum ?  my2Style : herStyle">
+      <bar-chart *ngIf="isDblClick == false && !barData" class="db-normal-card custom-chart"
+                 [barData]="content"></bar-chart>
+      <bar-chart *ngIf="isDblClick == true && !barData" class="db-normal-card custom-chart"
+                 [barData]="contentDblClick"></bar-chart>
+      <div *ngIf="!isSpinner" class="full-spinner">
+        <mat-spinner color="accent" diameter="30"></mat-spinner>
+      </div>
+    </div>
+
+    <div (dblclick)="content['expand'] == false ?zoom2(content['chartId']) : zoomDetail(con, content['chartId'])"
+         [ngStyle]="chartDetails[content['chartId']].isZoom ?  my3Style : herStyle"
+         *ngIf="content['type'] === 'COLUMN_CHART'"
+         class="{{content['chartSize'] == '1_3' && content['type'] === 'COLUMN_CHART'? 'border-chart line-chart':
+                  content['chartSize'] == '2_3' && content['type'] === 'COLUMN_CHART'? 'border-chart line-chart': ''}}">
+      <column-chart *ngIf="isDblClick == false" style="height: 100%" class="db-normal-card custom-chart"
+                    [columnData]="content"
+                    (showDetailColumn)="zoomDetail(con, content['chartId'])" [isDblClick]="isDblClick"></column-chart>
+      <column-chart *ngIf="isDblClick == true" style="height: 100%" class="db-normal-card custom-chart"
+                    [columnData]="contentDblClick" (showDetailColumn)="zoomDetail(con, content['chartId'])"
+                    [isDblClick]="isDblClick"></column-chart>
+      <div *ngIf="!isSpinner" class="full-spinner">
+        <mat-spinner color="accent" diameter="30"></mat-spinner>
+      </div>
+      <!--      <div class="zoom">-->
+      <!--        <button (click)="zoom()">zoom</button>-->
+      <!--      </div>-->
+    </div>
+
+  </div>
+</div>
+

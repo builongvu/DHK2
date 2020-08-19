@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.4.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:6.0.14.Final" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
+    <orderEntry type="module" module-name="DashboardBackend" />
+  </component>
+</module>

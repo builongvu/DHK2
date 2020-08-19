@@ -1,0 +1,459 @@
+<div class="object-role-cpn full-height">
+  <div class="col-lg-12 pd-0">
+    <div class="row">
+      <div class="col-lg-6 p-l-0 p-r-5 d-flex">
+        <div class="card m-0">
+          <!-- searching -->
+          <form autocomplete="off" novalidate>
+            <div class="card-body">
+              <div class="form-group row align-items-center">
+                <label
+                  class="col-xl-2 col-md-2 col-sm-12 col-form-label no-wrap">{{'management.objectrole.role' | translate}}</label>
+                <div class="col-xl-4 col-md-4 col-sm-12 fix-mt">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="codeSearch" name="codeSearch">
+                  </mat-form-field>
+                </div>
+
+                <label
+                  class="col-xl-2 col-md-2 col-sm-12 col-form-label no-wrap">{{'management.objectrole.object' | translate}}</label>
+                <div class="col-xl-4 col-md-4 col-sm-12 fix-mt">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="codeObjectSearch" name="codeObjectSearch">
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 d-flex justify-content-center flex-wrap">
+                  <button class="btn btn-primary click-btn mb-2 mx-2" (click)="searchByCondition()">
+                    <i class="fa fa-search"></i> {{'management.target.button.search' | translate}}</button>
+                  <button class="btn btn-primary click-btn mb-2 mx-2" (click)="openDialog()">
+                    <i class="fa fa-plus"></i> {{'management.service.button.add' | translate}}
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+
+          <!-- grid -->
+
+          <div class="p-d-5">
+            <span style="font-weight: 700;"> {{'management.objectrole.listRole' | translate}}</span>
+          </div>
+
+          <div class="card-body table-responsive p-d-0 table-role" *ngIf="marrRoles">
+            <div class="table-reponsive max-heigh-40">
+              <table class="table table-striped table-hover">
+                <thead class="header-table">
+                  <tr>
+                    <th>
+                      <div class="custom-control custom-checkbox" *ngIf="marrRoles.length > 0">
+                        <input type="checkbox" class="custom-control-input" id="customCheckAll"
+                          [checked]="checkBoxInPage" (click)="checkInPage()">
+                        <label class="custom-control-label" for="customCheckAll">
+                          <span></span>
+                        </label>
+                      </div>
+                    </th>
+                    <th>{{'management.target.table.header.order' | translate}}</th>
+                    <th>{{'management.objectrole.code' | translate}}</th>
+                    <th>{{'management.objectrole.name' | translate}}</th>
+                    <th>{{'management.objectrole.des' | translate}}</th>
+                    <th>{{'management.objectrole.status' | translate}}</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody *ngIf="marrRoles.length == 0">
+                  <tr>
+                    <td colspan="7" align="center" style="background: white">
+                      {{'management.warningconfig.Nodata' | translate}}</td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr *ngFor="let role of marrRoles; index as i" [style.font-weight]="select == role.id ? 'bold' : ''">
+                    <td>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [(ngModel)]="role.check"
+                          [id]="role.id +'ROLE'" (click)="checkUnit(role)">
+                        <label class="custom-control-label" [for]="role.id +'ROLE'">
+                          <span></span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="text-center" (click)="showObjectOfRole(role)">
+                      {{i + 1 }}
+                    </td>
+                    <td (click)="showObjectOfRole(role)">
+                      <div class="text-over" [tooltip]="role.roleCode">
+                        {{ role.roleCode }}
+                      </div>
+                    </td>
+
+                    <td (click)="showObjectOfRole(role)">
+                      <div class="text-over" [tooltip]="role.roleName">
+                        {{ role.roleName }}
+                      </div>
+                    </td>
+
+                    <td (click)="showObjectOfRole(role)">
+                      <div class="text-over" [tooltip]="role.roleDescription">
+                        {{ role.roleDescription }}
+                      </div>
+                    </td>
+
+                    <td class="text-center" (click)="showObjectOfRole(role)">
+                      <div class="text-over"
+                        [tooltip]="role.status == 0 ? ('management.service.info.nonwork' | translate) : 'management.service.info.work' | translate">
+                        {{ role.status == 0 ? ('management.service.info.nonwork' | translate) : 'management.service.info.work' | translate }}
+                      </div>
+                    </td>
+
+                    <td>
+                      <i class="fa fa-edit" tooltip="{{'management.service.button.edit' | translate}}"
+                        style="cursor: pointer;" (click)="openDialogEdit(role)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="w-100 mt-3 mb-1 d-flex justify-content-center" *ngIf="marrRoles.length > 0">
+            <div class="w-25 d-flex justify-content-center">
+              <div>
+                <button type="button" class="btn btn-primary click-btn mr-2" [disabled]="!mblLockHidden"
+                  (click)="confirmLock(lock)" tooltip="{{'management.service.info.lock' | translate}}">
+                  <i class="fa fa-lock" aria-hidden="true"></i> {{'management.service.info.lock' | translate}}
+                </button>
+              </div>
+
+              <div>
+                <button type="button" class="btn btn-primary click-btn" [disabled]="!mblUnlockHidden"
+                  (click)="confirmUnLock(unlock)" tooltip="{{'management.service.info.unLock' | translate}}">
+                  <i class="fa fa-unlock-alt" aria-hidden="true"></i> {{'management.service.info.unLock' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <!-- Objectttttttttttttttttttttttttttttttttttttttttttttt -->
+
+      <div class="col-lg-6 p-l-0 p-r-5 d-flex">
+        <div class="card w-100 m-0">
+          <div class="card-header">
+            <div> <span style="font-weight: 700;">
+                {{'management.objectrole.listObject' | translate}}
+                {{ roleCodeAndName }}</span>
+            </div>
+          </div>
+          <div class="card-body p-d-0 table-object">
+            <div class="table-responsive max-heigh-80">
+              <table class="table table-striped table-hover">
+                <thead class="header-table">
+                  <tr>
+                    <th>{{'management.target.table.header.order' | translate}}</th>
+                    <th>{{'management.objectrole.codeObject' | translate}}</th>
+                    <th>{{'management.objectrole.nameObject' | translate}}</th>
+                    <th>
+                      <div [tooltip]="'management.objectrole.tipDefault' | translate" placement="bottom">
+                        {{'management.objectrole.default' | translate}}
+                      </div>
+                    </th>
+                    <th class="text-left">
+                      <div [tooltip]="'management.objectrole.create' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllCreate"
+                            (click)="checkAllActionCreate()" type="checkbox" class="custom-control-input"
+                            id="checkAllCreate" name="example1">
+                          <label class="custom-control-label" for="checkAllCreate">
+                          </label>C
+                        </div>
+                      </div>
+                    </th>
+                    <th class="text-left">
+                      <div [tooltip]="'management.objectrole.read' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllRead"
+                            (click)="checkAllActionRead()" type="checkbox" class="custom-control-input"
+                            id="checkAllRead" name="example2">
+                          <label class="custom-control-label" for="checkAllRead">
+                          </label>R
+                        </div>
+                      </div>
+                    </th>
+                    <th class="text-left">
+                      <div [tooltip]="'management.objectrole.update' | translate" placement="bottom">
+
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllUpdate"
+                            (click)="checkAllActionUpdate()" type="checkbox" class="custom-control-input"
+                            id="checkAllUpdate" name="example3">
+                          <label class="custom-control-label" for="checkAllUpdate">
+                          </label>U
+                        </div>
+                      </div>
+                    </th>
+                    <th class="text-left">
+                      <div [tooltip]="'management.objectrole.delete' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllDelete"
+                            (click)="checkAllActionDelete()" type="checkbox" class="custom-control-input"
+                            id="checkAllDelete" name="example4">
+                          <label class="custom-control-label" for="checkAllDelete">
+                          </label>D
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody *ngIf="marrObject.length == 0">
+                  <tr>
+                    <td colspan="8" align="center" style="background: white">
+                      {{'management.warningconfig.Nodata' | translate}}</td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <!-- <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td>
+                      <div [tooltip]="'management.objectrole.create' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllCreate"
+                            (click)="checkAllActionCreate()" type="checkbox" class="custom-control-input"
+                            id="checkAllCreate" name="example1">
+                          <label class="custom-control-label" for="checkAllCreate"></label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div [tooltip]="'management.objectrole.read' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllRead"
+                            (click)="checkAllActionRead()" type="checkbox" class="custom-control-input"
+                            id="checkAllRead" name="example1">
+                          <label class="custom-control-label" for="checkAllRead"></label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div [tooltip]="'management.objectrole.update' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllUpdate"
+                            (click)="checkAllActionUpdate()" type="checkbox" class="custom-control-input"
+                            id="checkAllUpdate" name="example1">
+                          <label class="custom-control-label" for="checkAllUpdate"></label>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div [tooltip]="'management.objectrole.delete' | translate" placement="bottom">
+                        <div class="custom-control custom-checkbox">
+                          <input [disabled]="roleIDChoose == -1 || disableObject" [checked]="checkedAllDelete"
+                            (click)="checkAllActionDelete()" type="checkbox" class="custom-control-input"
+                            id="checkAllDelete" name="example1">
+                          <label class="custom-control-label" for="checkAllDelete"></label>
+                        </div>
+                      </div>
+                    </td>
+                  </tr> -->
+
+                  <tr *ngFor="let object of marrObject; index as j">
+                    <td>
+                      <div class="text-center">
+                        {{ j + 1 }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-over" [tooltip]="object.objectCode">
+                        {{ object.objectCode }}
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="text-over" [tooltip]="object.objectName">
+                        {{ object.objectName }}
+                      </div>
+                    </td>
+
+                    <td class="text-center">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [id]="object.objectId + 'default'"
+                          [checked]="object.checkboxDefault" (click)="checkDefault(object.objectId)"
+                          [disabled]="roleIDChoose == -1 || (!object.read && !object.create && !object.update && !object.delete) || disableObject">
+                        <label class="custom-control-label" [for]="object.objectId + 'default'">
+                          <span></span>
+                        </label>
+                      </div>
+                    </td>
+
+
+                    <td class="text-left">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [id]="object.objectId + 'C'"
+                          [checked]="object.create" (click)="changeActionC(object)"
+                          [disabled]="roleIDChoose == -1 || disableObject">
+                        <label class="custom-control-label" [for]="object.objectId + 'C'">
+                          <span></span>
+                        </label>
+                      </div>
+                    </td>
+
+                    <td class="text-left">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [id]="object.objectId + 'R'"
+                          [checked]="object.read" (click)="changeActionR(object)"
+                          [disabled]="roleIDChoose == -1 || disableObject">
+                        <label class="custom-control-label" [for]="object.objectId + 'R'">
+                          <span></span>
+                        </label>
+                      </div>
+                    </td>
+
+                    <td class="text-left">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [id]="object.objectId + 'U'"
+                          [checked]="object.update" (click)="changeActionU(object)"
+                          [disabled]="roleIDChoose == -1 || disableObject">
+                        <label class="custom-control-label" [for]="object.objectId + 'U'">
+                          <span></span>
+                        </label>
+                      </div>
+                    </td>
+
+                    <td class="text-left">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [id]="object.objectId + 'D'"
+                          [checked]="object.delete" (click)="changeActionD(object)"
+                          [disabled]="roleIDChoose == -1 || disableObject">
+                        <label class="custom-control-label" [for]="object.objectId + 'D'">
+                          <span></span>
+                        </label>
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="w-100 mt-3 mb-1 d-flex justify-content-center">
+            <div class="w-25 d-flex justify-content-center">
+              <div>
+                <button type="button" class="btn btn-primary mr-2 click-btn"
+                  [disabled]="roleIDChoose == -1 || disableObject" (click)="cancel()">
+                  <i class="fa fa-times" aria-hidden="true"></i> {{'management.service.button.cancel' | translate}}
+                </button>
+              </div>
+
+              <div>
+                <button type="button" class="btn btn-primary click-btn" [disabled]="roleIDChoose == -1 || disableObject"
+                  (click)="confirmSave(save)">
+                  <i class="fa fa-save" aria-hidden="true"></i> {{'management.service.button.save' | translate}}
+
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<ng-template #lock>
+
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span class=""> <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+        {{'management.service.message.cofirmLock' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button style="width: 85.64px;" type="button" class="btn btn-secondary click-btn-upload" data-dismiss="modal"
+      (click)=onBackConfirm()><i class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button style="width: 85.64px;" class="btn btn-primary click-btn-upload" type="button" (click)=lockOrUnlock(0)><i
+        class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #unlock>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span class=""> <img style="margin-bottom: 3px;" src="assets/icons8-question-mark-16.png" alt="">
+        {{'management.service.message.cofirmUnlock' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 85.64px;"><i
+        class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" style="width: 85.64px;" (click)=lockOrUnlock(1)><i
+        class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #save>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span class=""> <img style="margin-bottom: 3px;" src="assets/icons8-question-mark-16.png" alt="">
+        {{'management.service.message.confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 85.64px;"><i
+        class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" style="width: 85.64px;" (click)=saveObject()><i
+        class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

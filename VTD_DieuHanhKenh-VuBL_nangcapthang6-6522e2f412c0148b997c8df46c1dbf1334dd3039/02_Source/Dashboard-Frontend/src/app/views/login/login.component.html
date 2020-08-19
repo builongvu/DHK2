@@ -1,0 +1,89 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto login-cpn">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-wrapper">
+                  <h2 class="text-center pb-4 font-weight-bold">{{'dashboard.login.title' | translate}}</h2>
+                  <!-- <p class="text-muted">{{'dashboard.login.note' | translate}}</p>-->
+                  <div class="mb-2">
+                    <mat-form-field class="example-full-width">
+                      <input (focus)="userActive()" (focusout)="userBlur()" formControlName="username" matInput
+                             placeholder="{{'dashboard.user.username' | translate}}">
+                      <img *ngIf="isUserActive" class="userActive"
+                           src="../../../assets/img/login_img/ic_user_active.svg" alt="userIcon">
+                      <img *ngIf="!isUserActive" class="userActive" src="../../../assets/img/login_img/ic_user.svg"
+                           alt="userIcon">
+                      <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)"
+                           class="alert alert-danger log-error-container">
+                        <div class="small-text" *ngIf="f.username.errors.required">
+                          {{'dashboard.message.username_require' | translate}}
+                        </div>
+                      </div>
+                    </mat-form-field>
+
+
+                  </div>
+                  <div class="input-group mb-4">
+                    <mat-form-field class="example-full-width">
+                      <input (focus)="passActive()" (focusout)="passBlur()" formControlName="password" type="password"
+                             matInput
+                             placeholder="{{'dashboard.user.password' | translate}}">
+                      <img *ngIf="isPassActive" class="passActive"
+                           src="../../../assets/img/login_img/ic_lock_active.svg" alt="passIcon">
+                      <img *ngIf="!isPassActive" class="passActive" src="../../../assets/img/login_img/ic_lock.svg"
+                           alt="passIcon">
+                      <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"
+                           class="alert alert-danger log-error-container">
+                        <div class="small-text" *ngIf="f.password.errors.required">
+                          {{'dashboard.message.password_require' | translate}}
+                        </div>
+                      </div>
+                    </mat-form-field>
+                    <p *ngIf="isLoginFail" style="color:red">{{'dashboard.message.wrong_pass' | translate}}</p>
+                  </div>
+                  <div class="row button-wrapper">
+                    <div class="col-6 text-right">
+                      <button type="button" (click)="preChangePass()"
+                              class="link-color px-0">{{'dashboard.login.change_pass' | translate}}</button>
+                    </div>
+                  </div>
+                  <div class="button-container d-flex justify-content-center my-5">
+                    <div class="btn-custom">
+                      <button type="submit"
+                              class="my-btn">{{'dashboard.global.button.login' | translate}}</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <sa-language-selector class="center"></sa-language-selector>
+              <div  *ngIf="!loginSuccessful" class="loading-container">
+<!--                <div *ngIf="!loginSuccessful" class="lds-facebook loading-custom"><div></div><div></div><div></div></div>-->
+                <div *ngIf="!loginSuccessful"class="loading-custom">
+                  <mat-spinner color="warn" diameter="40">
+                  </mat-spinner>
+                </div>
+<!--                <div *ngIf="!loginSuccessful" class="lds-ring loading-custom"><div></div><div></div><div></div><div></div></div>-->
+                <div class="login-status successful" *ngIf="!isLoginFail && isSucessfull">Đăng nhập thành công</div>
+                <div class="login-status error" *ngIf="isLoginFail">Đăng nhập thất bại</div>
+              </div>
+            </div>
+            <div class="card text-white bg-primary d-md-down-none">
+              <div class="card-body text-center">
+                <div>
+                  <div class="logo">
+                    <img class="img-fluid" src="../../../assets/img/login_img/logo-digital.png" alt="">
+                  </div>
+                  <p>{{'dashboard.login.slogan' | translate}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

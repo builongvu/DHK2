@@ -1,0 +1,211 @@
+<div class="row declare-vds-cpn">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mt-1 pd-r">
+          <div class="card-body no-pad-card">
+<!--            <div align="center"><h2>{{'management.declareVDS.unitInfor' | translate}}</h2></div>-->
+            <form [formGroup]="declareVds">
+
+              <div class="form-group row align-items-center mt-4">
+                <div class="col-md-4 col-sm-6">
+                  <input type="radio" formControlName="child" [value]="1" (ngModelChange)="loadData()">
+                  <span class="pdl-2" (click)="check1()" style="cursor: pointer">{{'management.declareVDS.allUnit' | translate}}</span>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <input type="radio" formControlName="child" [value]="0" (ngModelChange)="loadData()">
+                  <span class="pdl-2" (click)="check2()" style="cursor: pointer">{{'management.declareVDS.oneUnit' | translate}}</span>
+                </div>
+              </div>
+
+              <div class="row form-group align-items-center">
+                <div class="col-md-2">{{'management.declareVDS.shopCode' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <input type="text" formControlName="unitCode" class="cvNumber">
+                  <span class="separator"> </span>
+                </div>
+                <div class="col-md-2">{{'management.declareVDS.shopName' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <input type="text" formControlName="unitName" class="cvNumber">
+                  <span class="separator"> </span>
+                </div>
+              </div>
+
+              <div class="row form-group align-items-center">
+                <div class="col-md-2">{{'management.declareVDS.shortName' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <input type="text" formControlName="shortName" class="cvNumber">
+                  <span class="separator"></span>
+                </div>
+                <div class="col-md-2">{{'management.declareVDS.parent' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <input type="text" formControlName="parentName" class="cvNumber" [readonly]="true">
+                  <span class="separator"> </span>
+                </div>
+              </div>
+
+              <div class="row form-group align-items-center mt-2 mb-0">
+                <div class="col-md-2 no-wrap">{{'management.declareVDS.groupVDS' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <select class="select-option-declare" formControlName="groupVds">
+                    <option [value]="null">Chọn</option>
+                    <option *ngFor="let group of groupVDS" [value]="group['code']">{{group['name']}}</option>
+                  </select>
+                  <span class="separator"> </span>
+                </div>
+                <div class="col-md-2">{{'management.declareVDS.status' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <select class="select-option-declare" formControlName="status">
+                    <option [value]="null">Chọn</option>
+                    <option [value]="1">{{'management.weight.active' | translate}}</option>
+                    <option [value]="0">{{'management.weight.notActive' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row form-group align-items-center">
+                <div class="col-md-2">{{'management.declareVDS.fromDate' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <!--                  <input type="text" formControlName="fromDate" class="cvNumber">-->
+                  <mat-form-field class="date-width-declare">
+                    <input matInput [matDatepicker]="fromDate" formControlName="mdtDateFrom"
+                           (dateChange)="dateChangeFrom($event)" [readonly]="true">
+                    <mat-datepicker-toggle matSuffix [for]="fromDate" [disabled]="true"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate [startView]="'multi-year'"
+                                    panelClass="example-month-picker">
+                    </mat-datepicker>
+                  </mat-form-field>
+                  <span class="separator"> </span>
+                </div>
+                <div class="col-md-2">{{'management.declareVDS.toDate' | translate}}</div>
+                <div class="col-md-4 no-pd">
+                  <!--                  <input type="text" formControlName="toDate" class="cvNumber">-->
+                  <mat-form-field class="date-width-declare">
+                    <input matInput [matDatepicker]="toDate" formControlName="mdtDateTo"
+                           (dateChange)="dateChangeTo($event)" [readonly]="true">
+                    <mat-datepicker-toggle matSuffix [for]="toDate" [disabled]="true"></mat-datepicker-toggle>
+                    <mat-datepicker #toDate [startView]="'multi-year'"
+                                    panelClass="example-month-picker">
+                    </mat-datepicker>
+                  </mat-form-field>
+                  <span class="separator"> </span>
+                </div>
+              </div>
+            </form>
+            <div class="w-100 text-center mt-3 mb-2 vis-btn-group">
+              <button (click)="search()" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'management.declareVDS.search' | translate}}</button>
+              <button class="btn btn-primary ml-2" [disabled]="showButtonAdd" (click)="showModalAdd()">
+                <i class="fa fa-plus"></i> {{'management.declareVDS.add' | translate}}</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table-striped table-hover table">
+            <thead class="header-table">
+            <tr>
+              <td>{{'management.declareVDS.stt' | translate}}</td>
+              <td>{{'management.declareVDS.shopCode' | translate}}</td>
+              <td>{{'management.declareVDS.shortName' | translate}}</td>
+              <td>{{'management.declareVDS.shopName' | translate}}</td>
+              <td>{{'management.declareVDS.parent' | translate}}</td>
+
+              <td>{{'management.declareVDS.fromDate' | translate}}</td>
+              <td>{{'management.declareVDS.toDate' | translate}}</td>
+              <td>{{'management.declareVDS.status' | translate}}</td>
+              <td>{{'management.declareVDS.thaotac' | translate}}</td>
+            </tr>
+            </thead>
+
+            <tbody *ngIf="!dataTables">
+            <td colspan="9" align="center">{{'management.target.table.body.noData' | translate}}</td>
+            </tbody>
+            <tbody *ngIf="dataTables">
+            <tr
+              *ngFor="let table of dataTables | paginate: { id: 'declareVDS', itemsPerPage: 10, currentPage: currentP, totalItems: dataTables.length}, index as i">
+              <td align="center">{{currentP * pageSize - (pageSize - 1) + i}}</td>
+              <td align="left" (click)="clickRow(table)" data-toggle="tooltip" data-placement="top" title="{{table['shopCode']}}">
+                <div class="ellipsis-declare">{{table['shopCode']}}</div></td>
+              <td align="left" (click)="clickRow(table)" data-toggle="tooltip" data-placement="top" title="{{table['shortName']}}">
+                <div class="ellipsis-declare">{{table['shortName']}}</div></td>
+              <td align="left" (click)="clickRow(table)" data-toggle="tooltip" data-placement="top" title="{{table['shopName']}}">
+                <div class="ellipsis-declare">{{table['shopName']}}</div></td>
+              <td align="left" (click)="clickRow(table)" data-toggle="tooltip" data-placement="top" title="{{table['parentShopName']}}">
+                <div class="ellipsis-declare">{{table['parentShopName']}}</div></td>
+
+              <td align="center" (click)="clickRow(table)">{{table['fromDate'] | date: "dd/MM/yyyy"}}</td>
+
+              <td align="center" (click)="clickRow(table)">{{table['toDate'] | date: "dd/MM/yyyy"}}</td>
+              <td align="center" (click)="clickRow(table)">
+                <div class="ellipsis-declare" *ngIf="table['status'] == 1">{{'management.weight.active' | translate}}</div>
+                <div class="ellipsis-declare" *ngIf="table['status'] != 1">{{'management.weight.notActive' | translate}}</div>
+              </td>
+              <td align="center">
+                <span data-toggle="tooltip" data-placement="top" title="{{'management.weight.edit' | translate}}"
+                      style = "padding-right: 0.4rem"
+                      (click)="showModalEdit(table)">
+                  <i style="cursor: pointer" class="fa fa-edit"></i></span>
+                <span *ngIf="table['status']==1" (click)="openModal(modal, table)" data-toggle="tooltip" data-placement="top"
+                      title="{{'management.declareVDS.lock' | translate}}">
+                  <i style="cursor: pointer" class="fa fa-lock"></i></span>
+                <span *ngIf="table['status']!=1" (click)="openModal(modal, table)" data-toggle="tooltip" data-placement="top"
+                      title="{{'management.declareVDS.unlock' | translate}}">
+                  <i style="cursor: pointer" class="fa fa-unlock-alt"></i></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="total-row-declare" *ngIf="dataTables">
+          <p>{{'management.weight.from' | translate}} {{currentP * pageSize - (pageSize - 1)}} {{'management.weight.to' | translate}}
+            <span *ngIf="currentP*pageSize <  dataTables.length">{{currentP * pageSize}}</span>
+            <span
+              *ngIf="currentP*pageSize >= dataTables.length">{{dataTables.length}}</span> {{'management.weight./sum' | translate}} {{dataTables.length}} {{'management.weight.record' | translate}}
+          </p>
+          <pagination-controls (pageChange)="pageChange($event)" id="declareVDS" maxSize="7" directionLinks="true"
+                               autoHide="false" responsive="false"
+                               previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                               nextLabel="{{'management.target.table.pager.next' | translate}}"
+                               screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                               screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modal>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{modelAction['status'] == 1? ('management.declareVDS.changeLock' | translate): ('management.declareVDS.changeUnLock' | translate)}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBack() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=action() style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+
+

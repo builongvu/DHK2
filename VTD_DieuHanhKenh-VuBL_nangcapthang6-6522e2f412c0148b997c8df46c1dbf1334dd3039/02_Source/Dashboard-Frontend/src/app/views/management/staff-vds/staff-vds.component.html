@@ -1,0 +1,34 @@
+<div class="w-100 staff-vds-cpn">
+  <div class="row">
+    <div class="col-md-3 d-flex no-pdr">
+      <div class="card w-100 no-mb">
+        <div class="vis-card-body">
+          <app-config-tree-vds [items]="nodeTreeViews" [config]="mobjConfigVDS"
+                               [(value)]="valueVds"
+                               (valueChange)="unitChange($event)" style="padding: 0.35em;"
+                               (filterChangeVDS)="searchTree($event)">
+          </app-config-tree-vds>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 d-flex no-pdl">
+      <div class="card no-mb w-100">
+        <div class="vis-card-body">
+          <div id="tabs">
+            <mat-tab-group>
+              <mat-tab label="{{'management.declareVDS.unit' | translate}}">
+                <div class="target-info">
+                  <app-declare-vds></app-declare-vds>
+                </div>
+              </mat-tab>
+              <mat-tab label="{{'management.declareVDS.staff' | translate}}">
+                <app-staff-vds-list></app-staff-vds-list>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,707 @@
+{
+   "data":{
+      "groupId":1,
+      "channelId":1,
+      "cards":[
+         {
+            "groupId":1,
+            "cardId":1,
+            "title":"Tổng hợp",
+            "cardSize":"1_1",
+            "drilldown":false,
+            "zoom":false,
+            "serviceId":null,
+            "cardType":"NORMAL",
+            "contents":[
+               {
+                  "total":0,
+                  "title":"Bảng dữ liệu thống kê",
+                  "subTitle":null,
+                  "pageNum":0,
+                  "rows":[
+                     {
+                        "rowIndex":0,
+                        "cells" :[
+                           {
+                              "color":"#aaaaaa",
+                              "columnId":0,
+                              "viewValue":"Chỉ tiêu 1"
+                           },
+                           {
+                              "chart":{
+                                 "series":[
+                                    {
+                                       "points":[
+                                          {
+                                             "value":10.0,
+                                             "viewValue":"10 USD",
+                                             "category":"01/10/2019"
+                                          },
+                                          {
+                                             "value":15.0,
+                                             "viewValue":"15 USD",
+                                             "category":"02/10/2019"
+                                          },
+                                          {
+                                             "value":10.0,
+                                             "viewValue":"20 USD",
+                                             "category":"03/10/2019"
+                                          }
+                                       ],
+                                       "color":"#aaaaa",
+                                       "title":"Thực hiện",
+                                       "chartType":"LINE_CHART",
+                                       "unitType":"USD",
+                                       "average":false
+                                    },
+                                    {
+                                       "points":[
+                                          {
+                                             "value":15.0,
+                                             "viewValue":"10 USD",
+                                             "category":"01/10/2019"
+                                          },
+                                          {
+                                             "value":15.0,
+                                             "viewValue":"15 USD",
+                                             "category":"02/10/2019"
+                                          },
+                                          {
+                                             "value":15.0,
+                                             "viewValue":"20 USD",
+                                             "category":"03/10/2019"
+                                          }
+                                       ],
+                                       "color":"#aaaaa",
+                                       "title":"Kế hoạch",
+                                       "chartType":"LINE_CHART",
+                                       "unitType":"USD",
+                                       "average":true
+                                    }
+                                 ],
+                                 "categories":[
+                                    "01/10/2019",
+                                    "02/10/2019",
+                                    "03/10/2019"
+                                 ],
+                                 "title":null,
+                                 "chartType":null,
+                                 "subTitle":null,
+                                 "type":"LINE_CHART"
+                              },
+                              "color":null,
+                              "columnId":1,
+                              "viewValue":null
+                           },
+                          {
+                            "growth":{
+                              "isGrowth": 1
+                            },
+                            "color":null,
+                            "columnId":2,
+                            "viewValue":null
+                          },
+                          {
+                            "bar":{
+                              "performValue":225,
+                              "planMonthValue":300,
+                              "planAccumulateValue":80,
+                              "performPercent":75.5,
+                              "performViewValue":"225",
+                              "planMonthViewValue":"300",
+                              "planAccumulatViewValue":"80",
+                              "performViewPercent":"75.5%",
+                              "stackLineColor":"#000000"
+                            },
+                            "color":null,
+                            "columnId":3,
+                            "viewValue":null
+                          }
+                        ]
+                     },
+                    {
+                      "rowIndex":1,
+                      "cells" :[
+                        {
+                          "color":"#aaaaaa",
+                          "columnId":0,
+                          "viewValue":"Chỉ tiêu 2"
+                        },
+                        {
+                          "chart":{
+                            "series":[
+                              {
+                                "points":[
+                                  {
+                                    "value":10.0,
+                                    "viewValue":"10 USD",
+                                    "category":"01/10/2019"
+                                  },
+                                  {
+                                    "value":15.0,
+                                    "viewValue":"15 USD",
+                                    "category":"02/10/2019"
+                                  },
+                                  {
+                                    "value":10.0,
+                                    "viewValue":"20 USD",
+                                    "category":"03/10/2019"
+                                  }
+                                ],
+                                "color":"#aaaaa",
+                                "title":"Thực hiện",
+                                "chartType":"LINE_CHART",
+                                "unitType":"USD",
+                                "average":false
+                              },
+                              {
+                                "points":[
+                                  {
+                                    "value":15.0,
+                                    "viewValue":"10 USD",
+                                    "category":"01/10/2019"
+                                  },
+                                  {
+                                    "value":15.0,
+                                    "viewValue":"15 USD",
+                                    "category":"02/10/2019"
+                                  },
+                                  {
+                                    "value":15.0,
+                                    "viewValue":"20 USD",
+                                    "category":"03/10/2019"
+                                  }
+                                ],
+                                "color":"#aaaaa",
+                                "title":"Kế hoạch",
+                                "chartType":"LINE_CHART",
+                                "unitType":"USD",
+                                "average":true
+                              }
+                            ],
+                            "categories":[
+                              "01/10/2019",
+                              "02/10/2019",
+                              "03/10/2019"
+                            ],
+                            "title":null,
+                            "chartType":null,
+                            "subTitle":null,
+                            "type":"LINE_CHART"
+                          },
+                          "color":null,
+                          "columnId":1,
+                          "viewValue":null
+                        },
+                        {
+                          "growth":{
+                            "isGrowth": 0
+                          },
+                          "color":null,
+                          "columnId":2,
+                          "viewValue":null
+                        },
+                        {
+                          "bar":{
+                            "performValue":150,
+                            "planMonthValue":300,
+                            "planAccumulateValue":200,
+                            "performPercent":50,
+                            "performViewValue":"123.2",
+                            "planMonthViewValue":"100.2",
+                            "planAccumulatViewValue":"300",
+                            "performViewPercent":"25.5%",
+                            "stackLineColor":"#000000"
+                          },
+                          "color":null,
+                          "columnId":3,
+                          "viewValue":null
+                        }
+                      ]
+                    }
+                  ],
+                  "columns":[
+                     {
+                        "name":"Chỉ tiêu",
+                        "type":"TEXT",
+                        "columnId":0,
+                        "align":"left"
+                     },
+                     {
+                        "name":"Xu thế",
+                        "type":"CHART",
+                        "columnId":0,
+                        "align":"center"
+                     },
+                    {
+                      "name":"Cùng kỳ",
+                      "type":"GROWTH",
+                      "columnId":2,
+                      "align":"center"
+                    },
+                    {
+                      "name":"Tốc độ",
+                      "type":"BAR",
+                      "columnId":3,
+                      "align":"center"
+                    }
+                  ],
+                  "pageSize":0,
+                  "type":"TABLE_VIEW"
+               },
+              {
+                "total":0,
+                "title":"Bảng dữ liệu thống kê",
+                "subTitle":null,
+                "pageNum":0,
+                "rows":[
+                  {
+                    "rowIndex":0,
+                    "cells" :[
+                      {
+                        "color":"#aaaaaa",
+                        "columnId":0,
+                        "viewValue":"Chỉ tiêu 1"
+                      },
+                      {
+                        "chart":{
+                          "series":[
+                            {
+                              "points":[
+                                {
+                                  "value":10.0,
+                                  "viewValue":"10 USD",
+                                  "category":"01/10/2019"
+                                },
+                                {
+                                  "value":15.0,
+                                  "viewValue":"15 USD",
+                                  "category":"02/10/2019"
+                                },
+                                {
+                                  "value":10.0,
+                                  "viewValue":"20 USD",
+                                  "category":"03/10/2019"
+                                }
+                              ],
+                              "color":"#aaaaa",
+                              "title":"Thực hiện",
+                              "chartType":"LINE_CHART",
+                              "unitType":"USD",
+                              "average":false
+                            },
+                            {
+                              "points":[
+                                {
+                                  "value":15.0,
+                                  "viewValue":"10 USD",
+                                  "category":"01/10/2019"
+                                },
+                                {
+                                  "value":15.0,
+                                  "viewValue":"15 USD",
+                                  "category":"02/10/2019"
+                                },
+                                {
+                                  "value":15.0,
+                                  "viewValue":"20 USD",
+                                  "category":"03/10/2019"
+                                }
+                              ],
+                              "color":"#aaaaa",
+                              "title":"Kế hoạch",
+                              "chartType":"LINE_CHART",
+                              "unitType":"USD",
+                              "average":true
+                            }
+                          ],
+                          "categories":[
+                            "01/10/2019",
+                            "02/10/2019",
+                            "03/10/2019"
+                          ],
+                          "title":null,
+                          "chartType":null,
+                          "subTitle":null,
+                          "type":"LINE_CHART"
+                        },
+                        "color":null,
+                        "columnId":1,
+                        "viewValue":null
+                      },
+                      {
+                        "growth":{
+                          "isGrowth": 1
+                        },
+                        "color":null,
+                        "columnId":2,
+                        "viewValue":null
+                      },
+                      {
+                        "bar":{
+                          "performValue":225,
+                          "planMonthValue":300,
+                          "planAccumulateValue":80,
+                          "performPercent":75.5,
+                          "performViewValue":"225",
+                          "planMonthViewValue":"300",
+                          "planAccumulatViewValue":"80",
+                          "performViewPercent":"75.5%",
+                          "stackLineColor":"#000000"
+                        },
+                        "color":null,
+                        "columnId":3,
+                        "viewValue":null
+                      }
+                    ]
+                  },
+                  {
+                    "rowIndex":1,
+                    "cells" :[
+                      {
+                        "color":"#aaaaaa",
+                        "columnId":0,
+                        "viewValue":"Chỉ tiêu 2"
+                      },
+                      {
+                        "chart":{
+                          "series":[
+                            {
+                              "points":[
+                                {
+                                  "value":10.0,
+                                  "viewValue":"10 USD",
+                                  "category":"01/10/2019"
+                                },
+                                {
+                                  "value":15.0,
+                                  "viewValue":"15 USD",
+                                  "category":"02/10/2019"
+                                },
+                                {
+                                  "value":10.0,
+                                  "viewValue":"20 USD",
+                                  "category":"03/10/2019"
+                                }
+                              ],
+                              "color":"#aaaaa",
+                              "title":"Thực hiện",
+                              "chartType":"LINE_CHART",
+                              "unitType":"USD",
+                              "average":false
+                            },
+                            {
+                              "points":[
+                                {
+                                  "value":15.0,
+                                  "viewValue":"10 USD",
+                                  "category":"01/10/2019"
+                                },
+                                {
+                                  "value":15.0,
+                                  "viewValue":"15 USD",
+                                  "category":"02/10/2019"
+                                },
+                                {
+                                  "value":15.0,
+                                  "viewValue":"20 USD",
+                                  "category":"03/10/2019"
+                                }
+                              ],
+                              "color":"#aaaaa",
+                              "title":"Kế hoạch",
+                              "chartType":"LINE_CHART",
+                              "unitType":"USD",
+                              "average":true
+                            }
+                          ],
+                          "categories":[
+                            "01/10/2019",
+                            "02/10/2019",
+                            "03/10/2019"
+                          ],
+                          "title":null,
+                          "chartType":null,
+                          "subTitle":null,
+                          "type":"LINE_CHART"
+                        },
+                        "color":null,
+                        "columnId":1,
+                        "viewValue":null
+                      },
+                      {
+                        "growth":{
+                          "isGrowth": 0
+                        },
+                        "color":null,
+                        "columnId":2,
+                        "viewValue":null
+                      },
+                      {
+                        "bar":{
+                          "performValue":150,
+                          "planMonthValue":300,
+                          "planAccumulateValue":200,
+                          "performPercent":50,
+                          "performViewValue":"123.2",
+                          "planMonthViewValue":"100.2",
+                          "planAccumulatViewValue":"300",
+                          "performViewPercent":"25.5%",
+                          "stackLineColor":"#000000"
+                        },
+                        "color":null,
+                        "columnId":3,
+                        "viewValue":null
+                      }
+                    ]
+                  }
+                ],
+                "columns":[
+                  {
+                    "name":"Chỉ tiêu",
+                    "type":"TEXT",
+                    "columnId":0,
+                    "align":"left"
+                  },
+                  {
+                    "name":"Xu thế",
+                    "type":"CHART",
+                    "columnId":0,
+                    "align":"center"
+                  },
+                  {
+                    "name":"Cùng kỳ",
+                    "type":"GROWTH",
+                    "columnId":2,
+                    "align":"center"
+                  },
+                  {
+                    "name":"Tốc độ",
+                    "type":"BAR",
+                    "columnId":3,
+                    "align":"center"
+                  }
+                ],
+                "pageSize":0,
+                "type":"TABLE_VIEW"
+              }
+            ]
+         },
+         {
+            "groupId":1,
+            "cardId":2,
+            "title":"Biểu đồ X",
+            "cardSize":"1_2",
+            "drilldown":false,
+            "zoom":false,
+            "serviceId":null,
+            "cardType":"NORMAL",
+            "contents":[
+               {
+                  "series":[
+                     {
+                        "points":[
+                           {
+                              "value":10.0,
+                              "viewValue":"10 USD",
+                              "category":"01/10/2019"
+                           },
+                           {
+                              "value":15.0,
+                              "viewValue":"15 USD",
+                              "category":"02/10/2019"
+                           },
+                           {
+                              "value":10.0,
+                              "viewValue":"20 USD",
+                              "category":"03/10/2019"
+                           }
+                        ],
+                        "color":"#aaaaa",
+                        "title":"Thực hiện",
+                        "chartType":"LINE_CHART",
+                        "unitType":"USD",
+                        "average":false
+                     },
+                     {
+                        "points":[
+                           {
+                              "value":15.0,
+                              "viewValue":"10 USD",
+                              "category":"01/10/2019"
+                           },
+                           {
+                              "value":15.0,
+                              "viewValue":"15 USD",
+                              "category":"02/10/2019"
+                           },
+                           {
+                              "value":15.0,
+                              "viewValue":"20 USD",
+                              "category":"03/10/2019"
+                           }
+                        ],
+                        "color":"#aaaaa",
+                        "title":"Kế hoạch",
+                        "chartType":"LINE_CHART",
+                        "unitType":"USD",
+                        "average":true
+                     }
+                  ],
+                  "categories":[
+                     "01/10/2019",
+                     "02/10/2019",
+                     "03/10/2019"
+                  ],
+                  "title":null,
+                  "chartType":null,
+                  "subTitle":null,
+                  "type":"LINE_CHART"
+               },
+              {
+                "series":[
+                  {
+                    "points":[
+                      {
+                        "value":10.0,
+                        "viewValue":"10 USD",
+                        "category":"01/10/2019"
+                      },
+                      {
+                        "value":15.0,
+                        "viewValue":"15 USD",
+                        "category":"02/10/2019"
+                      },
+                      {
+                        "value":10.0,
+                        "viewValue":"20 USD",
+                        "category":"03/10/2019"
+                      }
+                    ],
+                    "color":"#aaaaa",
+                    "title":"Thực hiện",
+                    "chartType":"LINE_CHART",
+                    "unitType":"USD",
+                    "average":false
+                  },
+                  {
+                    "points":[
+                      {
+                        "value":15.0,
+                        "viewValue":"10 USD",
+                        "category":"01/10/2019"
+                      },
+                      {
+                        "value":15.0,
+                        "viewValue":"15 USD",
+                        "category":"02/10/2019"
+                      },
+                      {
+                        "value":15.0,
+                        "viewValue":"20 USD",
+                        "category":"03/10/2019"
+                      }
+                    ],
+                    "color":"#aaaaa",
+                    "title":"Kế hoạch",
+                    "chartType":"LINE_CHART",
+                    "unitType":"USD",
+                    "average":true
+                  }
+                ],
+                "categories":[
+                  "01/10/2019",
+                  "02/10/2019",
+                  "03/10/2019"
+                ],
+                "title":null,
+                "chartType":null,
+                "subTitle":null,
+                "type":"LINE_CHART"
+              }
+            ]
+         },
+        {
+          "groupId":1,
+          "cardId":2,
+          "title":"Biểu đồ Y",
+          "cardSize":"1_2",
+          "drilldown":false,
+          "zoom":false,
+          "serviceId":null,
+          "cardType":"NORMAL",
+          "contents":[
+            {
+              "series":[
+                {
+                  "points":[
+                    {
+                      "value":10.0,
+                      "viewValue":"10 USD",
+                      "category":"01/10/2019"
+                    },
+                    {
+                      "value":15.0,
+                      "viewValue":"15 USD",
+                      "category":"02/10/2019"
+                    },
+                    {
+                      "value":10.0,
+                      "viewValue":"20 USD",
+                      "category":"03/10/2019"
+                    }
+                  ],
+                  "color":"#aaaaa",
+                  "title":"Thực hiện",
+                  "chartType":"LINE_CHART",
+                  "unitType":"USD",
+                  "average":false
+                },
+                {
+                  "points":[
+                    {
+                      "value":15.0,
+                      "viewValue":"10 USD",
+                      "category":"01/10/2019"
+                    },
+                    {
+                      "value":15.0,
+                      "viewValue":"15 USD",
+                      "category":"02/10/2019"
+                    },
+                    {
+                      "value":15.0,
+                      "viewValue":"20 USD",
+                      "category":"03/10/2019"
+                    }
+                  ],
+                  "color":"#aaaaa",
+                  "title":"Kế hoạch",
+                  "chartType":"LINE_CHART",
+                  "unitType":"USD",
+                  "average":true
+                }
+              ],
+              "categories":[
+                "01/10/2019",
+                "02/10/2019",
+                "03/10/2019"
+              ],
+              "title":null,
+              "chartType":null,
+              "subTitle":null,
+              "type":"LINE_CHART"
+            }
+          ]
+        }
+      ],
+      "defaultCycle":"NGAY",
+      "groupName":"Thống kê tháng 10/2019"
+   },
+   "errors":"",
+   "status":null,
+   "pageSize":null,
+   "page":null,
+   "totalRow":null,
+   "code":200
+}

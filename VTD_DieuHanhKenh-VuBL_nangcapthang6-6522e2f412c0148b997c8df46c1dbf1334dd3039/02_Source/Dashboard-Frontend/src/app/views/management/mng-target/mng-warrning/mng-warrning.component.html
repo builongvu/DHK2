@@ -1,0 +1,246 @@
+<div class="row">
+
+    <div class="col-xl-12">
+        <div class="card" style="margin-top: 0.5%;">
+            <div class="card-body">
+                <div class="form-group row align-items-center">
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.nameGroup' | translate}}</label>
+                    <div class="col-xl-4 col-md-4 col-sm-12 ">
+                        <mat-form-field>
+                            <input matInput class="ellipsis" style="color: darkgray;" name="service.name" tooltip="{{sservice.name}}" placement="bottom" [(ngModel)]="sservice.name" readonly>
+                        </mat-form-field>
+                    </div>
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.change' | translate}}</label>
+                    <div class="col-xl-4 col-md-4 col-sm-12 ">
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="warningTarget.channelName" readonly>
+                        </mat-form-field>
+
+
+                    </div>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.warning' | translate}}</label>
+                    <div class="col-xl-4 col-md-4 col-sm-12">
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="warningTarget.appParamName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.status' | translate}}</label>
+                    <div class="col-xl-4 col-md-4 col-sm-12">
+                        <mat-form-field>
+                            <input matInput value="{{sservice.id == null || !showStatus ? '' :
+                            (warningTarget.wStatus == 0 ? ('management.service.info.nonwork' | translate) :
+                            'management.service.info.work' | translate)}}" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.toValue' | translate}}</label>
+                    <div class="col-xl-4 col-md-4 col-sm-12">
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="warningTarget.wfvalue" readonly>
+                        </mat-form-field>
+
+                    </div>
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.formvalue' | translate}}</label>
+                    <div class="col-xl-4 col-md-4 col-sm-12">
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="warningTarget.wovalue" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="form-group row align-items-center">
+
+
+                    <label class="col-xl-2 col-md-2 col-sm-12 col-form-label">{{'management.group.table.head.exp' | translate}}</label>
+                    <div class="col-xl-10 col-md-10 col-sm-12">
+                        <mat-form-field>
+                            <textarea class="m-t-0 texta" cdkTextareaAutosize cdkAutosizeMinRows="1" [(ngModel)]="warningTarget.wexp" readonly matInput [maxLength]=100 cdkAutosizeMaxRows="10" style=" overflow: auto;"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-footer text-muted ">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center flex-wrap">
+
+                        <button class="btn btn-primary mb-2 mx-2 mt-5" (click)="openDialog()" data-toggle="modal" [disabled]="status == 0 || showCreateButton"><i class="fa fa-plus"></i>
+
+                            {{'management.group.button.add' | translate}} </button>
+                        <button class="btn btn-primary mb-2 mx-2 mt-5" (click)="downloadWarningTemplate()"><i
+                                class="fa fa-download"></i>
+                            {{'management.group.button.download' | translate}}
+                        </button>
+                        <button class="btn btn-primary mb-2 mx-2 mt-5" (click)="confirm(upload)"><i
+                                class="fa fa-upload"></i>
+                            {{'management.group.button.up' | translate}}
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class="w-100  font-weight-bold" style="font-size:20px; padding-left: 2%; font-weight: bold; ">
+        <h4>{{'management.service.title.warningheader' | translate}}</h4>
+    </div> -->
+    <div class="w-100 py-2 font-weight-bold" style=" padding-left: 2%;">
+        {{'management.service.title.warningheader' | translate}}
+    </div>
+    <div class="row ">
+        <div class="col-lg-12 ">
+            <div class="table-responsive score-table ">
+                <table class="table table-striped table-hover ">
+                    <thead class="header-table ">
+                        <tr>
+                            <th>
+                                <div class="custom-control custom-checkbox " *ngIf="warningc && warningc.length>0">
+                                    <input type="checkbox" class="custom-control-input" [(ngModel)]="mblnCheckAll" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1" (click)="checkAll()">
+                                    </label>
+                                </div>
+                            </th>
+                            <th>{{'management.group.table.head.ordinalNumbers' | translate}} </th>
+                            <th> {{'management.group.table.head.change' | translate}}</th>
+                            <th> {{'management.group.table.head.nameGroup' | translate}}</th>
+                            <th>{{'management.group.table.head.warning' | translate}}</th>
+
+                            <th>{{'management.group.table.head.toValue' | translate}}</th>
+                            <th>{{'management.group.table.head.formvalue' | translate}}</th>
+                            <th>{{'management.group.table.head.exp' | translate}}</th>
+                            <th>{{'management.group.table.head.status' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="warningc.length == 0">
+                        <td colspan="10" style="text-align: center;">
+                            {{'management.target.table.body.noData' | translate}}</td>
+                    </tbody>
+                    <tbody *ngIf="warningc.length > 0">
+                        <tr *ngFor="let children of warningc | paginate: { id: 'planMontlyMng', itemsPerPage: 10, currentPage: currentPage, totalItems: warningc.length}; index as i">
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" [id]="i+1" [(ngModel)]="children.check" (click)="select(children.wcID)">
+                                    <label class="custom-control-label" [for]="i+1">
+
+                                    </label>
+                                </div>
+                            </td>
+                            <td (click)="onFillData(children)">
+                                {{currentPage * pageSize - (pageSize - 1) + i}}</td>
+                            <td (click)="onFillData(children)">
+                                <div class="ellipsis" tooltip="{{children.channelName}}" placement="top">
+                                    {{children.channelName}}
+                                </div>
+                            </td>
+                            <td (click)="onFillData(children)">
+                                <div class="ellipsis text-left" tooltip="{{children.serviceName}}" placement="top">
+                                    {{children.serviceName}}
+                                </div>
+                            </td>
+                            <td (click)="onFillData(children)" align="center" title="{{children.appParamName}}">
+                                {{children.appParamName}}</td>
+
+                            <td (click)="onFillData(children)" style="text-align: right;">{{children.wfvalue}}</td>
+                            <td (click)="onFillData(children)" style="text-align: right;">{{children.wovalue}}</td>
+                            <td class="text-center" style="text-align: left" (click)="onFillData(children)">
+                                <div class="ellipsis text-left" tooltip="{{children.wexp}}" placement="top">
+                                    {{children.wexp}}
+                                </div>
+                            </td>
+                            <td (click)="onFillData(children)">
+                                <div class="ellipsis text-center" tooltip="{{children.wStatus == 0 ? ('management.service.info.nonwork' | translate) : 'management.service.info.work' | translate}}" placement="top">
+                                    {{children.wStatus == 0 ? ('management.service.info.nonwork' | translate) : 'management.service.info.work' | translate}}
+                                </div>
+                            </td>
+                            <td style="text-align: left;">
+                                <i class="fa fa-edit" tooltip="{{'management.service.button.edit' | translate}}" (click)="editService(children, i)" style="cursor: pointer;"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="total-row-thinh" *ngIf="warningc.length > 0">
+                    <p>{{'management.weight.from' | translate}} {{currentPage * pageSize - (pageSize - 1)}} {{'management.weight.to' | translate}}
+                        <span *ngIf="currentPage*pageSize <  warningc.length">{{currentPage * pageSize}}</span>
+                        <span *ngIf="currentPage*pageSize >= warningc.length">{{warningc.length}}</span> {{'management.weight./sum' | translate}} {{warningc.length}} {{'management.weight.record' | translate}}
+                    </p>
+                    <pagination-controls (pageChange)="pageChangeMng($event)" id="planMontlyMng" maxSize="7" directionLinks="true" autoHide="false" responsive="false" previousLabel="{{'management.target.table.pager.previous' | translate}}" nextLabel="{{'management.target.table.pager.next' | translate}}"
+                        screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                    </pagination-controls>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center flex-wrap" *ngIf="warningc.length > 0">
+                    <button type="button" class="btn btn-primary mb-2 mx-2 mt-5" style="width: 11%;" (click)="openConfirm(confirmm,0)" [disabled]="mstrstatus != '1' && mstrstatus != '-1'">
+
+                        <i class="fa fa-lock" aria-hidden="true"></i> {{'management.weight.lock' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary mb-2 mx-2 mt-5" (click)="openConfirm(confirmm,1)" [disabled]="mstrstatus != '0' && mstrstatus != '-1'">
+                        <i class="fa fa-unlock-alt" aria-hidden="true"></i> {{'management.weight.unlock' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #upload>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left title-upload">{{'management.service.title.warningService' | translate}}
+            </h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+                <span aria-hidden="true" style="border: none">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file" (change)="selectFile($event)" size="6MB">
+            <div *ngIf="mblnCheckFileNull" style="color: red">{{'management.target.modal.fileNull' | translate}}</div>
+
+            <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull" style="color: #20a8d8">
+                {{'management.target.modal.uploaded' | translate}}: {{mnbrSumSuccessfulRecord}} /{{mnbrSumRecord}} {{'management.target.table.record.record' | translate}}</div>
+
+            <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull">
+                {{'management.target.modal.resultDownload' | translate}} (
+                <span *ngIf="mblnIsClickHere" (click)="downloadResult(mstrResultFileName)" class="down-upload">{{'management.target.modal.here' | translate}}</span>
+                <span *ngIf="!mblnIsClickHere" class="down-upload" (click)="downloadResult(mstrResultFileName)">{{'management.target.modal.here' | translate}}
+
+                </span>)
+            </div>
+
+            <div *ngIf="mnbrCode == 200 && mstrMessageUpload && mblnIsSelectFile && showMessageUpload && !mblnCheckFileNull" style="color: red">
+                {{mstrMessageUpload}}</div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary click-btn-upload" (click)="onBack()"><i
+                    class="fa fa-sign-out"></i>
+                {{'management.target.button.back' | translate}}
+            </button>
+            <button (click)="upLoad()" class="btn btn-primary click-btn-upload" type="button"><i
+                    class="fa fa-upload"></i>
+                {{'management.target.button.upload' | translate}}
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #confirmm>
+        <div class="modal-body">
+            <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+            <span class="mx-1" *ngIf="!mblnConfirm"> {{'management.warningconfig.lock?' | translate}}</span>
+            <span class="mx-1" *ngIf="mblnConfirm"> {{'management.warningconfig.unlock?' | translate}}</span>
+        </div>
+        <div class="modal-footer">
+            <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+                {{'management.warningconfig.No' | translate}}</button>
+            <button class="m-2 btn btn-primary click-btn" (click)="LockUnlock('0')" *ngIf="!mblnConfirm"><i
+                    class="fa fa-check"></i>
+                {{'management.warningconfig.Yes' | translate}}
+            </button>
+            <button class="m-2 btn btn-primary click-btn" (click)="LockUnlock('1')" *ngIf="mblnConfirm"><i
+                    class="fa fa-check"></i>
+                {{'management.warningconfig.Yes' | translate}}
+            </button>
+        </div>
+    </ng-template>
+</div>

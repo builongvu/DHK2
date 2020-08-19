@@ -1,0 +1,99 @@
+<div class="row mapping-vds-vtt" style="margin: 0 !important; position: relative; width: 70vw !important;">
+  <div class="col-xl-12">
+    <div class="w-100">
+      <div class="vis-card-header">
+        <div class="row border-b">
+          <div class="col-md-8">
+            <h4 *ngIf="this.data.type != 1">
+              {{'management.VDSGroup.mappingchannel' | translate}}
+            </h4>
+            <h4 *ngIf="this.data.type == 1">
+              {{'management.VDSGroup.updatemappingchannel' | translate}}
+            </h4>
+          </div>
+
+          <div class="col-md-4 text-right">
+            <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;"
+              (click)="close()">&times;</span>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="modal-body"><br>
+        <div class="row">
+          <div class="col-xl-2">
+            <label>{{'management.VDSGroup.VTTGroup' | translate}}</label><span [style.color]="'red'">*</span>
+          </div>
+          <div class="col-xl-4" *ngIf="this.data.type != 1">
+            <app-configwr-tree class="tree" [items]="marrNodeVTT" (click)="checkSelectVTT()" [(value)]="valueVTT"
+              (valueChange)="OnchangeVTT($event)" [config]="config">
+            </app-configwr-tree>
+            <div class="error1">
+              {{checkVTT == 1 ? ('management.service.error.required' | translate) : ''}}
+            </div>
+          </div>
+          <div class="col-xl-4" *ngIf="this.data.type == 1">
+            <select class="select-search" disabled>
+            <option>{{this.mobjMapping.groupChannelName}}</option>
+            </select>
+          </div>
+
+          <div class="col-xl-2">
+            <label>{{'management.VDSGroup.VDSGroup' | translate}} </label><span [style.color]="'red'">*</span>
+          </div>
+          <div class="col-xl-4">
+            <app-configwr-tree class="tree" [items]="marrNodeVDS" [(value)]="valueVDS"
+              (valueChange)="OnchangeVDS($event)" (click)="checkSelectVDS()" [config]="config">
+            </app-configwr-tree>
+            <div class="error1">
+              {{checkVDS == 1 ? ('management.service.error.required' | translate) : ''}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xl-2">
+            {{'management.menu.status' | translate}}<span [style.color]="'red'">*</span>
+          </div>
+          <div class="col-xl-4" *ngIf="mobjMapping && mobjMapping.id == -1">
+            <select class="select-search" name="object" disabled>
+              <option value='1'>{{'management.service.info.work' | translate}}</option>
+            </select>
+          </div>
+          <div class="col-xl-4" *ngIf="mobjMapping && mobjMapping.id != -1">
+            <select class="select-search" name="object" [(ngModel)]="mobjMapping.status">
+              <option value='1'>{{'management.service.info.work' | translate}}</option>
+              <option value='0'>{{'management.service.info.nonwork' | translate}}</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="w-100 d-flex justify-content-center py-2 mb-2">
+          <button type="button" class="btn btn-primary click-btn mr-2" mat-button mat-dialog-close><i
+              class="fa fa-times"></i>
+            {{'management.service.button.cancel' | translate}}</button>
+          <button type="button" class="btn btn-primary click-btn ml-2" (click)="showConfirm(confirm)"
+            [disabled]="checkVDS != 0 || checkVTT != 0"><i class=" fa fa-save"></i>
+            {{'management.service.button.save' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #confirm>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1">{{'management.warningconfig.ok?' | translate}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="save()"><i class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+</div>

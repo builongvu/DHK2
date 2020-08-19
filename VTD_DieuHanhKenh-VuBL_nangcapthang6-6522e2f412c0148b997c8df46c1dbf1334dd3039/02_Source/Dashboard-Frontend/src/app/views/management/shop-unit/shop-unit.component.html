@@ -1,0 +1,272 @@
+<div class="shop-unit">
+  <mat-tab-group>
+    <mat-tab label="{{'management.shopunit.shopunit' | translate}}">
+      <div class="col-xl-12 col-md-12 col-sm-12 p-0 mt-3">
+        <div class="card">
+          <div class="card-body pb-0">
+            <div class="row form-group">
+              <div class="col-xl-4 col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="col-xl-4 col-md-4 col-sm-4">
+                    <label class="col-form-label pb-0">{{'management.shopunit.service' | translate}}</label>
+                  </div>
+                  <div class="col-xl-8 col-md-8 col-sm-8">
+                    <app-config-tree class="service-tree" [(value)]="value" [items]="marrNodeTreeviewServices"
+                      [config]="mobjConfig" (valueChange)="onValueChange($event)">
+                    </app-config-tree>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-4 col-md-6 col-sm-12 mar-t">
+                <div class="row">
+                  <div class="col-xl-4 col-md-4 col-sm-4">
+                    <label class="col-form-label pb-0">{{'management.shopunit.shop' | translate}}</label>
+                  </div>
+                  <div class="col-xl-8 col-md-8 col-sm-8">
+                    <app-config-tree class="service-tree" [(value)]="valueUnit" [items]="TreeShopCode"
+                      [config]="mobjConfig" (valueChange)="onValueChangeUnit($event)">
+                    </app-config-tree>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-4 col-md-6 col-sm-12 mar-top">
+                <div class="row">
+                  <div class="col-xl-4 col-md-4 col-sm-4">
+                    <label class="col-form-label pb-0">{{'management.shopunit.channel' | translate}}</label>
+                  </div>
+                  <div class="col-xl-8 col-md-8 col-sm-8">
+                      <input class="input-search" disabled [(ngModel)]="!channel || channel == null || channel == 'null' ? '' : channel">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-xl-4 col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="col-xl-4 col-md-4 col-sm-4">
+                    <label class="col-form-label pb-0">{{'management.shopunit.unit' | translate}}</label>
+                  </div>
+                  <div class="col-xl-8 col-md-8 col-sm-8">
+                    <select class="select-search" name="unit" [(ngModel)]="shopunitDTO.unitCode">
+                      <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+                      <option *ngFor="let unit of units" [value]="unit.code">{{unit.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-4 col-md-6 col-sm-12 mar-t">
+                <div class="row">
+                  <div class="col-xl-4 col-md-4 col-sm-4">
+                    <label class="col-form-label pb-0">{{'management.shopunit.status' | translate}}</label>
+                  </div>
+                  <div class="col-xl-8 col-md-8 col-sm-8">
+                    <select name="product" class="select-search" [(ngModel)]="shopunitDTO.status">
+                      <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+                      <option value="1">{{'management.service.info.work' | translate}}</option>
+                      <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-100 d-flex justify-content-center btn-update-config">
+              <button class="btn m-2 btn-primary click-btn" type="button" (click)="search()"><i
+                  class="fa fa-search"></i>
+                {{'management.warningconfig.search' | translate}}
+              </button>
+              <button class="btn m-2 btn-primary click-btn" type="button" (click)="openNew()"><i class="fa fa-plus"></i>
+                {{'management.service.button.add' | translate}}
+              </button>
+              <!-- <button class="m-2 btn btn-primary" (click)="download()"><i class="fa fa-download"></i>
+                {{'management.target.button.download' | translate}}
+              </button> -->
+              <button class="m-2 btn btn-primary click-btn" (click)="newUpload(upload)"><i class="fa fa-upload"></i>
+                {{'management.warningconfig.upload' | translate}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-md-12 col-sm-12 p-0 mttable table-responsive table-shop-unit">
+        <div class="table-reponsive">
+          <table class="table table-striped table-hover fixed">
+            <thead class="header-table">
+              <tr>
+                <th>
+                  <div class="custom-control custom-checkbox" *ngIf="shopUnits && shopUnits.length > 0">
+                    <input type="checkbox" [(ngModel)]="mblnCheckAll" class="custom-control-input" id="all">
+                    <label class="custom-control-label" (click)="checkAll()" for="all">
+                      <span></span>
+                    </label>
+                  </div>
+                </th>
+                <th>{{'management.target.table.header.order' | translate}}</th>
+                <th>{{'management.shopunit.service' | translate}}</th>
+                <th>{{'management.shopunit.shop' | translate}}</th>
+                <th>{{'management.shopunit.channel' | translate}}</th>
+                <th>{{'management.shopunit.unit' | translate}}</th>
+                <th>{{'management.shopunit.fromdate' | translate}}</th>
+                <th>{{'management.shopunit.todate' | translate}}</th>
+                <th>{{'management.shopunit.status' | translate}}</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody *ngIf="!shopUnits || shopUnits.length == 0">
+              <tr>
+                <td colspan="10" align="center" style="background: white">
+                  {{'management.warningconfig.Nodata' | translate}}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="shopUnits && shopUnits.length > 0">
+              <tr
+                *ngFor="let shopUnit of shopUnits | paginate : {id: 'shopunit',itemsPerPage: 10, currentPage: shopunitDTO.pager.page, totalItems: shopunitDTO.pager.totalRow}; index as i">
+                <td class="text-center">
+                  <div class="custom-control custom-checkbox" *ngIf="shopUnit">
+                    <input type="checkbox" class="custom-control-input" (click)="select(shopUnit.mlngId)"
+                      [(ngModel)]="shopUnit.check" [id]="shopUnit.mlngId">
+                    <label class="custom-control-label" [for]="shopUnit.mlngId">
+                    </label>
+                  </div>
+                </td>
+                <td class="text-center">
+                  {{((shopunitDTO.pager.page - 1) * shopunitDTO.pager.pageSize) + i + 1}}
+                </td>
+                <td>
+                  <div *ngIf="shopUnit.service" [tooltip]="shopUnit.service.name" class='text-over'>
+                    {{ shopUnit.service.name }}
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="shopUnit.partner" [tooltip]="shopUnit.partner.shopName" class='text-over'>
+                    {{ shopUnit.partner.shopName }}
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="shopUnit.partner"
+                    [tooltip]="shopUnit.channel == 'null' ? '' : shopUnit.channel"
+                    class='text-over'>
+                    {{ shopUnit.channel == 'null' ? '' : shopUnit.channel }}
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="shopUnit.unit" [tooltip]="shopUnit.unit.name" class='text-over'>
+                    {{ shopUnit.unit.name }}
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div [tooltip]="shopUnit.mdtFromDate| date: 'dd/MM/yyyy'" class='text-over'>
+                    {{ shopUnit.mdtFromDate | date: 'dd/MM/yyyy'}}
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div [tooltip]="shopUnit.mdtToDate| date: 'dd/MM/yyyy'" class='text-over'>
+                    {{ shopUnit.mdtToDate | date: 'dd/MM/yyyy'}}
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div
+                    [tooltip]="shopUnit.mstrStatus == '1' ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate)"
+                    class='text-over'>
+                    {{shopUnit.mstrStatus == '1' ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate) }}
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-pencil-square-o" style="cursor: pointer;" (click)="openEdit(shopUnit)"
+                    tooltip="{{'management.warningconfig.edit' | translate}}" aria-hidden="true"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="w-100 d-flex justify-content-between" *ngIf="shopUnits && shopUnits.length>0">
+        <p style="margin-left: 5px;">
+          {{'management.warningconfig.from' | translate}}{{shopunitDTO.pager.page * 10 - 9}}
+          {{'management.warningconfig.to' | translate}}
+          {{shopunitDTO.pager.page * 10 < shopunitDTO.pager.totalRow ? shopunitDTO.pager.page * 10 : shopunitDTO.pager.totalRow  }}
+          {{'management.warningconfig.of' | translate}} {{shopunitDTO.pager.totalRow}}
+          {{'management.warningconfig.record' | translate}}</p>
+        <ul style="float:right;" class="pagination">
+          <pagination-controls id='shopunit' (pageChange)="pageChange($event)"
+            previousLabel="{{'management.target.table.pager.previous' | translate}}"
+            nextLabel="{{'management.target.table.pager.next' | translate}}" (pageChange)="p = $event">
+          </pagination-controls>
+        </ul>
+      </div>
+
+      <div class="w-100 d-flex justify-content-center" *ngIf="shopUnits && shopUnits.length>0">
+        <button type="button" class="m-2 btn btn-primary click-btn" [disabled]="mstrlock == '0'"
+          (click)="openConfirm(confirm,'0')">
+          <i class="fa fa-lock" aria-hidden="true"></i> {{'management.service.info.lock' | translate}}
+        </button>
+        <button type="button" class="m-2 btn btn-primary click-btn" [disabled]="mstrunlock == '0'"
+          (click)="openConfirm(confirm,'1')">
+          <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+          {{'management.service.info.unLock' | translate}}
+        </button>
+      </div>
+
+      <ng-template #confirm>
+        <div class="modal-body">
+          <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+          <span class="mx-1" *ngIf="!mblnConfirm"> {{'management.warningconfig.lock?' | translate}}</span>
+          <span class="mx-1" *ngIf="mblnConfirm"> {{'management.warningconfig.unlock?' | translate}}</span>
+        </div>
+        <div class="modal-footer">
+          <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+            {{'management.warningconfig.No' | translate}}</button>
+          <button class="m-2 btn btn-primary click-btn" (click)="lockUnlock('0')" *ngIf="!mblnConfirm"><i
+              class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+          </button>
+          <button class="m-2 btn btn-primary click-btn" (click)="lockUnlock('1')" *ngIf="mblnConfirm"><i
+              class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+          </button>
+        </div>
+      </ng-template>
+
+
+      <ng-template #upload>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left title-upload">{{'management.shopunit.shopunit' | translate}}</h4>
+          <button type="button" class="close pull-right" (click)="back()" aria-label="Close">
+            <span aria-hidden="true" style="border: none">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file"
+            [(ngModel)]="uploadfile" (change)="selectFile($event)" size="6MB">
+          <p *ngIf="filenull == true" style="color: red;">{{'management.warningconfig.chooseExcel' | translate}}</p>
+          <div *ngIf="status" style="color: #20a8d8">
+            {{status}}</div>
+          <div *ngIf="errors" style="color: red">
+            {{errors}}</div>
+          <div *ngIf="vstrFileName">
+            {{'management.target.modal.resultDownload' | translate}}
+            (<a href="#/shop-unit" (click)="downloadResult()"
+              class="a-upload">{{'management.target.modal.here' | translate}}</a>)
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary click-btn" (click)="back()"><i class="fa fa-sign-out"></i>
+            {{'management.target.button.back' | translate}}</button>
+          <button type="button" class="btn btn-primary click-btn" (click)="upLoad()"><i class="fa fa-upload"></i>
+            {{'management.warningconfig.upload' | translate}}</button>
+        </div>
+      </ng-template>
+
+    </mat-tab>
+
+    <mat-tab label="{{'management.shopunit.unit' | translate}}">
+      <app-unit-dvt></app-unit-dvt>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="APP_LOG_ROOT">../logs</Property>
+    </Properties>
+
+    <Appenders>
+
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <RollingFile name="applicationLog" fileName="${sys:APP_LOG_ROOT}/application.log"
+                     filePattern="${sys:APP_LOG_ROOT}/application-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="storeScheduleLog" fileName="${sys:APP_LOG_ROOT}/schedule.log"
+                     filePattern="${sys:APP_LOG_ROOT}/schedule-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="springLog" fileName="${sys:APP_LOG_ROOT}/spring-framework.log"
+                     filePattern="${sys:APP_LOG_ROOT}/spring-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+
+        <RollingFile name="hibernateLog" fileName="${sys:APP_LOG_ROOT}/database.log"
+                     filePattern="${sys:APP_LOG_ROOT}/spring-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="vn.vissoft.dashboard" additivity="false" level="info">
+            <AppenderRef ref="applicationLog" />
+            <AppenderRef ref="console"  />
+        </Logger>
+
+        <Logger name="vn.vissoft.dashboard.helper.StoreProcedureScheduler" additivity="false" level="info">
+            <AppenderRef ref="storeScheduleLog" />
+            <AppenderRef ref="console"  />
+        </Logger>
+
+        <Logger name="org.springframework" additivity="false" level="info">
+            <AppenderRef ref="springLog" />
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <Logger name="org.hibernate" additivity="false" level="info">
+            <AppenderRef ref="hibernateLog" />
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>

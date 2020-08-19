@@ -1,0 +1,230 @@
+<div class="animated fadeIn object-config-cpn">
+   <div class="row">
+      <div class="col-lg-3 d-flex" style="padding-right: 8px !important;">
+         <div class="card margin-bottom w-100">
+            <div class="card-header  font-weight-bold">
+               <div>{{'management.menu.menu' | translate}}</div>
+            </div>
+            <app-config-tree-select class="card-body" [value]="-1" [items]="marrNodeTreeviewServices"
+               [config]="mobjConfig" style="padding: 0.35em;" (valueChange)="onValueChange($event)">
+            </app-config-tree-select>
+         </div>
+      </div>
+      <div class="col-lg-9 pdl-0 d-flex">
+         <div class="card margin-bottom">
+            <div class="card-header text-left font-weight-bold">
+               <div>{{'management.menu.menuchild' | translate}}</div>
+            </div>
+            <div class="vis-card-body">
+               <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                     <thead class="header-table">
+                        <tr>
+                           <th class="text-left">
+                              <div class="custom-control custom-checkbox"
+                                 *ngIf="marrchild && marrchild.children.length>0">
+                                 <input type="checkbox" class="custom-control-input" id="wmlngId"
+                                    [(ngModel)]="marrchild.check">
+                                 <label class="custom-control-label" for="wmlngId" (click)="SelectAll()">
+                                    <span></span>
+                                 </label>
+                              </div>
+                           </th>
+                           <th>STT</th>
+                           <th>{{'management.menu.code' | translate}}</th>
+                           <th>{{'management.menu.name' | translate}}</th>
+                           <th>{{'management.menu.parent' | translate}}</th>
+                           <th>{{'management.menu.url' | translate}}</th>
+                           <th>{{'management.menu.objecttype' | translate}}</th>
+                           <th>{{'management.menu.order' | translate}}</th>
+                           <th>{{'management.menu.functiontype' | translate}}</th>
+                           <th>{{'management.menu.status' | translate}}</th>
+                           <th></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngIf=" !marrchild || marrchild.children.length==0">
+                           <td colspan="11" align="center" style="background: white">
+                              {{'management.warningconfig.Nodata' | translate}}</td>
+                        </tr>
+                     </tbody>
+                     <tbody *ngIf="marrchild">
+                        <tr
+                           *ngFor="let child of marrchild.children | paginate : {itemsPerPage: 10   , currentPage: mbrp }; index as i">
+                           <td class="text-left" *ngIf="((mbrp - 1) * 10) + i + 1 == 1">
+                              <div class="custom-control custom-checkbox">
+                                 <input type="checkbox" class="custom-control-input" [id]="i+1"
+                                    [(ngModel)]="child.check" (click)="selectChild()">
+                                 <label class="custom-control-label" [for]="i+1">
+                                    <span></span>
+                                 </label>
+                              </div>
+                           </td>
+                           <td class="text-right" *ngIf="((mbrp - 1) * 10) + i + 1 != 1">
+                              <div class="custom-control custom-checkbox">
+                                 <input type="checkbox" class="custom-control-input" [id]="i+1"
+                                    [(ngModel)]="child.check" (click)="select(child.id)">
+                                 <label class="custom-control-label" [for]="i+1">
+                                    <span></span>
+                                 </label>
+                              </div>
+                           </td>
+                           <td>
+                              {{((mbrp - 1) * 10) + i + 1}}
+                           </td>
+                           <td>
+                              <div tooltip="{{child.objectCode}}">
+                                 {{child.objectCode}}
+                              </div>
+                           </td>
+                           <td>
+                              <div tooltip="{{child.objectName}}">
+                                 {{child.objectName}}
+                              </div>
+                           </td>
+                           <td>
+                              <div tooltip="{{((mbrp - 1) * 10) + i + 1 != 1 ? mstrParent : mstrParentObject}}"
+                                 *ngIf="child.id != -1">
+                                 {{((mbrp - 1) * 10) + i + 1 != 1 ? mstrParent : mstrParentObject}}
+                              </div>
+                           </td>
+                           <td>
+                              <div tooltip="{{child.objectUrl}}">
+                                 {{child.objectUrl}}
+                              </div>
+                           </td>
+                           <td>
+                              <div *ngIf="child.id != -1"
+                                 tooltip="{{child.objectType == '0' ? ('management.menu.group' | translate) : ('management.menu.function' | translate)}}">
+                                 {{child.objectType == '0' ? ('management.menu.group' | translate) : ('management.menu.function' | translate)}}
+                              </div>
+                           </td>
+                           <td>
+                              <div tooltip="{{child.ord}}">
+                                 {{child.ord}}
+                              </div>
+                           </td>
+                           <td>
+                              <div *ngIf="child.id != -1"
+                                 tooltip="{{child.functionType == 0 ? ('management.menu.normal' | translate) : ('management.menu.dashboard' | translate)}}">
+                                 {{child.functionType == 0 ? ('management.menu.normal' | translate) : ('management.menu.dashboard' | translate)}}
+                              </div>
+                           </td>
+                           <td class="text-center">
+                              <div *ngIf="child.id != -1"
+                                 tooltip="{{child.status == 0 ? ('management.service.info.nonwork' | translate) : ('management.service.info.work' | translate)}}">
+                                 {{child.status == 0 ? ('management.service.info.nonwork' | translate) : ('management.service.info.work' | translate)}}
+                              </div>
+                           </td>
+                           <td class="text-center">
+                              <i *ngIf="child.id != -1" tooltip="{{'management.service.button.edit' | translate}}"
+                                 class="fa fa-edit" (click)="edit(child)" style="cursor: pointer;"></i>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div class="d-flex justify-content-between" *ngIf="marrchild && marrchild.children.length>0">
+                  <p style="margin-left: 5px;">
+                     {{'management.warningconfig.from' | translate}}{{mobjPager.page*10-9}}
+                     {{'management.warningconfig.to' | translate}}
+                     {{mobjPager.page*10 < marrchild.children.length ? mobjPager.page*10 : marrchild.children.length  }}
+                     {{'management.warningconfig.of' | translate}} {{marrchild.children.length}}
+                     {{'management.warningconfig.record' | translate}}</p>
+                  <ul style="float:right;" class="pagination">
+                     <pagination-controls (pageChange)="pageChange($event)"
+                        previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                        nextLabel="{{'management.target.table.pager.next' | translate}}" (pageChange)="mbrp = $event">
+                     </pagination-controls>
+                  </ul>
+               </div>
+               <div class="col-lg-12" *ngIf="marrchild && marrchild.children.length>0">
+                  <div class="d-flex justify-content-center btn-update">
+                     <button class="btn m-2 btn-primary" type="button"
+                        [disabled]="marrchild.children[0].objectType != '0' || marrchild.children[0].status != 1"
+                        (click)="newObject()"><i class="fa fa-plus"></i>
+                        {{'management.warningconfig.add' | translate}}
+                     </button>
+                     <button class="m-2 btn btn-primary" [disabled]="mblnDelete == false"
+                        (click)="openConfirm(confirm,2)"><i class="fa fa-trash-o"></i>
+                        {{'management.menu.delete' | translate}}
+                     </button>
+                     <button type="button" class="m-2 btn btn-primary" (click)="openConfirm(confirm,0)"
+                        [disabled]="mstrstatus != 1 && mstrstatus != -1">
+                        <i class="fa fa-lock"></i>
+                        {{'management.service.info.lock' | translate}}
+                     </button>
+                     <button type="button" class="m-2 btn btn-primary" (click)="openConfirm(confirm,1)"
+                        [disabled]="mstrstatus != 0 && mstrstatus != -1">
+                        <i class="fa fa-unlock-alt "></i>
+                        {{'management.service.info.unLock' | translate}}
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <ng-template #confirm>
+      <div class="modal-body" *ngIf="changeParent == true">
+         <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+         <span class="mx-1" *ngIf="mblnConfirm == 0"> {{'management.menu.lockparent' | translate}}</span>
+         <span class="mx-1" *ngIf="mblnConfirm == 1"> {{'management.menu.unlockparent' | translate}}</span>
+         <span class="mx-1" *ngIf="mblnConfirm == 2"> {{'management.menu.deleteparent' | translate}}</span>
+      </div>
+      <div class="modal-body" *ngIf="changeParent == false">
+         <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+         <span class="mx-1" *ngIf="mblnConfirm == 0"> {{'management.warningconfig.lock?' | translate}}</span>
+         <span class="mx-1" *ngIf="mblnConfirm == 1"> {{'management.warningconfig.unlock?' | translate}}</span>
+         <span class="mx-1" *ngIf="mblnConfirm == 2"> {{'management.warningconfig.delete?' | translate}}</span>
+      </div>
+      <div class="modal-footer" *ngIf="changeParent == false">
+         <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+            {{'management.warningconfig.No' | translate}}</button>
+         <button class="m-2 btn btn-primary click-btn" (click)="change(0, false)" *ngIf="mblnConfirm == 0"><i
+               class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+         </button>
+         <button class="m-2 btn btn-primary click-btn" (click)="change(1, false)" *ngIf="mblnConfirm == 1"><i
+               class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+         </button>
+         <button class="m-2 btn btn-primary click-btn" (click)="change(-1, false)" *ngIf="mblnConfirm == 2"><i
+               class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+         </button>
+      </div>
+
+      <div class="modal-footer" *ngIf="changeParent == true">
+         <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+            {{'management.warningconfig.Cancel' | translate}}</button>
+
+         <button class="m-2 btn btn-primary click-btn" (click)="change(0,true)" *ngIf="mblnConfirm == 0"><i
+               class="fa fa-times"></i>
+            {{'management.warningconfig.No' | translate}}</button>
+         <button class="m-2 btn btn-primary click-btn" (click)="change(0,false)" *ngIf="mblnConfirm == 0"><i
+               class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+         </button>
+
+
+         <button class="m-2 btn btn-primary click-btn" (click)="change(1,true)" *ngIf="mblnConfirm == 1"><i
+               class="fa fa-times"></i>
+            {{'management.warningconfig.No' | translate}}</button>
+         <button class="m-2 btn btn-primary click-btn" (click)="change(1,false)" *ngIf="mblnConfirm == 1"><i
+               class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+         </button>
+
+
+         <button class="m-2 btn btn-primary click-btn" (click)="change(-1,true)" *ngIf="mblnConfirm == 2"><i
+               class="fa fa-times"></i>
+            {{'management.warningconfig.No' | translate}}</button>
+         <button class="m-2 btn btn-primary click-btn" (click)="change(-1,false)" *ngIf="mblnConfirm == 2"><i
+               class="fa fa-check"></i>
+            {{'management.warningconfig.Yes' | translate}}
+         </button>
+      </div>
+   </ng-template>
+</div>

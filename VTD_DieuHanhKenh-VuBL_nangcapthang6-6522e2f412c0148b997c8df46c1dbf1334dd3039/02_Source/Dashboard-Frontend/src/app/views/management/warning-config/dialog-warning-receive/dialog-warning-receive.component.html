@@ -1,0 +1,115 @@
+<div class="dialog-warning-receive-cpn">
+  <div class="dialog-container">
+    <div class="vis-card-header">
+      <h4 class="text-left">
+        {{mobjNewWarningReceive.mlngId == -1 ? ('management.warningconfig.addReceive' | translate) : ('management.warningconfig.updateReceive' | translate)}}
+      </h4>
+      <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;"
+        (click)="close()">&times;</span>
+    </div>
+    <div class="modal-body" *ngIf="mobjNewWarningReceive">
+      <br>
+      <!-- Đơn vị -->
+      <div class="row">
+        <div class="col-md-2">
+          <label class="col-form-label fix-mb">{{'management.warningconfig.Shop' | translate}}<span
+              class="asterisk">&#42;</span></label>
+        </div>
+        <div class="col-md-4" *ngIf="mobjNewWarningReceive.mlngId == -1">
+          <div class="fix-mt target-level-container">
+            <app-configwr-tree class="shopCode" [items]="nodeTreeViews" [(value)]="value"
+              (valueChange)="OnchangeNew($event)" (click)="checkShopCode()" [config]="config">
+            </app-configwr-tree>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="mobjNewWarningReceive.mlngId != -1">
+          <select disabled name="bb" class="select-search">
+            <option value="-1">{{mstrShopcode}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="col-form-label p-d-l">{{'management.warningconfig.warning_level' | translate}}<span
+              class="asterisk">&#42;</span></label>
+        </div>
+        <div class="col-md-4">
+          <div class="fix-mt target-level-container">
+            <select name="mstrNewWarninglevel" class="select-search" (click)="checkWarninglv()"
+              [(ngModel)]="mstrNewWarninglevel">
+              <option value="-1" hidden>{{'management.warningconfig.select' | translate}}</option>
+              <option *ngFor="let w of marrWarninglevels" value="{{w.code}}">{{w.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row" style="height: 30px !important; text-align: left !important; color: red !important;">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          {{ vblnCheckShopCode == true ? ('management.service.error.required' | translate) : ""}}</div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          {{ vblnCheckWarninglv == true ? ('management.service.error.required' | translate) : ""}}</div>
+      </div>
+      <!-- Mức cảnh báo -->
+      <div class="row">
+        <div class="col-md-2">
+          <label class="col-form-label fix-mb">{{'management.warningconfig.inform_level' | translate}}<span
+              class="asterisk">&#42;</span></label>
+        </div>
+        <div class="col-md-4">
+          <div class="fix-mt target-level-container">
+            <select name="mstrNewInformlevel" class="select-search" (click)="checkInformlv()"
+              [(ngModel)]="mstrNewInformlevel">
+              <option value="-1" hidden>{{'management.warningconfig.select' | translate}}</option>
+              <option *ngFor="let w of marrInformlevels" value="{{w.code}}">{{w.name}}</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="col-md-2">
+          <label class="col-form-label p-d-l">{{'management.warningconfig.status' | translate}}</label>
+        </div>
+        <div class="col-md-4">
+          <div class="fix-mt target-level-container">
+            <select name="mobjNewWarningReceivemstrStatus" [disabled]="mobjNewWarningReceive.mlngId == -1"
+              class="select-search" [(ngModel)]="mobjNewWarningReceive.mstrStatus">
+              <option value="1">{{'management.service.info.work' | translate}}</option>
+              <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="height: 30px !important; text-align: left !important; color: red !important;">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          {{ vblnCheckInformlv == true ? ('management.service.error.required' | translate) : ""}}</div>
+      </div>
+      <!-- Trạng thái -->
+    </div>
+    <div class="text-center">
+      <button class="m-2 btn btn-primary click-btn" mat-button mat-dialog-close><i class="fa fa-times"></i>
+        {{'management.warningconfig.Cancel' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="dialogReceive(confirm)"
+        [disabled]="vblnCheckInformlv != false || vblnCheckShopCode != false || vblnCheckWarninglv != false"><i
+          class="fa fa-save"></i>
+        {{'management.warningconfig.Save' | translate}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirm>
+  <div class="modal-body">
+    <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+    <span class="mx-1"> {{'management.warningconfig.ok?' | translate}}</span>
+  </div>
+  <div class="modal-footer">
+    <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+      {{'management.warningconfig.No' | translate}}</button>
+    <button class="m-2 btn btn-primary click-btn" (click)="save()"><i class="fa fa-check"></i>
+      {{'management.warningconfig.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

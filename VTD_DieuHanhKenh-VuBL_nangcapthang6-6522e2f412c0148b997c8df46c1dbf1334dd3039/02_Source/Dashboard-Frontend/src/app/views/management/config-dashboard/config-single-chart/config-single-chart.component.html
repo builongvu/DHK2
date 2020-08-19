@@ -1,0 +1,277 @@
+<form [formGroup]="singleChartForm">
+  <div class="card mt-2">
+    <div class="card-body">
+      <div class="row form-group align-items-center">
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12  ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="name" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.chart-name' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <input type="text" id="name" autocomplete="off" formControlName="title">
+        </div>
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12   ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="size" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.chart-size' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="size" formControlName="chartSize">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let chartSize of listCardSize" [value]="chartSize.value">{{chartSize.name}}
+            </option>
+          </select>
+        </div>
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12   ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="card-parent" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.parent-card' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="card-parent" formControlName="card">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let card of singleCard" [value]="card.cardId">
+              {{card.cardName}}
+            </option>
+          </select>
+        </div>
+        <!--          </div>-->
+      </div>
+      <div class="row form-group align-items-center">
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12  ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="chart-type" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.chart-type' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="chart-type" formControlName="chartType">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let chartType of chartType" [value]="chartType.value">{{chartType.name}}
+            </option>
+          </select>
+        </div>
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12   ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="expand" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.zoom' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="expand" formControlName="expand">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option [value]="1">
+              {{'management.target.button.yes' | translate}}
+            </option>
+            <option [value]="0">
+              {{'management.target.button.no' | translate}}
+            </option>
+          </select>
+        </div>
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12   ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="colFormLabelSm" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.service' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <ngx-dropdown-treeview class="target-container" id="colFormLabelSm" [config]="mobjConfig"
+                                 [items]="marrNodeTreeviewServices"
+                                 (selectedChange)="selectTree($event)">
+          </ngx-dropdown-treeview>
+        </div>
+        <!--          </div>-->
+      </div>
+      <div class="row form-group align-items-center">
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12  ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="detail" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.drilldown' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="detail" formControlName="drilldown">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option [value]="1">
+              {{'management.target.button.yes' | translate}}
+            </option>
+            <option [value]="0">
+              {{'management.target.button.no' | translate}}
+            </option>
+          </select>
+        </div>
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12   ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="drill-obj" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.group-child' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="drill-obj" formControlName="drillDownObjectId">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let group of groupCard" [value]="group.groupId">
+              {{group.groupName}}
+            </option>
+          </select>
+        </div>
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-xl-4 col-md-6 col-sm-12   ">-->
+        <!--          <div class="row justify-content-center">-->
+        <label for="status" class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+          {{'management.single-chart.status' | translate}}</label>
+        <div class="col-xl-3 col-md-4 col-sm-12">
+          <select id="status" formControlName="status">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option [value]="1">
+              {{'management.weight.active' | translate}}
+            </option>
+            <option [value]="0">
+              {{'management.weight.notActive' | translate}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!--      </div>-->
+
+    <!--button-->
+    <div class="card-footer text-muted " style="padding-bottom: 0px">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center flex-wrap">
+          <button class="btn btn-primary m-2" (click)="search()">
+            <i class="fa fa-search"></i> {{'management.group.button.search' | translate}}
+          </button>
+          <button class="btn btn-primary m-2 " (click)="openDialog()">
+            <i class="fa fa-plus"></i> {{'management.group.button.add' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive mtt">
+      <table class="table table-striped table-hover ">
+        <thead class="header-table">
+        <tr class="text-center">
+          <th>{{'management.group.table.head.ordinalNumbers' | translate}}</th>
+          <th>{{'management.single-chart.chart-name' | translate}}</th>
+          <th>{{'management.single-chart.chart-size' | translate}}</th>
+          <th>{{'management.single-chart.parent-card' | translate}}</th>
+          <th>{{'management.single-chart.chart-type' | translate}}</th>
+          <th>{{'management.single-chart.zoom' | translate}}</th>
+          <th>{{'management.single-chart.service' | translate}}</th>
+          <th>{{'management.single-chart.drilldown' | translate}}</th>
+          <th>{{'management.single-chart.group-child' | translate}}</th>
+          <th>{{'management.single-chart.meta-data' | translate}}</th>
+          <th>{{'management.single-chart.query-param' | translate}}</th>
+          <th>{{'management.single-chart.status' | translate}}</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody *ngIf="!singleCharts || singleCharts.length == 0">
+        <tr>
+          <td colspan="13" style="background: white;text-align: center">
+            {{'management.warningconfig.Nodata' | translate}}</td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="singleCharts">
+        <tr
+          *ngFor="let singleChart of singleCharts| paginate: { id: 'book', itemsPerPage: pageSize, currentPage: pager.page, totalItems: total};index as i">
+          <td style="text-align: center">{{pager.page * pageSize - (pageSize - 1) + i}}</td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.title">{{singleChart.title}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.chartSizeName">{{singleChart.chartSizeName}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.cardName">{{singleChart.cardName}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.chartTypeName">{{singleChart.chartTypeName}}</div>
+          </td>
+          <td>
+            <div class="text-overf"
+                 [tooltip]="singleChart.showExpand">{{singleChart.showExpand}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.serviceIds">{{singleChart.serviceIds}}</div>
+          </td>
+          <td>
+            <div class="text-overf"
+                 [tooltip]="singleChart.showDrillDown">{{singleChart.showDrillDown}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.groupName">{{singleChart.groupName}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.metaData">{{singleChart.metaData}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="singleChart.queryParam">{{singleChart.queryParam}}</div>
+          </td>
+          <td>
+            <div class="text-overf text-center"
+                 [tooltip]="singleChart.showStatus">{{singleChart.showStatus}}</div>
+          </td>
+          <td align="center">
+                <span data-toggle="tooltip" data-placement="top" style="cursor: pointer; padding-right: 0.4rem"
+                      (click)="openUpdateDialog(singleChart)"
+                      tooltip="{{'management.group.message.updateToolTip' | translate }}"><i
+                  class="fa fa-edit "></i></span>
+            <span data-toggle="tooltip" data-placement="top" style="cursor: pointer"
+                  (click)="openConfirm(delete, singleChart)"
+                  tooltip="{{'management.group.message.deleteToolTip' | translate }}"><i
+              class="fa fa-trash-o"></i></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="total-row col-12" *ngIf="singleCharts && singleCharts.length >0">
+    <p style="margin-left: 20px"
+    >{{'management.warningconfig.from' | translate}}{{pager.page * pageSize - (pageSize - 1)}}
+      {{'management.warningconfig.to' | translate}}
+      <span *ngIf="pager.page*pageSize <  total">{{pager.page * pageSize}}</span>
+      <span *ngIf="pager.page*pageSize >= total">{{total}}</span>
+      {{'management.warningconfig.of' | translate}} {{total}} {{'management.warningconfig.record' | translate}}
+    </p>
+    <pagination-controls
+      id="book" (pageChange)="pageChange($event)" maxSize="7" directionLinks="true"
+      autoHide="false"
+      responsive="false" previousLabel="{{'management.target.table.pager.previous' | translate}}"
+      nextLabel="{{'management.target.table.pager.next' | translate}}"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>
+
+<ng-template #delete>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{'management.single-chart.delete-confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBack() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)="deleteSingleChart()"
+            style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

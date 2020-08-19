@@ -1,0 +1,12 @@
+<div class="spark3">
+  <div class="rank-top">
+    <div *ngFor="let data of content['lstData'], index as i" [style.color]="data['color']" (click)="lv2Spark3(i, data['month'])">
+      <div class="rank-container">
+        <div class="unit-name">
+          <span tooltip="{{data['description']}}">{{data['description']}}</span>
+        </div>
+        <p class="top-unit" tooltip="{{data['quantity']}}">{{data['quantity']}}</p>
+      </div>
+    </div>
+  </div>
+</div>

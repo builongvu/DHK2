@@ -1,0 +1,45 @@
+/deep/ .highcharts-title {
+  font-size: .85rem !important;
+  font-weight: bold;
+  fill: #7A7A7A !important;
+  text-transform: uppercase;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.detailchart{
+  text-align: right;
+  position: relative;
+  padding-left: 10px;
+  position: relative;
+  padding-right: 10px;
+  z-index:100;
+  .detail-text{
+    color: #0aa6d5;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 0 !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+    &:hover{
+      color: #457495;
+      cursor: pointer;
+    }
+    &:active{
+      color: #c29759;
+    }
+  }
+}
+
+.back{
+  padding-right: 15px;
+}
+
+.chart{
+  height: calc(100% - 25px);
+  margin-top: -8px;
+}
+
+.chart2{
+  height: 100%;
+}

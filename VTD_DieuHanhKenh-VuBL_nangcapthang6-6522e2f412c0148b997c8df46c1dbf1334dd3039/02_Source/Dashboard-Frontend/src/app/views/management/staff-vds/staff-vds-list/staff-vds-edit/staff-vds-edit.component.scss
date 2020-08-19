@@ -1,0 +1,253 @@
+$border-bottom: rgba(0, 0, 0, .42);
+.staff-vds-edit {
+  @media screen and (min-width: 768px) {
+    .no-pad {
+      padding-left: 2rem !important;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .mb-responsive{
+      margin-top: 1.2rem;
+    }
+  }
+
+  .error-message {
+    position: absolute;
+    bottom: -1rem;
+    left: 1rem;
+    font-size: .78rem;
+  }
+
+  .treeview-unit {
+    /deep/ .dropdown-menu {
+      //dropmenu here
+      width: 100%;
+      border-radius: unset;
+      margin-top: -4px;
+      // transform: translateX(-10px);
+      /deep/ .dropdown-container {
+        //container here
+        padding: 0;
+        padding-left: .6rem !important;
+        padding-right: .3rem !important;
+
+        /deep/ .treeview-header {
+          width: 100%;
+
+          .dropdown-divider {
+            border: none;
+          }
+
+          // transform: translateX(8px);
+          //treeview header here
+          /deep/ .row-filter {
+            //row-filter here
+            /deep/ .col-12 {
+              //col-12 here
+              /deep/ .form-control {
+                border-radius: unset;
+                border: none;
+                border-bottom: 1px solid #e4e5e6;
+                outline: none !important;
+
+                &:focus {
+                  border-color: #3F51B5 !important;
+                  outline: none !important;
+                  box-shadow: none;
+                }
+
+                //form-control here
+                width: 100%;
+                // transform: translateX(-12.5px)
+              }
+            }
+          }
+        }
+
+        /deep/ .treeview-container::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        }
+
+        /deep/ .treeview-container::-webkit-scrollbar-thumb {
+          background-color: lightgray;
+          border-radius: 10px;
+          outline: 1px solid slategrey;
+        }
+      }
+    }
+  }
+
+  .shopCodeScore {
+    /deep/ .show {
+      .btn-outline-secondary.dropdown-toggle {
+        &:focus {
+          box-shadow: unset !important;
+        }
+      }
+    }
+
+    /deep/ .dropdown {
+      &:after {
+        right: 0.3rem !important;
+      }
+
+      .btn-outline-secondary {
+        border: none;
+        color: black !important;
+      }
+
+      /deep/ button {
+        padding-left: 3px !important;
+
+        &:focus {
+          box-shadow: unset !important;
+          border-style: dotted;
+          border-width: 0.5px;
+        }
+
+        &::after {
+          right: 0.2rem !important;
+          color: rgba(0, 0, 0, 0.54) !important;
+        }
+
+        background-color: unset !important;
+        border-bottom: 1px solid $border-bottom !important;
+        //transform: translateX(-10px);
+        // width: 101%;
+        padding-right: 0;
+        margin-right: 0;
+        padding-left: 0.2rem;
+      }
+
+      .btn {
+        padding: 0 1rem 0 0;
+        border-radius: unset;
+      }
+    }
+
+    /deep/ .dropdown-menu {
+      //dropmenu here
+      width: 100%;
+      border-radius: unset;
+      margin-top: -2px;
+      // transform: translateX(-10px);
+      /deep/ .dropdown-container {
+        //container here
+        padding: 0;
+        padding-left: 0.6rem !important;
+        padding-right: 0.3rem !important;
+
+        /deep/ .treeview-header {
+          width: 100%;
+
+          .dropdown-divider {
+            border: none;
+          }
+
+          // transform: translateX(8px);
+          //treeview header here
+          /deep/ .row-filter {
+            //row-filter here
+            /deep/ .col-12 {
+              //col-12 here
+              /deep/ .form-control {
+                border-radius: unset !important;
+                border: none !important;
+                border-bottom: 1px solid #e4e5e6 !important;
+                outline: none !important;
+
+                &:focus {
+                  border-color: #3f51b5 !important;
+                  outline: none !important;
+                  box-shadow: none;
+                }
+
+                //form-control here
+                width: 100%;
+                // transform: translateX(-12.5px)
+              }
+            }
+          }
+        }
+
+        /deep/ div {
+          .treeview-container::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+          }
+
+          .treeview-container::-webkit-scrollbar-thumb {
+            background-color: lightgray;
+            border-radius: 10px;
+            outline: 1px solid slategrey;
+          }
+        }
+
+        /deep/ .treeview-container::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+        }
+
+        /deep/ .treeview-container::-webkit-scrollbar-thumb {
+          background-color: lightgray;
+          border-radius: 10px;
+          outline: 1px solid slategrey;
+        }
+      }
+    }
+  }
+
+  .vis-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: .3rem .6rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .cvNumber {
+    background: none;
+    outline: none;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $border-bottom;
+
+    &:focus + .separator {
+      transform: scaleX(1) translateY(-2px);
+      opacity: 1;
+    }
+  }
+
+  .cvNumber {
+    &:read-only {
+      pointer-events: none;
+    }
+
+  }
+
+  .separator {
+    height: 2px;
+    width: 100%;
+    background: #3F51B5;
+    display: block;
+    transform: scaleX(0) translateY(-2px);
+    transform-origin: 50%;
+    opacity: 0;
+    transition: all .15s linear;
+  }
+
+  .select-option {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $border-bottom;
+  }
+
+  .vis-btn-group {
+    button {
+      width: 105px;
+    }
+  }
+
+  .pdl-2{
+    padding-left: 0.2rem;
+  }
+}

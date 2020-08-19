@@ -1,0 +1,190 @@
+<div *ngIf="!dataTable">
+  <img src="assets/img/waining.png" width="30px" height="30px" alt="waining">
+  <span>&ensp;{{'management.layout.nodata' | translate}}</span>
+</div>
+<div *ngIf="dataTable">
+  <div>
+    <div *ngIf="dataTable && dataTable['type'] === 'TABLE_VIEW'" [style.max-height.px]="cardLength==1?
+    (dataTable['rows'].length < 70? 440 : 410): ''"
+         class="{{!dataTable['title'] && dataTable['columns'].length>4?'table-responsive noHeaderTable':
+         !dataTable['title'] && dataTable['columns'].length==4?'table-responsive noHeaderTable4':
+         !dataTable['title'] && dataTable['columns'].length<4?'table-responsive noHeaderTable3':'table-responsive noData'}}
+{{dataTable['rows'].length < 70? 'not-paging' : 'paging'}}">
+      <div #view class="top-table top-small" *ngIf="dataTable['title']" [style.color]="dataTable['titleColor']">
+        {{dataTable['title']}}
+
+      </div>
+      <div class="top-background" *ngIf="dataTable['title']">
+      </div>
+      <span class="top-table-text mr-4" *ngIf="dataTable['title']  && !dataTable['downloadDetail']
+                                                && drilldownLength == 2 && this.groupId == 1 && dataTable['allStaff']"
+            (click)="getDataLv2()">
+        <i *ngIf="!isExcelShow" class="fa fa-download" data-toggle="tooltip" data-placement="top"
+           title="{{'management.layout.xlsxAll' | translate}}"></i>
+      </span>
+      <span class="top-table-text" *ngIf="dataTable['title'] && !dataTable['downloadDetail']"
+            (click)="ExportToExcel(dataTable)">
+        <i class="fa fa-cloud-download" data-toggle="tooltip" data-placement="top"
+           title="{{'management.layout.xlsx' | translate}}"></i>
+      </span>
+      <span class="top-table-text" *ngIf="dataTable['title']  && dataTable['downloadDetail']" (click)="DownloadByApi()">
+        <i class="fa fa-cloud-download" data-toggle="tooltip" data-placement="top"
+           title="{{'management.layout.xlsx' | translate}}"></i>
+      </span>
+
+      <!--      <div class="table-responsive-sm">-->
+      <table class="{{!dataTable['title']? 'noHeader': 'table-bordered'}}" #tableDashboard>
+        <thead>
+        <tr>
+          <th class="stt-column">{{'management.dashboard.stt' | translate}}</th>
+          <th *ngFor="let column of dataTable['columns']" class="{{dataTable['title']? (column['type'] == 'CHART'? 'column-chart':
+                        column['type'] == 'BAR'? 'column-bar':
+                        column['value'] == 'SERVICE_NAME'? 'column-service':
+                         !column['name']?'noDelta': '') :
+                       !dataTable['title']? (column['type'] == 'CHART'? 'column-chart1':
+                        column['type'] == 'BAR'? 'column-bar1':
+                        (column['value'] == 'SERVICE_NAME' || column['value'] == 'SHOP_NAME')? 'column-service1':
+                         !column['name']?'noDelta1': 'th-noHeader'): ''}}">
+            <span *ngIf="column['value'] != 'RANK'">{{column['name']}}</span>
+            <span *ngIf="column['value'] == 'RANK'" (click)="setSort()" style="cursor: pointer">
+                {{column['name']}}
+              <span *ngIf="typeSort == 'asc' && isClickSort"><i class="fa fa-sort-asc"></i></span>
+                <span *ngIf="typeSort == 'desc' && isClickSort"><i class="fa fa-sort-desc"></i></span>
+                <span *ngIf="!isClickSort"><i class="fa fa-sort-desc"></i></span>
+              </span>
+          </th>
+        </tr>
+        </thead>
+        <tbody class="no-data-table" *ngIf="dataTable['rows'].length == 0">
+        <td class="td-no-data" [attr.colspan]="dataTable['columns'].length + 1"
+            [style.border]="isZoomCard == false? 'none': ''" [class]="isZoomCard == false? 'td-nodata550' : (cardLength==1 && contentsLength == 1) ?'td-nodata380':
+            (cardLength==1 && contentsLength == 2) ?'td-nodata388': 'td-nodata345'">
+          <img src="assets/img/waining.png" width="25px" height="25px" alt="waining">
+          <span>&ensp;{{'management.layout.nodata' | translate}}</span>
+        </td>
+        </tbody>
+        <tbody class="data-able" *ngIf="dataTableShow['rows'].length > 0">
+        <tr *ngFor="let row of dataTableShow['rows'] | paginate:
+          {id: 'tableDB' + dataTable['drilldownObject'], itemsPerPage: 70, currentPage: curentPage, totalItems: totalItems};
+          trackBy: trackByFn,index as ro" style="height: 31px">
+          <td style="text-align: center; width: 30px">
+            <span *ngIf="totalItems && totalItems > 70">{{(curentPage - 1) * 70 + 1 + ro}}</span>
+            <span *ngIf="!(totalItems && totalItems > 70)">{{ro + 1}}</span>
+          </td>
+          <td class="{{!cell['viewValue'] && cell['chart']? 'column-chart': cell['planMonthValue']? 'column-bar':
+           (cell['isGrowth'] && !cell['delta'])? 'noDelta': cell['bold']?'bold-td': ''}}"
+              *ngFor="let cell of row['cells'], index as j" [style.text-align]="dataTable['columns'][j]['align']">
+            <div *ngIf="cell['viewValue']  && cell['columnId'] != 0" data-toggle="tooltip" data-placement="top"
+                 title="{{cell['viewValue']}}" [style.color]="cell['color']">
+              {{cell['viewValue']}}
+            </div>
+            <!--              click table here-->
+            <div *ngIf="cell['viewValue'] && cell['columnId'] == 0 && row['clicked']" data-toggle="tooltip"
+                 class="lv2-table" data-placement="top" title="{{cell['viewValue']}}"
+                 (click)="detail(dataTableShow['drilldownObject'], row['serviceId'], row['shopCode'], ro)"
+                 [style.color]="cell['color']">
+              {{cell['viewValue']}}
+            </div>
+            <div *ngIf="cell['viewValue'] && cell['columnId'] == 0 && !row['clicked']" data-toggle="tooltip"
+                 data-placement="top" title="{{cell['viewValue']}}" [style.color]="cell['color']">
+              {{cell['viewValue']}}
+            </div>
+
+            <div *ngIf="!cell['viewValue'] && cell['chart']" class="table-chart">
+              <line-chart [chart-data]="cell['chart']"></line-chart>
+              <!--            aaa-->
+              <!--                        <line-chart></line-chart>-->
+            </div>
+            <div class="growth" *ngIf="!cell['viewValue'] && cell['isGrowth'] != null && cell['delta']">
+                <span style="text-align: left">
+                  <span *ngIf="cell['isGrowth'] === 1">
+                    <i class="fas fa-long-arrow-alt-up fa-sm" [style.color]="cell['color']"
+                       [style.font-size.rem]="1"></i>
+                  </span>
+                  <span *ngIf="cell['isGrowth'] === -1">
+                    <i class="fas fa-long-arrow-alt-down fa-sm" [style.color]="cell['color']"
+                       [style.font-size.rem]="1"></i>
+                  </span>
+                  <span *ngIf="cell['isGrowth'] === 0">
+                    <i class="fas fa-long-arrow-alt-right fa-sm" [style.color]="cell['color']"
+                       [style.font-size.rem]="1"></i>
+                  </span>
+                </span>
+              <span style="text-align: right" data-toggle="tooltip" data-placement="top"
+                    title="{{cell['delta']}}">{{cell['delta']}}</span>
+            </div>
+            <div style="text-align: center" *ngIf="!cell['viewValue'] && cell['isGrowth'] != null && !cell['delta']">
+                <span *ngIf="cell['isGrowth'] === 1">
+                  <i class="fas fa-long-arrow-alt-up fa-sm" [style.color]="cell['color']" [style.font-size.rem]="1"></i>
+                </span>
+              <span *ngIf="cell['isGrowth'] === 0">
+                  <i class="fas fa-long-arrow-alt-right fa-sm" [style.color]="cell['color']"
+                     [style.font-size.rem]="1"></i>
+                </span>
+              <span *ngIf="cell['isGrowth'] === -1">
+                  <p><i class="fas fa-long-arrow-alt-down fa-sm" [style.color]="cell['color']"
+                        [style.font-size.rem]="1"></i></p>
+                </span>
+
+            </div>
+            <div *ngIf="!cell['viewValue'] && cell['planMonthValue']">
+              <div class="progress box">
+                <div *ngIf="cell['performViewValue'] == null && cell['performPercent'] <= 100"
+                     class="progress-bar sky" role="progressbar" aria-valuenow="{{cell['performValue']}}"
+                     aria-valuemin="0" aria-valuemax="{{cell['planMonthValue']}}"
+                     [style.width.%]="cell['performPercent']"
+                     style="background-color: #D6D6C4; overflow: visible;padding-left: 2px">{{cell['performPercent']}}%
+                </div>
+                <div *ngIf="cell['performViewValue'] && cell['performPercent'] <= 100 && cell['performPercent'] > 0"
+                     class="progress-bar sky" role="progressbar"
+                     style="background-color: green; overflow: visible;padding-left: 2px"
+                     aria-valuenow="{{cell['performPercent']}}" aria-valuemin="0"
+                     aria-valuemax="{{cell['planMonthValue']}}" [style.width.%]="cell['performPercent']">
+                  <span style="padding-left: 3px">{{cell['performPercent']}}%</span>
+                </div>
+                <div *ngIf="cell['performViewValue'] && cell['performPercent'] > 100" class="progress-bar sky"
+                     role="progressbar" style="background-color: green; overflow: visible;padding-left: 2px"
+                     aria-valuenow="{{cell['performPercent']}}" aria-valuemin="0"
+                     aria-valuemax="{{cell['planMonthValue']}}" [style.width.%]="100">
+                  {{cell['performPercent']}}%
+                </div>
+                <div *ngIf="cell['performViewValue'] && cell['performPercent'] == 0" class="progress-bar sky"
+                     role="progressbar" style="background-color: green; overflow: visible;padding-left: 0"
+                     aria-valuenow="{{cell['performPercent']}}" aria-valuemin="0"
+                     aria-valuemax="{{cell['planMonthValue']}}" [style.width.%]="0">
+                  <span style="padding-left: 3px">{{cell['performPercent']}}%</span>
+
+                </div>
+                <div *ngIf="cell['planAccumulateValue']" class="progress-bar green" role="progressbar"
+                     [style.width.%]="cell['planAccumulateValue']/cell['planMonthValue']*100" aria-valuenow="55"
+                     aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar red" role="progressbar"
+                       style="width: 2px; height: 100%; background-color: red" data-toggle="tooltip"
+                       data-placement="top"
+                       title="{{cell['planAccumulateViewValue']}}" aria-valuenow="1" aria-valuemin="0"
+                       aria-valuemax="100">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!--      </div>-->
+    </div>
+    <div class="d-flex justify-content-center">
+      <pagination-controls *ngIf="dataTable && dataTable['rows'].length > 70"
+                           id="{{'tableDB' + dataTable['drilldownObject']}}"
+                           (pageChange)="pageChange($event)" maxSize="7" directionLinks="true"
+                           autoHide="false"
+                           responsive="false" previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                           nextLabel="{{'management.target.table.pager.next' | translate}}"
+                           screenReaderPaginationLabel="Pagination"
+                           screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+      </pagination-controls>
+    </div>
+    <!--/.row-->
+  </div>
+</div>
+<!--<line-chart></line-chart>-->

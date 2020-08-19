@@ -1,0 +1,88 @@
+.dialog-unit {
+  width: 60vw;
+  max-width: 70vw;
+  max-height: 70vh;
+  overflow: auto;
+  .vis-card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.3rem;
+  }
+
+  $border-bottom: rgba(0, 0, 0, 0.42);
+
+  .small-s {
+    color: red;
+  }
+  .input-dis {
+    /deep/ input:disabled {
+    //   color: black !important;
+      // border-bottom: 1px solid black;
+    }
+    /deep/ .mat-form-field-infix {
+      border-bottom: 1px solid $border-bottom !important;
+    }
+    /deep/.mat-form-field-underline {
+      width: 0 !important;
+    }
+  }
+
+  .input-err {
+    /deep/ .mat-form-field-infix {
+      border-bottom: 1px solid red !important;
+    }
+    /deep/.mat-form-field-underline {
+      width: 0 !important;
+    }
+  }
+
+  .select-search:focus {
+    border-style: dotted;
+    border-width: 0.5px;
+  }
+
+  /deep/ .toast-success {
+    background-color: #63b8ff !important;
+    color: black !important;
+  }
+
+  /deep/ .toast-error {
+    background-color: #ff8173 !important;
+    color: black !important;
+  }
+  .select-search {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $border-bottom;
+    height: 22px;
+    cursor: pointer;
+  }
+
+  .click-btn {
+    width: 110px !important;
+  }
+
+  select:disabled {
+    // color: black !important;
+  }
+
+  select[disabled] {
+    // color: black !important;
+    background-color: white !important;
+  }
+}
+.click-btn {
+  width: 110px !important;
+}
+
+@media screen and (min-width: 3258px) {
+  /deep/ input.mat-input-element {
+    border-bottom: 1px solid rgba(0,0,0,.42);
+  }
+  /deep/ .mat-form-field-underline{
+    background-color: white;
+  }
+}

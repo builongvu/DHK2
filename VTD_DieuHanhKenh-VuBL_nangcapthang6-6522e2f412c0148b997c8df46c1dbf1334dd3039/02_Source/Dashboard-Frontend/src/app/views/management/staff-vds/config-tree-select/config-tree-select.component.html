@@ -1,0 +1,21 @@
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-inline row-item">
+    <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed"
+       [class.fa-caret-down]="!item.collapsed"></i>
+    <label id="label" [class.highlighted]="item.value == selectedItem" class="form-check-label" (click)="select(item)" data-toggle="tooltip" data-placement="top"
+           title="{{item.text}}">{{ item.text }}</label>
+  </div>
+</ng-template>
+<ng-template #headerTemplate let-config="config" let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange"
+             let-onFilterTextChange="onFilterTextChange">
+  <div *ngIf="config.hasFilter" class="row">
+    <div class="col-12">
+      <input class="search" type="text" placeholder="&#xF002;" style="font-family:Arial, FontAwesome; width: 100%;"
+             [(ngModel)]="filterText" (ngModelChange)="onFilterTextChange($event)" />
+    </div>
+  </div>
+  <div *ngIf="config.hasDivider" class="dropdown-divider"></div>
+</ng-template>
+<ngx-treeview [config]="config" [headerTemplate]="headerTemplate" [items]="items"
+              [itemTemplate]="itemTemplate">
+</ngx-treeview>

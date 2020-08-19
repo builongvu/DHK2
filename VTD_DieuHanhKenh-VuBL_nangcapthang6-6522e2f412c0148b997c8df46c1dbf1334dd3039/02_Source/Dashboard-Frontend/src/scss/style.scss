@@ -1,0 +1,126 @@
+// If you want to override variables do it here
+@import "variables";
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+// If you want to add something do it here
+@import "custom";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// .custom-control {
+//   position: unset !important;
+// }
+
+.container-fluid {
+  //margin-top: 1rem;
+  overflow: hidden;
+  padding: .5rem 15px !important;
+  min-height: 60vh;
+}
+
+.breadcrumb {
+  padding: 0.5rem 1rem !important;
+  margin-bottom: 0 !important;
+}
+
+.table-responsive {
+  scrollbar-color: lightgray #fffff;
+  scrollbar-width: thin;
+}
+
+.table-responsive::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+
+
+body {
+  background-color: white !important;
+  overflow-y: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+.app {
+  min-height: calc(100vh - 100px) !important;
+}
+
+.mat-dialog-container {
+  padding: calc(24px / 12) !important;
+  // overflow: hidden !important;
+}
+
+@media screen and (max-width: 1350px) {
+  html {
+    font-size: 85%;
+
+    body {
+      font-size: 75% !important;
+    }
+  }
+
+}
+
+@media screen and (max-width: 490px) {
+  body {
+    font-size: 75% !important;
+  }
+}
+
+.mat-tab-group {
+  font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.mat-dialog-actions {
+  padding: 0 !important;
+  min-height: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+
+.treeview-container {
+  scrollbar-color: lightgray #fffff;
+  scrollbar-width: thin;
+}
+
+/deep/ .treeview-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+
+/deep/ .treeview-container::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+
+.treeview-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+
+.treeview-container::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+
+.custom-control-input {
+  position: fixed;
+}
+
+.toast-success {
+  background-color: #63B8FF !important;
+  color: black !important;
+}
+
+.toast-error {
+  background-color: #ff8173 !important;
+  color: black !important;
+}

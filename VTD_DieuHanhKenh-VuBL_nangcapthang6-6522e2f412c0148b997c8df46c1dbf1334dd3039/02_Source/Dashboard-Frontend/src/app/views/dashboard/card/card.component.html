@@ -1,0 +1,51 @@
+<div class="card {{isFullTable ? '':  'full-screen'}}" [style.height.px]="cardLength == 1? 480: ''">
+  <div class="card-header">
+    <span class="title-card w-100"
+          [class]="cardData2['cardType'] == 'TOP_CARD_2' && cardData2['contents'][0]['type'] == 'CONTINUITY_FAIL'?
+          'string-over2' : ((isFullTable && cardData2['zoom']) || (!isFullTable && cardData2['zoom']))? 'string-over3' :
+          'string-over1'"
+          tooltip="{{cardData2['title']}}"
+    >{{cardData2['title']}}</span>
+    <div class="button-table">
+      <button *ngIf="cardData2['serviceId'] != null" data-toggle="tooltip"
+              (click)="detailChart(cardData2['serviceId'], cardData2['drilldownObject'])"
+              data-placement="top" title="{{detail}}"><i class="fas fa-eye"></i></button>
+
+      <button *ngIf="cardData2['cardType'] == 'TOP_CARD_2' && cardData2['contents'][0]['type'] == 'CONTINUITY_FAIL'" (click)="lv2Spark2()" data-toggle="tooltip"
+              data-placement="top" title="{{detail}}"><i class="fa fa-eye"></i></button>
+
+      <button *ngIf="isCollapseTable && isFullTable" (click)="collapseTable()" data-toggle="tooltip"
+              data-placement="top" title="{{hideString}}"><i class="fa fa-minus"></i></button>
+      <button *ngIf="!isCollapseTable && isFullTable" (click)="collapseTable()" data-toggle="tooltip"
+              data-placement="top" title="{{showString}}"><i class="fa fa-plus"></i></button>
+      <button *ngIf="isFullTable && cardData2['zoom']" (click)="zoomTrue()" data-toggle="tooltip"
+              data-placement="top" title="{{expanseString}}"><i class="fa fa-expand"></i></button>
+      <button *ngIf="!isFullTable && cardData2['zoom']" (click)="zoomFalse()" data-toggle="tooltip"
+              data-placement="top" title="{{collapseString}}"><i class="fa fa-compress"></i></button>
+
+
+    </div>
+
+  </div>
+  <div [ngStyle]="isFullTable && cardData2['cardType'] !== 'TOP_CARD' && cardData2['cardType'] !== 'TABLE_CARD'  ? fo : '' " class="{{isCollapseTable && !isFullTable ? 'card-body card-responsive':
+  isCollapseTable && isFullTable ? (cardData2['cardType'] == 'NORMAL'? 'nomalCard' :
+  cardData2['cardType'] == 'TABLE_CARD'? 'tableCard card-body card-responsive':
+  (cardData2['cardType'] == 'TOP_CARD' || cardData2['cardType'] == 'TOP_CARD_2')? 'topCard': 'card400 card-body card-responsive') :
+  !isFullTable? 'card-body card-responsive':
+   !isCollapseTable? 'collapseTable' : cardLength == 1? 'card400 card-body card-responsive': ''}}"
+  [style.height.%] = "cardLength == 1? 100: ''">
+<!--    <div class="detail"><i class="{{cardData2['cardType'] == 'NORMAL'? 'fa fa-search-plus': 'display-searchplus'}}"></i></div>-->
+    <div *ngIf="!isSpinner" class="full-spinner" ><mat-spinner color="accent" diameter="30" ></mat-spinner></div>
+    <contents-dashboard *ngIf="!showBar" class="content-card" [contents]="cardData2['contents']" style="height: 100%"
+    (clickContents)="clickCard($event)" [isExcelContent]="isExcelCard" (clickDetail)="clickDetail($event)" (showDetail)="showDetail.emit()"
+    (clickTopRight)="onClickTop($event)" [dashboardModel]="dashBoadModel" [titleCard]="cardData2['title']"
+                        [drilldownLength]="drilldownLength" (changeCode)="changeCodeWarning($event)"
+                        (lv2Spark3)="detailSpark3($event)" [codeWarning]="codeWarning"
+    [indexCard]="indexCard" [chartDetails]="chartDetail" [isZoomCard]="isFullTable" [cardLength]="cardLength">
+    </contents-dashboard>
+    <bar-chart *ngIf="showBar" class="db-normal-card custom-chart" [barData]="contentData"></bar-chart>
+
+  </div>
+
+  <!--/.row-->
+</div>

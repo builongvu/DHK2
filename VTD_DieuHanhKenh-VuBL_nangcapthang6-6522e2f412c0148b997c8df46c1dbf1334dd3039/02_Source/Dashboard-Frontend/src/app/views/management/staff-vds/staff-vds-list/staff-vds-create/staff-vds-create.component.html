@@ -1,0 +1,120 @@
+<div class="w-100 staff-vds-create">
+  <div class="vis-card-header">
+    <h4>
+      {{'management.group.table.head.editStaff' | translate}}
+    </h4>
+    <span (click)="close()" style="cursor: pointer"><i class="fa fa-times"></i></span>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="confirmCreate(show)" [formGroup]="vdsFormAdd">
+      <input type="hidden" formControlName="id">
+      <div class="form-group row align-items-center mt-2">
+        <div class="col-md-4"><input type="radio" formControlName="shopWarning" value="1">
+          <span class="pdl-2">{{'management.group.table.head.receiveWarning' | translate}}</span>
+        </div>
+        <div class="col-md-4"><input type="radio" formControlName="shopWarning" value="0">
+          <span class="pdl-2">{{'management.group.table.head.notWarning' | translate}}</span>
+        </div>
+      </div>
+      <div class="form-group row align-items-center">
+        <div class="col-md-2">
+          {{'management.group.table.head.shopName' | translate}} <span style="color:red">*</span>
+        </div>
+        <div class="col-md-4">
+          <app-config-tree class="target-container shopCodeScore" (click)="dirty()" [items]="nodeTreeViews"
+                           [(value)]="valueEdit" (valueChange)="unitChange($event)" [config]="mobjConfigScore">
+          </app-config-tree>
+        </div>
+        <div class="col-md-2 no-pad">{{'management.group.table.head.channel' | translate}}<span style="color:red">*</span></div>
+        <div class="col-md-4">
+          <input readonly type="text" class="cvNumber" formControlName="vdsChannelCode"/>
+        </div>
+      </div>
+      <div class="form-group row align-items-center">
+        <div class="col-md-2">{{'management.group.table.head.staffCode' | translate}}<span style="color:red">*</span></div>
+        <div class="col-md-4"><input readonly type="text" formControlName="staffCode" class="cvNumber">
+        </div>
+        <div class="col-md-2 no-pad">{{'management.group.table.head.staffName' | translate}}<span style="color:red">*</span></div>
+        <div class="col-md-4">
+          <input maxlength="100" type="text" (blur)="checkSpace($event)" formControlName="staffName" class="cvNumber">
+          <span class="separator"> </span>
+          <mat-error class="error-message" *ngFor="let validation of validation_messages.staffName">
+            <mat-error
+              *ngIf="vdsFormAdd.get('staffName').hasError(validation.type) && (vdsFormAdd.get('staffName').dirty || vdsFormAdd.get('staffName').touched)">
+              {{validation.message}}
+            </mat-error>
+            <mat-error *ngIf="isAllSpace && !vdsFormAdd.get('staffName').hasError(validation.type) && (vdsFormAdd.get('staffName').dirty || vdsFormAdd.get('staffName').touched)">
+           {{'management.group.table.validate.notNull' | translate}}
+          </mat-error>
+          </mat-error>
+        </div>
+      </div>
+      <div class="form-group row align-items-center">
+        <div class="col-md-2">{{'management.group.table.head.staffType' | translate}}<span style="color:red">*</span></div>
+        <div class="col-md-4">
+          <select class="select-option" formControlName="staffType">
+            <option value=''>{{'management.group.table.head.AllStaff' | translate}}</option>
+            <option value="1">{{'management.group.table.head.businessStaff' | translate}}</option>
+            <option value="0">{{'management.group.table.head.otherStaff' | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md-2 no-pad">Email<span style="color:red">*</span></div>
+        <div class="col-md-4"><input maxlength="50" type="text" formControlName="email" class="cvNumber">
+          <span class="separator"> </span>
+          <mat-error class="error-message" *ngFor="let validation of validation_messages.email">
+            <mat-error
+              *ngIf="vdsFormAdd.get('email').hasError(validation.type) && (vdsFormAdd.get('email').dirty || vdsFormAdd.get('email').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+      <row class="form-group row align-items-center">
+        <div class="col-md-2">{{'management.group.table.head.phoneNumber' | translate}}<span style="color:red">*</span></div>
+        <div class="col-md-4">
+          <input maxlength="50" type="text" formControlName="phoneNumber" class="cvNumber">
+          <span class="separator"> </span>
+          <mat-error class="error-message" *ngFor="let validation of validation_messages.phoneNumber">
+            <mat-error
+              *ngIf="vdsFormAdd.get('phoneNumber').hasError(validation.type) && (vdsFormAdd.get('phoneNumber').dirty || vdsFormAdd.get('phoneNumber').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </row>
+      <div class="w-100 text-center mb-2 mt-4 vis-btn-group">
+        <button type="button" class="btn btn-primary mx-2" (click)="close()"><i class="fa fa-times"></i>
+          {{'management.warningconfig.Cancel' | translate}}</button>
+        <button type="submit" class="btn btn-primary"
+                [disabled]="vdsFormAdd.invalid || (!vdsFormAdd.dirty && !dirtyChange) || isAllSpace"><i
+          class="fa fa-save"></i> {{'management.warningconfig.Save' | translate}}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<ng-template #show>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{'management.service.message.confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=updateStaffVDS() style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

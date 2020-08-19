@@ -1,0 +1,150 @@
+$border-bottom: rgba(0, 0, 0, .42);
+.declare-vds-cpn {
+  .no-pd {
+    padding: 0;
+  }
+  .pd-r{
+    padding-right:15px;
+  }
+
+  .cvNumber {
+    background: none;
+    outline: none;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $border-bottom;
+
+    &:focus + .separator {
+      transform: scaleX(1) translateY(-2px);
+      opacity: 1;
+    }
+  }
+
+  .cvNumber {
+    &:read-only {
+      pointer-events: none;
+    }
+
+  }
+
+  .separator {
+    height: 2px;
+    width: 100%;
+    background: #3F51B5;
+    display: block;
+    transform: scaleX(0) translateY(-2px);
+    transform-origin: 50%;
+    opacity: 0;
+    transition: all .15s linear;
+  }
+
+  .vis-btn-group {
+    button {
+      width: 105px;
+      //position: absolute;
+      white-space: nowrap;
+    }
+  }
+
+  .select-option-declare {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $border-bottom;
+  }
+
+  .total-row-declare {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .small-massage-declare {
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: -16px;
+    left: 15px;
+  }
+
+  .date-width-declare {
+    width: 100%;
+  }
+
+  input:read-only{
+    color: #8e8e8e;
+  }
+
+  .ellipsis-declare {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .pdl-2{
+    padding-left: 0.2rem;
+  }
+
+  table{
+    table-layout: fixed;
+    background-color: white;
+    min-width: 700px;
+    width: 100%;
+    .header-table {
+      background-color: #f1f7ff;
+      text-align: center;
+      font-weight: bold;
+    }
+    td,th{
+      padding-left: 0;
+      padding-right: 0;
+      .ellipsis-declare {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      div {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &:nth-child(1) {
+        width: 50px;
+      }
+      &:nth-child(2) {
+        width: 100px;
+      }
+      &:nth-child(3) {
+        width: 100px;
+      }
+      &:nth-child(4) {
+        width: 100px;
+      }
+      &:nth-child(5) {
+        width: 100px;
+      }
+      &:nth-child(6) {
+        width: 100px;
+      }
+    }
+  }
+  .no-pad-card{
+    padding-bottom: 0 !important;
+  }
+  .margin-btn{
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .minWidth {
+    padding-bottom: 1rem !important;
+  }
+
+  .no-pd {
+    padding-left: 15px !important;
+  }
+
+  .mrgn0{
+    margin-bottom: 0;
+  }
+}

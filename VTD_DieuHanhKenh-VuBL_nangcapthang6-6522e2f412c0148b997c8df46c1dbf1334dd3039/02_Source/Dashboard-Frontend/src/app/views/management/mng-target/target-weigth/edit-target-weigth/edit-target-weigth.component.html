@@ -1,0 +1,121 @@
+<div class="vis-header-3-weight">
+  <h4 class="modal-title" id="exampleModalContent">{{'management.weight.editWeight' | translate}}</h4>
+  <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;"
+        (click)="setFormAdd()">&times;</span>
+</div>
+<div class="modal-body target-weigth">
+  <div class="form-group row align-items-center">
+    <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.serviceName' | translate}}
+      <span [style.color]="'red'">*</span></label>
+    <div class="col-xl-4 col-md-4 col-sm-12 pad-calc4">
+      <input name="product1" class="width-100 border-bot disable-date" [ngModel]="servicenameEdit" [readOnly]="true"
+             data-toggle="tooltip" [disabled]="true"
+             data-placement="top" title="{{servicenameEdit}}">
+    </div>
+    <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.unit' | translate}}
+      <span [style.color]="'red'">*</span></label>
+    <div class="col-xl-4 col-md-4 col-sm-12 treeview-unit">
+      <app-config-tree class="target-container shopCodeScore" [items]="nodeTreeViews" [(value)]="valueEdit"
+        (valueChange)="unitChange($event)" [config]="mobjConfigScore">
+      </app-config-tree>
+    </div>
+
+    <label class="col-xl-2 col-md-2 col-sm-12 mar-1r">{{'management.weight.staff' | translate}}
+      </label>
+    <div class="col-xl-4 col-md-4 col-sm-12 mar-1r">
+      <app-config-tree class="target-container shopCodeScore" [items]="staffTrees" [(value)]="staffEdit"
+                       (valueChange)="staffChangeEdit($event)" [config]="mobjConfigStaff">
+      </app-config-tree>
+    </div>
+
+    <label class="col-xl-2 col-md-2 col-sm-12 mar-1r">{{'management.weight.score' | translate}}
+      <span [style.color]="'red'">*</span></label>
+    <div class="col-xl-4 col-md-4 col-sm-12 form-message mar-1r">
+      <input name="product4" class="width-100 border-bot select-search-score" [(ngModel)]="scoreEdit" maxlength="{{maxLengthScore}}"
+             (ngModelChange)="changeScoreEdit()">
+      <small class="validate-red small-massage-score" *ngIf="scoreEditNull">{{'management.weight.notNullScore' | translate}}</small>
+      <small class="validate-red small-massage-score" *ngIf="scoreEditFalse">{{'management.weight.validScore' | translate}}</small>
+    </div>
+
+    <label class="col-xl-2 col-md-2 col-sm-12 mar-1r">{{'management.weight.scoreMax' | translate}}
+      <span [style.color]="'red'">*</span></label>
+    <div class="col-xl-4 col-md-4 col-sm-12 form-message mar-1r">
+      <input name="product4" class="width-100 border-bot select-search-score" [(ngModel)]="scoreMaxEdit" maxlength="{{maxLengthScore}}"
+             (ngModelChange)="changeScoreMaxEdit()">
+      <small class="validate-red small-massage-score" *ngIf="scoreMaxEditNull">{{'management.weight.notNullScore' | translate}}</small>
+      <small class="validate-red small-massage-score" *ngIf="scoreMaxEditFalse">{{'management.weight.validScore' | translate}}</small>
+    </div>
+
+    <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.status' | translate}}
+      <span [style.color]="'red'">*</span></label>
+    <div class="col-xl-4 col-md-4 col-sm-12 pad-calc4">
+      <select name="product5" class="width-100 border-bot select-search-score" [(ngModel)]="statusEdit">
+        <option [value]="1">{{'management.weight.active' | translate}}</option>
+        <option [value]="0">{{'management.weight.notActive' | translate}}</option>
+      </select>
+    </div>
+
+    <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.fromDate' | translate}}
+      <span [style.color]="'red'">*</span></label>
+    <div class="col-xl-4 col-md-4 col-sm-12 form-message">
+      <mat-form-field class="date-width">
+        <input matInput [matDatepicker]="dp5"  [formControl]="mdtDateFromEdit"
+               (dateChange)="dateChangeFromEdit($event)" [max]="mdtMaxDate" [min]="mdtMinDate">
+        <mat-datepicker-toggle style="z-index: 2000 !important" matSuffix [for]="dp5"></mat-datepicker-toggle>
+        <mat-datepicker style="z-index: 2000 !important" #dp5 [startView]="'multi-year'"
+          panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+      <small class="validate-red small-massage" *ngIf="dateFromEditInvalid">{{'management.weight.invalidDate' | translate}}
+      </small>
+      <small class="validate-red small-massage" *ngIf="dateFromEditNull">{{'management.weight.notNullDate' | translate}}
+      </small>
+      <small class="validate-red small-massage" *ngIf="dateFromEditFalse">{{'management.weight.checkFromDate' | translate}}
+      </small>
+    </div>
+
+    <label class="col-xl-2 col-md-2 col-sm-12">{{'management.weight.toDate' | translate}}
+      </label>
+    <div class="col-xl-4 col-md-4 col-sm-12 form-message">
+      <mat-form-field class="date-width">
+        <input matInput [matDatepicker]="dp6"  [formControl]="mdtDateToEdit"
+               (dateChange)="dateChangeToEdit($event)" [max]="mdtMaxDate" [min]="mdtMinDate">
+        <mat-datepicker-toggle matSuffix [for]="dp6"></mat-datepicker-toggle>
+        <mat-datepicker #dp6
+                        [startView]="'multi-year'"
+                        panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+      <small class="validate-red small-massage" *ngIf="dateToEditInvalid">{{'management.weight.invalidDate' | translate}}
+      </small>
+      <small class="validate-red small-massage" *ngIf="dateToEditNull">{{'management.weight.notNullDate' | translate}}
+      </small>
+      <small class="validate-red small-massage" *ngIf="dateToEditFalse">{{'management.weight.checkToDate' | translate}}</small>
+    </div>
+
+  </div>
+</div>
+<!--        <div style="text-align: center" *ngIf="errorEdit"><span>Dữ liệu bị trùng lặp</span></div>-->
+<div class="w-100 d-flex justify-content-center py-2 mb-2">
+  <button type="button" (click)="setFormAdd()" class="btn btn-primary mr-2 btn-center" ><i class="fa fa-times"></i>
+    {{'management.weight.cancel' | translate}}</button>
+  <button type="button" class="btn btn-primary ml-2 btn-center" (click)="clickSave(edit)" [disabled]="showEditButton"><i class="fa fa-save"></i>
+    {{'management.weight.save' | translate}}</button>
+</div>
+<ng-template #edit>
+  <div class="modal-body">
+    <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+    <!--      <span class="mx-1">{{'management.target.table.template.delete?' | translate}}-->
+    <!--        {{marrDataDelte.length}}-->
+    <!--        {{'management.target.table.template.record?' | translate}}</span>-->
+    {{'management.weight.sureEdit' | translate}}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn btn-center"
+            (click)="closeModal()"><i class="fa fa-times"></i> {{'management.target.button.no' | translate}}
+    </button>
+    <button (click)="saveEdit()" class="btn btn-primary click-btn btn-center"
+            type="button"><i class="fa fa-check"></i> {{'management.target.button.yes' | translate}}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,181 @@
+<div class="unit">
+  <div class="col-xl-12 col-md-12 col-sm-12 p-0 mt-3">
+    <div class="card">
+      <div class="card-body pb-0">
+        <div class="form-group row align-items-center mb-0 pl-4 pr-4">
+          <label
+            class="col-xl-2 col-md-2 col-sm-12 col-form-label pb-0">{{'management.shopunit.unitcode' | translate}}</label>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="w-100">
+              <input matInput autocomplete="off" class="w-100" [(ngModel)]="unitDTO.code">
+            </mat-form-field>
+          </div>
+
+          <label
+            class="col-xl-2 col-md-2 col-sm-12 col-form-label pb-0">{{'management.shopunit.unitname' | translate}}</label>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="w-100">
+              <input matInput autocomplete="off" class="w-100" [(ngModel)]="unitDTO.name">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row align-items-center pl-4 pr-4">
+          <label class="col-xl-2 col-md-2 col-sm-12 col-form-label pb-0">{{'management.shopunit.per' | translate}}</label>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="w-100">
+              <input matInput autocomplete="off" class="w-100" [(ngModel)]="rate">
+            </mat-form-field>
+          </div>
+
+          <label class="col-xl-2 col-md-2 col-sm-12 col-form-label pb-0">{{'management.shopunit.status' | translate}}</label>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <select name="product" class="select-search" [(ngModel)]="unitDTO.status">
+              <option value="-1">{{'management.warningconfig.select' | translate}}</option>
+              <option value="1">{{'management.service.info.work' | translate}}</option>
+              <option value="0">{{'management.service.info.nonwork' | translate}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="w-100 d-flex justify-content-center btn-update-config">
+          <button class="btn m-2 btn-primary click-btn" type="button" (click)="getUnits()"><i class="fa fa-search"></i>
+            {{'management.warningconfig.search' | translate}}
+          </button>
+          <button class="btn m-2 btn-primary click-btn" type="button" (click)="openNew()"><i class="fa fa-plus"></i>
+            {{'management.service.button.add' | translate}}
+          </button>
+          <!-- <button class="m-2 btn btn-primary" (click)="download()"><i class="fa fa-download"></i>
+            {{'management.target.button.download' | translate}}
+          </button> -->
+          <!-- <button class="m-2 btn btn-primary click-btn" (click)="newUpload(upload)"><i class="fa fa-upload"></i>
+            {{'management.warningconfig.upload' | translate}}</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-sm-12 p-0 mttable table-responsive table-unit">
+    <div class="table-reponsive">
+      <table class="table table-striped table-hover fixed">
+        <thead class="header-table">
+          <tr>
+            <th class="text-center">
+              <div class="custom-control custom-checkbox" *ngIf="units && units.length > 0">
+                <input type="checkbox" [(ngModel)]="mblnCheckAll" class="custom-control-input" id="all">
+                <label class="custom-control-label" (click)="checkAll()" for="all">
+                  <span></span>
+                </label>
+              </div>
+            </th>
+            <th>{{'management.target.table.header.order' | translate}}</th>
+            <th>{{'management.shopunit.unitcode' | translate}}</th>
+            <th>{{'management.shopunit.unitname' | translate}}</th>
+            <th>{{'management.shopunit.per' | translate}}</th>
+            <th>{{'management.shopunit.status' | translate}}</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="!units || units.length == 0">
+          <tr>
+            <td colspan="7" align="center" style="background: white">
+              {{'management.warningconfig.Nodata' | translate}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="units && units.length > 0">
+          <tr
+            *ngFor="let unit of units | paginate : {id: 'unit',itemsPerPage: 10, currentPage: unitDTO.pager.page, totalItems: unitDTO.pager.totalRow}; index as i">
+            <td class="text-center">
+              <div class="custom-control custom-checkbox" *ngIf="unit">
+                <input type="checkbox" class="custom-control-input" (click)="select(unit.id)" [(ngModel)]="unit.check"
+                  [id]="unit.id">
+                <label class="custom-control-label" [for]="unit.id">
+                </label>
+              </div>
+            </td>
+            <td class="text-center">
+              {{((unitDTO.pager.page - 1) * unitDTO.pager.pageSize) + i + 1}}
+            </td>
+
+            <td class="text-left">
+              <div [tooltip]="unit.code" class='text-over'>
+                {{unit.code  }}
+              </div>
+            </td>
+
+            <td class="text-left">
+              <div [tooltip]="unit.name" class='text-over'>
+                {{unit.name  }}
+              </div>
+            </td>
+
+            <td class="text-right">
+              <div [tooltip]="unit.rate" class='text-over'>
+                {{unit.rate  }}
+              </div>
+            </td>
+
+            <td class="text-center">
+              <div
+                [tooltip]="unit.status == '1' ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate)"
+                class='text-over'>
+                {{unit.status == '1' ? ('management.service.info.work' | translate) : ('management.service.info.nonwork' | translate) }}
+              </div>
+            </td>
+            <td class="text-center">
+              <i class="fa fa-pencil-square-o" style="cursor: pointer;" (click)="openEdit(unit)"
+                tooltip="{{'management.warningconfig.edit' | translate}}" aria-hidden="true"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="w-100 d-flex justify-content-between" *ngIf="units && units.length>0">
+    <p style="margin-left: 5px;">
+      {{'management.warningconfig.from' | translate}}{{unitDTO.pager.page * 10 - 9}}
+      {{'management.warningconfig.to' | translate}}
+      {{unitDTO.pager.page * 10 < unitDTO.pager.totalRow ? unitDTO.pager.page * 10 : unitDTO.pager.totalRow  }}
+      {{'management.warningconfig.of' | translate}} {{unitDTO.pager.totalRow}}
+      {{'management.warningconfig.record' | translate}}</p>
+    <ul style="float:right;" class="pagination">
+      <pagination-controls id='unit' (pageChange)="pageChange($event)"
+        previousLabel="{{'management.target.table.pager.previous' | translate}}"
+        nextLabel="{{'management.target.table.pager.next' | translate}}" (pageChange)="p = $event">
+      </pagination-controls>
+    </ul>
+  </div>
+
+  <div class="w-100 d-flex justify-content-center" *ngIf="units && units.length>0">
+    <button type="button" class="m-2 btn btn-primary click-btn" [disabled]="mstrlock == '0'"
+      (click)="openConfirm(confirm,'0')">
+      <i class="fa fa-lock" aria-hidden="true"></i> {{'management.service.info.lock' | translate}}
+    </button>
+    <button type="button" class="m-2 btn btn-primary click-btn" [disabled]="mstrunlock == '0'"
+      (click)="openConfirm(confirm,'1')">
+      <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+      {{'management.service.info.unLock' | translate}}
+    </button>
+  </div>
+  <ng-template #confirm>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1" *ngIf="!mblnConfirm"> {{'management.warningconfig.lock?' | translate}}</span>
+      <span class="mx-1" *ngIf="mblnConfirm"> {{'management.warningconfig.unlock?' | translate}}</span>
+    </div>
+    <div class="modal-footer">
+      <button class="m-2 btn btn-secondary click-btn" (click)="back()"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="lockUnlock('0')" *ngIf="!mblnConfirm"><i
+          class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+      <button class="m-2 btn btn-primary click-btn" (click)="lockUnlock('1')" *ngIf="mblnConfirm"><i
+          class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+
+</div>

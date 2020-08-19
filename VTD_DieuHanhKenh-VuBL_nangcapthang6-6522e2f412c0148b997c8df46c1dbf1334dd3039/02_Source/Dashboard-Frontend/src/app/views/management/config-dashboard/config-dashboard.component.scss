@@ -1,0 +1,117 @@
+$border-bottom: rgba(0, 0, 0, .42);
+.treeview-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+
+.treeview-container::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+
+/dee/ .treeview-container[_ngcontent-c10] {
+  background: red;
+}
+
+/deep/ .treeview-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+
+/deep/ .treeview-container::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  outline: 1px solid slategrey;
+}
+
+.staff-vds-cpn {
+  /deep/ .treeview-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+  }
+
+  /deep/ .treeview-container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+    outline: 1px solid slategrey;
+  }
+
+  @media screen and (min-width: 768px) {
+    .no-pad {
+      padding-left: 2rem !important;
+    }
+    .no-pdr {
+      padding-right: 0 !important;
+    }
+    .no-pdl {
+      padding-left: 10px !important;
+    }
+  }
+
+  //.treeview-container {
+  //  scrollbar-color: lightgray #fffff;
+  //  scrollbar-width: thin;
+  //}
+  //
+  //.treeview-container::-webkit-scrollbar-track {
+  //  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+  //}
+  //
+  //.treeview-container::-webkit-scrollbar-thumb {
+  //  background-color: lightgray;
+  //  border-radius: 10px;
+  //  outline: 1px solid slategrey;
+  //}
+
+  /deep/ .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+
+  .vis-card-body {
+    padding: 0 .1rem;
+    //display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: -10px;
+    display: block !important;
+  }
+  .no-mb{
+    margin-bottom: 0 !important;
+  }
+
+  //.cvNumber {
+  //  background: none;
+  //  outline: none;
+  //  width: 100%;
+  //  border: none;
+  //  border-bottom: 1px solid $border-bottom;
+  //
+  //  &:focus + .separator {
+  //    transform: scaleX(1) translateY(-2px);
+  //    opacity: 1;
+  //  }
+  //}
+
+  //.cvNumber {
+  //  &:read-only {
+  //    pointer-events: none;
+  //  }
+  //
+  //}
+
+  //.separator {
+  //  height: 2px;
+  //  width: 100%;
+  //  background: #3F51B5;
+  //  display: block;
+  //  transform: scaleX(0) translateY(-2px);
+  //  transform-origin: 50%;
+  //  opacity: 0;
+  //  transition: all .15s linear;
+  //}
+
+  //.vis-btn-group {
+  //  button {
+  //    width: 105px;
+  //  }
+  //}
+}
+

@@ -1,0 +1,70 @@
+<!--<togger class="fixed-setting" (filter)="getDataByToggle($event)" [defaultCycle]="defaultCycle"-->
+<!--        [drilldown]="dashModel? dashModel.groupId: null"></togger>-->
+<!--[hidden] = "isShowBack"-->
+<div (click)="g()" class="row month-dashboard" *ngIf="mobjDataDashboard">
+  <div><i class="fa fa-mail-reply col-1 back-dash" (click)="onslickBack()" *ngIf="isShowBack"></i></div>
+  <div class="col-11 align-middle">
+    <div class="{{isShowBack? 'col-md-12 groupName1' : 'col-md-12 groupName'}}">{{groupName}}</div>
+    <div class="{{isShowBack? 'col-md-12 subGroupName1' : 'col-md-12 subGroupName'}}">{{subGroupName}}</div>
+  </div>
+  <!--  <i class="fas fa-long-arrow-alt-down"></i>-->
+</div>
+<div *ngIf="isBtnView && btnVisibility && !isLv2 && !isLvThree && !isLv3Table2 && (userStatus === 'KENH_TINH')"
+     class="stt-view">
+  <a class="stt-view__content" href="javascript:void(0)" placement="right" tooltip="{{textBtn}}" (click)="changeView()"><i
+    class="fa fa-info-circle"></i></a>
+</div>
+<togger (valueChange)="displayCounter($event)" [childMessage]="parentMessage" class="fixed-setting"
+        (filter)="getDataByToggle($event)" [defaultCycle]="defaultCycle"
+        [drilldown]="dashModel? dashModel: null"></togger>
+<div (resized)="onResized()" class="test">
+  <div *ngIf="groupId === 1 && (userStatus === 'KENH_TINH') " class="row">
+<!--    <div class="col-12 mb-1 d-flex" *ngIf="isRadioBtn && isLv2 && !isLvThree && !isLv3Table2">-->
+    <div class="col-12 mb-1 d-flex" *ngIf="isRadioBtn && isLv2 && !isLvThree && !isLv3Table2 && (dashModel.pRow || dashModel.pRow == 0) && !(!mobjDataDashboard && !isShow)">
+<!--    <div class="col-12 mb-1 d-flex" *ngIf="isRadioBtn && !isLv3Table2">-->
+      <div class="custom-control custom-radio mr-3">
+        <input [value]="'0'" (change)="unitChange($event)" type="radio" id="customRadio1" name="customRadio"
+               class="custom-control-input" [checked]="unitValue === '0'">
+        <label class="custom-control-label"
+               for="customRadio1">{{'management.group.table.validate.unitView' | translate}}</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input [value]="'1'" (change)="unitChange($event)" type="radio" id="customRadio2" name="customRadio"
+               class="custom-control-input" [checked]="unitValue === '1'">
+        <label class="custom-control-label"
+               for="customRadio2">{{'management.group.table.validate.nationalStaffView' | translate}}</label>
+      </div>
+    </div>
+  </div>
+  <!--  <app-column-chart></app-column-chart>-->
+  <div (click)="g()" class="animated fadeIn">
+    <div *ngIf="mobjDataDashboard" class="row">
+      <div *ngFor="let cad of marrCards, index as card" class="{{
+           cad['cardSize'] == '1_2' && groupId == 1 && marrCards.length%2 != 0? 'col-md-6 group':
+           cad['cardSize'] == '1_2' && groupId != 1 && marrCards.length%2 != 0?'col-md-6 not-group' :
+           cad['cardSize'] == '1_2' && marrCards.length%2 == 0?'col-md-6 lv3-chart' :
+           cad['cardSize'] == '1_4'? 'col-md-3 cardSize1-4' : 'col-md-12'}}">
+        <card-dashboard [isExcelCard]="isExcel" [unitOrStaff]="unitValue" [card-data]="cad"
+                        (onclickCard)="clickTopLeft($event)"
+                        (clickTopRight)="onClickTopRight($event)" (clickRow)="clickRow($event)"
+                        (clickChart)="clickChartLv2($event)"
+                        (showDetail)="clickShowDetail()" [drilldownLength]=dashboardModels.length
+                        (showDetailSpark2)="showDetailSpark2($event)" (showDetailSpark3)="detailSpark3($event)"
+                        (changeCodeSpark2)="changeCodeSpark2($event)" [codeWarning]="dashModel.codeWarning"
+                        [dashBoadModel]="dashModel" [indexCard]="card" [chartDetail]="chartDetail"
+                        [cardLength]="marrCards.length">
+        </card-dashboard>
+      </div>
+
+    </div>
+    <div *ngIf="!mobjDataDashboard && !isShow" class="spinner-container">
+      <div class="spinner">
+        <mat-spinner color="warn" diameter="40">
+        </mat-spinner>
+      </div>
+    </div>
+    <div (click)="g()" class="noData" *ngIf="!mobjDataDashboard && isShow">
+      <img src="assets/img/waining.png" width="25px" height="25px" alt="waining">
+      {{'management.layout.nodata' | translate}}</div>
+  </div>
+</div>

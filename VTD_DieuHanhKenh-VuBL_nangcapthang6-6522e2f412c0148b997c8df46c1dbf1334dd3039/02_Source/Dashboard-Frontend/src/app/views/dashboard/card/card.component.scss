@@ -1,0 +1,157 @@
+$padding-card: 0rem;
+$padding-button: .2rem;
+$card_header: #5bbbbf;
+
+.string-over1{
+  padding-right: 30px;
+  //display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.string-over2{
+  padding-right: 50px;
+  //display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.string-over3{
+  padding-right: 80px;
+  //display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card {
+  margin-bottom: .375rem !important;
+  .card-body {
+    padding: $padding-card !important;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    //max-height: 405px !important;
+
+  }
+  .detail{
+    position: absolute;
+    top: 60px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+    justify-content: center;
+    width: 30px;
+    right: 5px;
+    color: #666666;
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  .card-header {
+    padding: 4px 4px 4px 10px !important;
+    display: flex;
+    align-items: center;
+    background-color: $card_header !important;
+
+    .button-table {
+      position: absolute;
+      right: 0;
+      z-index: 1;
+
+      button {
+        color: rgb(102, 102, 102);
+        border: none;
+        background: transparent;
+        padding: $padding-button 0 !important;
+        min-width: 30px;
+        height: 100%;
+        //border-left: 1px solid rgba(0, 0, 0, .09);
+      }
+    }
+  }
+}
+
+.tableCard{
+  //height: 100%;
+}
+.full-spinner{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  background-color: white;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card400{
+  max-height: 400px;
+}
+
+.nomalCard{
+  height: 400px;
+  //height: 100%;
+}
+.topCard {
+  height: 105px !important;
+}
+.collapseTable {
+  display: none !important;
+}
+
+.full-screen {
+  position: fixed;
+  height: 100% !important;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 1199.98px) {
+  //.card {
+  //  .card-responsive {
+  //    height: 300px !important;
+  //  }
+  //}
+  .nomalCard{
+    height: 300px !important;
+  }
+
+  .topCard {
+    height: 140px !important;
+  }
+
+}
+
+@media screen and (min-width: 1199.98px) {
+  //.card {
+  //  .card-responsive {
+  //    height: 300px !important;
+  //  }
+  //}
+  .nomalCard{
+    height: 400px;
+    //height: 100%;
+  }
+
+}
+
+.display-searchplus{
+  display: none;
+}
+
+.title-card{
+  text-align: left;
+  font-size: 1rem;
+  text-transform: uppercase;
+}

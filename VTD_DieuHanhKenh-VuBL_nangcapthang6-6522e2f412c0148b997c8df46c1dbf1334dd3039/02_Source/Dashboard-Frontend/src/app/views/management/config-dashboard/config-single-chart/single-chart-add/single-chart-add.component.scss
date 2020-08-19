@@ -1,0 +1,156 @@
+
+input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid darkgray;
+}
+
+select {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid darkgray;
+}
+.full-width {
+  width: 100% !important;
+}
+.m-t-0 {
+  margin-top: 0 !important;
+}
+.vis-card-header-declare {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: .3rem .6rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.target-container{
+  /deep/ .show{
+    .btn-outline-secondary.dropdown-toggle{
+      &:focus{
+        box-shadow: unset !important;
+      }
+    }
+  }
+  /deep/ .dropdown {
+    /deep/ button{
+
+      &:focus{
+        box-shadow: unset !important;
+      }
+      &::after{
+        right: .3rem;
+      }
+      //border-bottom: 1px solid $border-bottom !important;
+      // transform: translateX(-10px);
+      // width: 101%;
+      padding-right: 0;
+      margin-right: 0;
+      padding-left: .2rem;
+      margin-bottom: .25rem;
+    }
+    .btn {
+      padding: 0;
+      padding-left: .25rem;
+    }
+  }
+  /deep/ .dropdown-menu{
+    //dropmenu here
+    width: 100%;
+    border-radius: unset;
+    margin-top: -4px;
+    // transform: translateX(-10px);
+    /deep/ .dropdown-container{
+      //container here
+      padding: 0;
+      padding-left: .6rem !important;
+      padding-right: .3rem !important;
+      /deep/ .treeview-header{
+        width: 100%;
+        .dropdown-divider{
+          border: none;
+        }
+        // transform: translateX(8px);
+        //treeview header here
+        /deep/ .row-filter{
+          //row-filter here
+          /deep/ .col-12{
+            //col-12 here
+            /deep/ .form-control{
+              border-radius: unset;
+              border: none;
+              border-bottom: 1px solid #e4e5e6;
+              outline: none !important;
+              &:focus{
+                border-color: #3F51B5 !important;
+                outline: none !important;
+                box-shadow: none;
+              }
+              //form-control here
+              width: 100%;
+              // transform: translateX(-12.5px)
+            }
+          }
+        }
+      }
+
+    }
+  }
+  // /deep/ div.treeview-header input:focus {
+  //   outline: none !important;
+  // }
+
+}
+.default{
+  /deep/ .mat-form-field-infix {
+    border-bottom: 1px solid darkgrey !important;
+  }
+  /deep/.mat-form-field-underline {
+    width: 0 !important;
+  }
+}
+.input-err {
+  /deep/ .mat-form-field-infix {
+    border-bottom: 1px solid red !important;
+  }
+  /deep/.mat-form-field-underline {
+    width: 0 !important;
+  }
+}
+.scroll{
+  overflow-x: hidden !important;
+}
+input:focus {
+  outline: none;
+}
+
+select:focus {
+  outline: none;
+}
+
+.card-body {
+  padding-top: .5rem !important;
+  padding-bottom: 0 !important;
+}
+
+.card-footer {
+  padding: 0 !important;
+  border: none !important;
+}
+.total-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.error{
+  position: absolute;
+  top: 1.5rem;
+  //left: 0;
+  font-size: 0.7rem;
+  color: red;
+}
+
+
+
+

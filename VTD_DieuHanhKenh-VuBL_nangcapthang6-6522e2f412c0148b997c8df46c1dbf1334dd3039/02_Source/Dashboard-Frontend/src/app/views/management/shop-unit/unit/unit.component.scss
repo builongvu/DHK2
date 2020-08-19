@@ -1,0 +1,110 @@
+.unit {
+  /deep/ .mat-form-field-infix {
+    padding: 0 !important;
+  }
+  $border-bottom: rgba(0, 0, 0, 0.42);
+  .select-search {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $border-bottom;
+    height: 22px;
+  }
+  .select-search:focus {
+    border-style: dotted;
+    border-width: 0.5px;
+  }
+  .mttable {
+    margin-top: -0.6em !important;
+  }
+
+  /deep/ .mat-form-field-underline {
+    // bottom: 0.9em !important;
+  }
+
+  .table-unit {
+    table {
+      table-layout: fixed !important;
+      background-color: white;
+      width: 100%;
+      min-width: 800px;
+      th {
+        background-color: #f1f7ff !important;
+        padding: 0.4rem !important;
+      }
+
+      td {
+        padding: 0.4rem !important;
+      }
+
+      tr {
+        td {
+          .text-over {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+          }
+
+          div {
+            &:nth-child(3) {
+              text-align: center;
+            }
+          }
+
+          div {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+
+        th {
+          vertical-align: middle;
+          text-align: center;
+          top: -1px;
+          background-color: white;
+          border: none !important;
+          z-index: 100;
+          text-align: center;
+
+          &:nth-child(1) {
+            width: 5% !important;
+          }
+
+          &:nth-child(2) {
+            width: 5% !important;
+          }
+
+          &:nth-child(4) {
+            width: 25% !important;
+          }
+
+          &:nth-child(5) {
+            width: 15% !important;
+          }
+
+          &:nth-child(6) {
+            width: 13% !important;
+          }
+
+          &:nth-child(7) {
+            width: 5% !important;
+          }
+        }
+      }
+    }
+  }
+}
+.click-btn {
+  width: 110px;
+}
+
+@media screen and (min-width: 3258px) {
+  /deep/ input.mat-input-element {
+    border-bottom: 1px solid rgba(0,0,0,.42);
+  }
+  /deep/ .mat-form-field-underline{
+    background-color: white;
+  }
+}

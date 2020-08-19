@@ -1,0 +1,102 @@
+<div class="w-100 dialog-group-cpn">
+  <form [formGroup]="newSerivceGroupForm">
+    <div class="modal-header">
+      <h4 *ngIf="dsb">{{'management.group.groupserviceAdd' | translate}}</h4>
+      <h4 *ngIf="!dsb">{{'management.group.groupserviceUpdate' | translate}}</h4>
+      <span (click)="colose()" style="cursor: pointer;font-size: 1.1rem" aria-hidden="true">&times;</span>
+    </div>
+    <div class="vis-body p-3">
+      <!--row 1-->
+      <div class="row align-items-center">
+        <div class="col-md-1 no-pdr">{{'management.group.filter.product' | translate}}<span class="require">*</span>
+        </div>
+        <div class="col-md-5 pdt-3dl">
+          <app-configwr-tree (click)="check()" class="product" [(value)]="value1" [items]="products"
+            (valueChange)="Onchange1($event)" [config]="mobjConfig">
+          </app-configwr-tree>
+          <div class="error-form" *ngIf="tree && !isAd">
+            {{'management.service.error.required' | translate}}
+          </div>
+        </div>
+        <div class="col-md-1 no-pdr">{{'management.group.filter.code' | translate}}<span class="require">*</span></div>
+        <div class="col-md-5">
+          <mat-form-field class="example-full-width">
+            <input style="text-transform: uppercase;" matInput #message maxlength="50" name="code"
+              formControlName="code" autocomplete="off" [(ngModel)]="mstrServiceCode" (ngModelChange)="mstrServiceCode"
+              (input)="checkCodeConflict($event)">
+          </mat-form-field>
+          <div *ngIf="preventSpace" class="error-form25">
+            {{'management.service.error.malformed' | translate}}
+          </div>
+
+          <div *ngIf="conflictCode" class="error-form25">
+            {{'management.service.error.codeConflict2' | translate}}
+          </div>
+          <div class="error-form25" *ngIf="special1">
+            {{'management.service.error.required' | translate}}
+          </div>
+        </div>
+      </div>
+      <!--row 2-->
+      <div class="row align-items-center">
+        <div class="col-md-1 no-pdr">{{'management.group.filter.name' | translate}}<span class="require">*</span></div>
+        <div class="col-md-5">
+          <mat-form-field class="example-full-width" (click)="focusField('nameField')"
+            [ngClass]="{'hasErrorField':!mblnIsValidNameField}">
+            <input matInput #message maxlength="100" name="name" (input)="checkSpecial($event)"
+              [(ngModel)]="mstrNewName" formControlName="name" autocomplete="off">
+            <!--            <mat-error *ngIf="hasError('name','pattern')">-->
+            <!--              {{'management.service.error.malformed' | translate}}-->
+            <!--            </mat-error>-->
+            <!--            <mat-error *ngIf="hasError('name','required')">-->
+            <!--              {{'management.service.error.malformed' | translate}}-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+          <div class="error-form25" *ngIf="special">
+            {{'management.service.error.required' | translate}}
+          </div>
+        </div>
+        <div class="col-md-1 no-pdr">{{'management.group.table.head.status' | translate}}<span class="require">*</span>
+        </div>
+        <div class="col-md-5 pdt-1dl">
+          <select *ngIf="!dsb" class="select-search" [(ngModel)]="groupMode.status" formControlName="status">
+            <option [value]="'1'">{{'management.service.info.work' | translate}}</option>
+            <option [value]="'0'">{{'management.service.info.nonwork' | translate}}</option>
+          </select>
+          <select *ngIf="dsb" class="select-search" [disabled]="test">
+            <option selected [value]="'1'">{{'management.service.info.work' | translate}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center pt-2 mt-1">
+      <button class="btn btn-primary btn-click mb-2 mx-2" (click)="colose()"><i class="fa fa-times"></i>
+        {{'management.service.button.cancel' | translate}}
+      </button>
+      <button class="btn btn-primary btn-click mb-2 mx-2" (click)="confirmAd(comfirmAdd)"
+        [disabled]=" tree || conflictCode || special || preventSpace || checkAllNull">
+        <i class="fa fa-save"></i> {{'management.service.button.save' | translate}}
+      </button>
+    </div>
+  </form>
+</div>
+<ng-template #comfirmAdd>
+  <div class="modal-body pd-13">
+    <p style="margin:0px;" class=" d-flex align-middle "><i class="fa fa-question-circle text-primary"
+        style="font-size: 22px; padding-right: 10px"></i> <span
+        *ngIf="!dsb">{{'management.group.message.addnew' | translate}}</span>
+      <span *ngIf="dsb">{{'management.group.message.addnew' | translate}}</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <div mat-dialog-actions>
+      <button type="button" class="btn btn-secondary mr-1 click-btn" (click)="closeModal()">
+        <i class="fa fa-times"></i> {{'management.group.button.no' | translate}}
+      </button>
+      <button class="btn btn-primary ml-1 click-btn" (click)="insertData()">
+        <i class="fa fa-check"></i> {{'management.group.button.yes' | translate}}
+      </button>
+    </div>
+
+  </div>
+</ng-template>

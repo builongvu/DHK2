@@ -1,0 +1,204 @@
+<div class="row config-single-card">
+  <div class="col-12">
+    <div class="card mt-2 pd-r">
+      <div class="card-body no-pad-card">
+        <form [formGroup]="formSingleCard">
+          <div class="form-group row align-items-center">
+            <div class="col-xl-1 col-md-2 col-sm-12 label-start col-form-label">{{'management.single-card.card-name' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <input type="text" formControlName="cardName" class="cvNumber" maxlength="255">
+              <span class="separator"></span>
+            </div>
+            <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.card-size' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="cardSize" class="select-option">
+                <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+                <option *ngFor="let eachCardSize of listCardSize" value="{{eachCardSize.value}}">{{eachCardSize.name}}</option>
+              </select>
+            </div>
+            <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.group-parent' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="groupParent" class="select-option">
+                <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+                <option *ngFor="let eachGroupCard of listGroupCard" value="{{eachGroupCard.groupId}}">{{eachGroupCard.groupName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row align-items-center mt-4">
+            <div class="col-xl-1 col-md-2 col-sm-12 label-start col-form-label">{{'management.single-card.card-type' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="cardType" class="select-option">
+                <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+                <option *ngFor="let eachCardType of listCardType" value="{{eachCardType.value}}">{{eachCardType.name}}</option>
+              </select>
+            </div>
+            <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.zoom' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="cardZoom" class="select-option">
+                <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+                <option [value]= "1">{{'management.target.button.yes' | translate}}</option>
+                <option [value]= "0">{{'management.target.button.no' | translate}}</option>
+              </select>
+            </div>
+            <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.service' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <app-config-tree class="target-container" [(value)]="value" [items]="marrNodeTreeviewServices"
+                               [config]="mobjConfig" (valueChange)="onValueChange($event)">
+              </app-config-tree>
+            </div>
+          </div>
+          <div class="form-group row align-items-center mt-4">
+            <div class="col-xl-1 col-md-2 col-sm-12 label-start col-form-label">{{'management.single-card.drill-down' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="drillDown" class="select-option">
+                <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+                <option [value]= 1>{{'management.target.button.yes' | translate}}</option>
+                <option [value]= 0>{{'management.target.button.no' | translate}}</option>
+              </select>
+            </div>
+            <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.group-child' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="groupChild" class="select-option" [disabled]="true">
+                <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+                <option *ngFor="let eachGroupCard of listGroupCard" value="{{eachGroupCard.groupId}}">{{eachGroupCard.groupName}}</option>
+              </select>
+            </div>
+            <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.status' | translate}}</div>
+            <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <select formControlName="cardStatus" class="select-option">
+                <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+                <option [value]= 1>{{'management.weight.active' | translate}}</option>
+                <option [value]= 0>{{'management.group.table.body.inactive' | translate}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="w-100 d-flex justify-content-center btn-update-config">
+        <button class="btn m-2 btn-primary" (click)="search()"><i class="fa fa-search"></i>
+          {{'management.warningconfig.search' | translate}}
+        </button>
+        <button class="btn m-2 btn-primary" type="button" (click)="showModalAdd()"><i class="fa fa-plus"></i>
+          {{'management.group.button.add' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="header-table">
+        <tr>
+          <th> {{'management.group.table.head.ordinalNumbers' | translate}}</th>
+          <th>{{'management.single-card.card-name' | translate}}</th>
+          <th>{{'management.single-card.card-size' | translate}}</th>
+          <th>{{'management.single-card.group-parent' | translate}}</th>
+          <th>{{'management.single-card.card-type' | translate}}</th>
+          <th>{{'management.single-card.zoom' | translate}}</th>
+          <th>{{'management.single-card.service' | translate}}</th>
+          <th>{{'management.single-card.drill-down' | translate}}</th>
+          <th>{{'management.single-card.group-child' | translate}}</th>
+          <th>{{'management.single-card.status' | translate}}</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody *ngIf="listSingleCard.length == 0">
+        <tr>
+          <td colspan="11" align="center" style="background: white">
+            {{'management.warningconfig.Nodata' | translate}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="listSingleCard && listSingleCard.length > 0">
+        <tr *ngFor="let eachSingleCard of listSingleCard | paginate: {id:'singleCard', itemsPerPage: pageSize, currentPage: currentP, totalItems: listSingleCard.length}, index as i">
+          <td class="text-center">{{currentP * pageSize - (pageSize - 1) + i}}</td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.cardName">
+              {{eachSingleCard.cardName}}
+            </div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.sizeName">
+              {{eachSingleCard.sizeName}}
+            </div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.groupName">
+              {{eachSingleCard.groupName}}</div>
+          </td>
+          <td class="text-overf">
+            <div [tooltip]="eachSingleCard.nameCardType">
+              {{eachSingleCard.nameCardType}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.showZoom"> {{eachSingleCard.showZoom}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.serviceName"> {{eachSingleCard.serviceName}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.showDrillDown"> {{eachSingleCard.showDrillDown}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.showDrillDownObjectId"> {{eachSingleCard.showDrillDownObjectId}}</div>
+          </td>
+          <td>
+            <div class="text-overf" [tooltip]="eachSingleCard.showStatus"> {{eachSingleCard.showStatus}}</div>
+          </td>
+          <td align="center">
+            <span data-toggle="tooltip" data-placement="top" style="cursor: pointer; padding-right: 0.4rem" (click)="showModalUpdate(eachSingleCard)"
+                  tooltip="{{'management.group.message.updateToolTip' | translate }}"><i
+              class="fa fa-edit "></i></span>
+            <span data-toggle="tooltip" data-placement="top" style="cursor: pointer" (click)="openConfirm(deleteSingleCard, eachSingleCard.cardId)"
+                  tooltip="{{'management.group.message.deleteToolTip' | translate }}"><i
+              class="fa fa-trash-o"></i></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="w-100 d-flex justify-content-between" *ngIf="listSingleCard && listSingleCard.length > 0">
+      <p style="margin-left: 5px;">{{'management.warningconfig.from' | translate}} {{currentP * pageSize - (pageSize - 1)}}
+        {{'management.warningconfig.to' | translate}}
+        <span *ngIf="currentP*pageSize <  listSingleCard.length">{{currentP * pageSize}}</span>
+        <span *ngIf="currentP*pageSize >= listSingleCard.length">{{listSingleCard.length}}</span>
+        {{'management.warningconfig.of' | translate}} {{listSingleCard.length}}
+        {{'management.warningconfig.record' | translate}}</p>
+      <ul style="float:right;" class="pagination">
+        <pagination-controls id='singleCard' (pageChange)="pageChange($event)"
+                             previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                             nextLabel="{{'management.target.table.pager.next' | translate}}">
+        </pagination-controls>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteSingleCard>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{('management.single-card.delete-confirm' | translate)}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBack() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)=removeSingleCard() style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

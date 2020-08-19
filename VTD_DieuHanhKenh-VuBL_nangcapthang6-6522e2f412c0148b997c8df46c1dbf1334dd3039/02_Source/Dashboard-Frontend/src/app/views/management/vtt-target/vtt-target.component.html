@@ -1,0 +1,358 @@
+<div class="w-100 vtt-target-cpn">
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <form autocomplete="off" novalidate>
+        <div class="card-body">
+          <div class="form-group row align-items-center">
+
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label fix-mr">{{'management.target.filter.cycle' | translate}}</label>
+            <div class="col-xl-3 col-md-4 col-sm-12">
+              <select name="product" [(ngModel)]="cycleCode" (ngModelChange)="cycleChange()"
+                      [disabled]="mblnChec" class="select-search">
+                <option *ngFor="let cycle of cycles" value="{{cycle.code}}" selected>{{cycle.name}}</option>
+              </select>
+            </div>
+
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label">
+              <span *ngIf="cycleCode == '02'">{{'management.target.filter.month' | translate}}</span>
+              <span *ngIf="cycleCode != '02'">{{'management.target.table.header.year' | translate}}</span>
+
+            </label>
+            <div class="col-xl-3 col-md-4 col-sm-12 d-flex justify-content-between align-items-end">
+              <small class="errorDate" *ngIf="isNullDate && cycleCode == '02'">{{'management.target.filter.notInput' | translate}}</small>
+              <small class="errorDate" *ngIf="isNullDate && cycleCode != '02'">{{'management.target.filter.notInputYear' | translate}}</small>
+              <small class="errorDate" *ngIf="mblnvaLi">{{'management.target.filter.validate' | translate}}</small>
+              <small class="errorDate" *ngIf="yearOut == true">{{'management.target.filter.yearOut' | translate}}</small>
+              <mat-form-field [style.width.%.!important]="cycleCode == '03' ? 55 : 100 " class="font-text1">
+                <input matInput #focus [matDatepicker]="dp" (dateInput)="noMethod()" [formControl]="mdtDate"
+                       (input)="validateDate()" [readonly]="mblnChec"
+                       (dateChange)="dateChange($event)" [hidden]=true [max]="mdtMaxDate" [min]="mdtMinDate">
+                <input matInput [ngModelOptions]="{standalone: true}"
+                       [ngModel]="mdtDate.value._d.toString() | date : 'MM/yyyy'" *ngIf="cycleCode == '02'" name="month"
+                       (change)="dateChange($event)">
+                <input matInput [ngModelOptions]="{standalone: true}"
+                       [ngModel]="mdtDate.value._d.toString() | date : 'yyyy'" *ngIf="cycleCode == '03'" name="year"
+                       (change)="yearChange($event)">
+                <input matInput [ngModelOptions]="{standalone: true}"
+                       [ngModel]="mdtDate.value._d.toString() | date : 'yyyy'" *ngIf="cycleCode == '04'"
+                       name="multi-year"
+                       (change)="yearChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp [startView]="startView"
+                                (monthSelected)="chosenMonthHandler($event, dp)" [disabled]="mblnChec"
+                                (yearSelected)="chosenMonthHandler($event, dp)"
+                                panelClass="example-month-picker">
+                </mat-datepicker>
+                <!--                {{mdtDate.value._d.getTime()}}-->
+              </mat-form-field>
+
+              <select class="select-month font-text" name="tuan" (change)="changeYear()" [(ngModel)]="quarter"
+                      *ngIf="cycleCode == '03'">
+                <option value="1">Quý 1</option>
+                <option value="2">Quý 2</option>
+                <option value="3">Quý 3</option>
+                <option value="4">Quý 4</option>
+              </select>
+
+            </div>
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label">{{'management.target.filter.channel' | translate}}</label>
+            <div class="col-xl-3 col-md-4 col-sm-12 fix-mt">
+              <select [(ngModel)]="vdsChannelCode" name="channel" class="select-search" [disabled]="mblnChec">
+                <!--                <option value="">Tất cả</option>-->
+                <option [ngValue]="null">{{'management.target.combobox.all' | translate}}</option>
+                <option *ngFor="let channel of marrChannels" value="{{channel.code}}">
+                  {{channel.name}}
+                </option>
+              </select>
+            </div>
+
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label fix-mr">{{'management.target.filter.CV' | translate}}</label>
+            <div class="col-xl-3 col-md-4 col-sm-12 fix-desktop">
+              <input maxlength="30" [readonly]="mblnChec" [(ngModel)]="mstrCongVan" name="congVan"
+                     class="cvNumber" type="text" style="padding:0 .3rem"/>
+              <span class="separator"> </span>
+            </div>
+
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label fix-mr">{{'management.target.filter.product' | translate}}</label>
+            <div class="col-xl-3 col-md-4 col-sm-12">
+              <select name="product" [(ngModel)]="mnbrProductId" (ngModelChange)="showGroups()"
+                      [disabled]="mblnChec" class="select-search">
+                <option [ngValue]="null">{{'management.target.combobox.all' | translate}}</option>
+                <option *ngFor="let product of mobjProducts" value="{{product.mlngId}}">{{product.mstrName}}</option>
+              </select>
+            </div>
+
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label fix-mr">{{'management.target.filter.group' | translate}}</label>
+            <div class="col-xl-3 col-md-4 col-sm-12">
+              <select name="group" [(ngModel)]="mnbrGroupId" (change)="showServices()"
+                      [disabled]="mblnChec" class="select-search">
+                <option [ngValue]="null">{{'management.target.combobox.all' | translate}}</option>
+                <option *ngFor="let group of marrGroups" value="{{group.id}}">{{group.name}}</option>
+              </select>
+            </div>
+
+            <label
+              class="col-xl-1 col-md-2 col-sm-12 col-form-label fix-mr service-label">{{'management.target.filter.service' | translate}}</label>
+            <div class="col-xl-3 col-md-4 col-sm-12 fix-mr target-container service-cbx">
+              <ngx-dropdown-treeview id="colFormLabelSm" [config]="mobjConfig" [items]="marrNodeTreeviewServices"
+                                     [disabled]="mblnChec"
+                                     (click)="mstrKeyWord = null" [ngxDisabledOnSelector]="'button.dropdown-toggle'"
+                                     (selectedChange)="selectTree($event)"
+                                     (filterChange)="filterTreeView(marrNodeTreeviewServices, $event)">
+              </ngx-dropdown-treeview>
+
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted ">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-center flex-wrap">
+              <button class="btn btn-primary mb-2 mx-2 mt-4" [disabled]="mblnChec || (mblnvaLi || isNullDate) || yearOut" (click)="clickSearch()">
+                <i
+                  class="fa fa-search"></i> {{'management.target.button.search' | translate}}</button>
+              <button class="btn btn-primary mb-2 mx-2 mt-4" [disabled]="mblnChec" (click)="fileDownload()"><i
+                class="fa fa-download"></i> {{'management.target.button.download' | translate}}
+              </button>
+              <button class="btn btn-primary mb-2 mx-2 mt-4" [disabled]="mblnChec" (click)="confirm(template)"><i
+                class="fa fa-upload"></i> {{'management.target.button.up' | translate}}
+              </button>
+              <button class="btn btn-primary mb-2 mx-2 mt-4" [disabled]="mblnChec || disable" (click)="delete(deletes)">
+                <i class="fa fa-trash"> </i> {{'management.target.button.delete' | translate}}
+              </button>
+              <!--              <button class="btn btn-primary mb-2 mx-2 mt-4" [disabled]="chec" routerLink="/dashboard"><i class="fa fa-sign-out"></i> Thoát-->
+              <!--              </button>-->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div style="position: relative" class="col-lg-12">
+    <!--      <div *ngIf="!dataTable" style="text-align: center"><h3>không có dữ liệu</h3></div>-->
+    <!--      <div *ngIf="dataTable">-->
+    <div class="table-responsive">
+      <table [formGroup]="mobjForm" class="table table-striped table-hover">
+        <thead class="header-table">
+        <tr style="text-align: center">
+          <th>
+            <mat-checkbox *ngIf="marrDataTable" style=" margin-top: auto; margin-bottom: -.4rem"  [checked]="ckall"
+                          [disabled]="mblnChec" [hidden]="marrDataTable.length == 0"
+                          (change)="onChangeAll($event)"></mat-checkbox>
+          </th>
+          <th>{{'management.target.table.header.order' | translate}}</th>
+          <th (click)="setSort('month')"
+              style="cursor: pointer">
+            <span *ngIf="cycleCodeSearch == '02'">{{'management.target.table.header.month' | translate}}</span>
+            <span *ngIf="cycleCodeSearch == '03'">{{'management.target.table.header.quarter' | translate}}</span>
+            <span *ngIf="cycleCodeSearch == '04'">{{'management.target.table.header.year' | translate}}</span>
+            <span *ngIf="mstrTypeSort == 'asc'&&mstrColumnName == 'month'"><i class="fa fa-sort-asc"></i></span>
+            <span *ngIf="mstrTypeSort == 'desc'&&mstrColumnName == 'month'"><i class="fa fa-sort-desc"></i></span>
+            <span *ngIf="mstrColumnName != 'month'"><i class="fa fa-sort-desc"></i></span>
+          </th>
+          <th (click)="setSort('channelName')"
+              style="cursor: pointer">{{'management.target.table.header.channel' | translate}}
+            <span *ngIf="mstrTypeSort == 'asc'&&mstrColumnName == 'channelName'"><i class="fa fa-sort-asc"></i></span>
+            <span *ngIf="mstrTypeSort == 'desc'&&mstrColumnName == 'channelName'"><i class="fa fa-sort-desc"></i></span>
+            <span *ngIf="mstrColumnName != 'channelName'"><i class="fa fa-sort-desc"></i></span>
+          </th>
+          <th (click)="setSort('productName')"
+              style="cursor: pointer">{{'management.target.table.header.product' | translate}}
+              <span *ngIf="mstrTypeSort == 'asc'&&mstrColumnName == 'productName'"><i class="fa fa-sort-asc"></i></span>
+              <span *ngIf="mstrTypeSort == 'desc'&&mstrColumnName == 'productName'"><i class="fa fa-sort-desc"></i></span>
+              <span *ngIf="mstrColumnName != 'productName'"><i class="fa fa-sort-desc"></i></span>
+          </th>
+          <th (click)="setSort('groupServiceName')"
+              style="cursor: pointer">{{'management.target.table.header.group' | translate}}
+            <span *ngIf="mstrTypeSort == 'asc'&&mstrColumnName == 'groupServiceName'"><i
+              class="fa fa-sort-asc"></i></span>
+            <span *ngIf="mstrTypeSort == 'desc'&&mstrColumnName == 'groupServiceName'"><i
+              class="fa fa-sort-desc"></i></span>
+            <span *ngIf="mstrColumnName != 'groupServiceName'"><i class="fa fa-sort-desc"></i></span>
+          </th>
+          <th (click)="setSort('serviceName')"
+              style="cursor: pointer">{{'management.target.table.header.service' | translate}}
+            <span *ngIf="mstrTypeSort == 'asc'&&mstrColumnName == 'serviceName'"><i class="fa fa-sort-asc"></i></span>
+            <span *ngIf="mstrTypeSort == 'desc'&&mstrColumnName == 'serviceName'"><i class="fa fa-sort-desc"></i></span>
+            <span *ngIf="mstrColumnName != 'serviceName'"><i class="fa fa-sort-desc"></i></span>
+          </th>
+          <th>{{'management.target.table.header.CV' | translate}}</th>
+          <th>{{'management.target.table.header.createDate' | translate}}</th>
+          <th>{{'management.target.table.header.lastChedule' | translate}}
+            <span *ngIf="mstrColumnName != 'fScheduleLastMonth'"></span>
+          </th>
+          <th>{{'management.target.table.header.lastValue' | translate}}
+            <span *ngIf="mstrColumnName != 'fValueLastMonth'"></span>
+          </th>
+          <th>{{'management.target.table.header.lastcomplete' | translate}}
+            <span *ngIf="mstrColumnName != 'completedLastMonth'"></span>
+          </th>
+          <th>{{'management.target.table.header.chedule' | translate}}
+            <span *ngIf="mstrColumnName != 'fSchedule'"></span>
+          </th>
+          <th>{{'management.target.table.header.compare' | translate}}
+            <span *ngIf="mstrColumnName != 'compareMonthAndLastMonth'"></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="!marrDataTable">
+        <td colspan="14" align="center">{{'management.target.table.body.noData' | translate}}</td>
+        </tbody>
+        <tbody *ngIf="marrDataTable" formArrayName="formArray">
+        <tr
+          *ngFor="let data of marrDataTable | paginate: { id: 'planMontly', itemsPerPage: mnbrPageSize, currentPage: mnbrP, totalItems: mnbrTotal}; index as i"
+          [formGroupName]="i">
+          <input type="hidden" formControlName="id">
+          <td>
+            <mat-checkbox [checked]="data.checked" [disabled]="mblnChec"
+                          (change)="onChange($event,i)"></mat-checkbox>
+          </td>
+          <td align="center">{{mobjPager.page*mnbrPageSize-(mnbrPageSize-1) + i}}</td>
+          <td align="center">
+            <span *ngIf="cycleCodeSearch == '04'">{{data.year}}</span>
+            <span  *ngIf="cycleCodeSearch == '02'">{{data.month}}</span>
+            <span *ngIf="cycleCodeSearch == '03'">{{data.quarter}}</span>
+          </td>
+          <td style="text-align: left">
+            <div class="ellipsis" tooltip="{{data.channelName}}" placement="top">{{data.channelName}}</div>
+          </td>
+          <td>
+            <div class="ellipsis" tooltip="{{data.productName}}" placement="top">{{data.productName}}</div>
+          </td>
+          <td>
+            <div class="ellipsis" tooltip="{{data.groupServiceName}}" placement="top">
+              {{data.groupServiceName}}
+            </div>
+          </td>
+          <td>
+            <div class="ellipsis" tooltip="{{data.serviceName}}" placement="top">
+              {{data.serviceName}}
+            </div>
+          </td>
+          <td>
+            <div class="ellipsis" tooltip="{{data.congVan}}" placement="top" (mousemove)="noMethod()">
+              {{data.congVan}}
+            </div>
+          </td>
+          <td>
+            <div class="ellipsis" tooltip="{{getCreateDate(data.createDate)}}" placement="top" (mousemove)="getCreateDate(data.createDate)">
+              {{getCreateDate(data.createDate)}}
+            </div>
+          </td>
+          <td style="text-align: right">{{data.fScheduleLastMonth | number}}</td>
+          <td style="text-align: right">{{data.fValueLastMonth | number}}</td>
+          <td style="text-align: right">{{data.completedLastMonth | number}}%</td>
+          <td align="center">
+            <input value="{{data.fSchedule.toLocaleString('en-US')}}"
+                   maxlength="15"
+                   #element
+                   (input)="validateInput(element, i)" (mouseup)="validateInput(element, i)"
+                   (mousedown)="validateInput(element, i)" style="width:80%"
+                   formControlName="fSchedule" [readonly]="marrArrReadponly[i]" required/>
+
+          </td>
+          <td style="text-align: right">{{data.compareMonthAndLastMonth | number}}%</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="total-row" *ngIf="marrDataTable && !mblnChec">
+      <p *ngIf="mobjPager.page">{{'management.target.table.record.from' | translate}} {{mobjPager.page * mnbrPageSize - (mnbrPageSize - 1)}}
+        {{'management.target.table.record.to' | translate}}
+        <span *ngIf="mobjPager.page*mnbrPageSize <  mnbrTotal">{{mobjPager.page * mnbrPageSize}}</span>
+        <span *ngIf="mobjPager.page*mnbrPageSize >= mnbrTotal">{{mnbrTotal}}</span>
+        {{'management.target.table.record.sum' | translate}} {{mnbrTotal}} {{'management.target.table.record.record' | translate}}
+      </p>
+      <pagination-controls *ngIf="marrDataTable && !mblnChec && mobjPager.page"
+                           id="planMontly" (pageChange)="pageChange($event)" maxSize="7" directionLinks="true"
+                           autoHide="false"
+                           responsive="false" previousLabel="{{'management.target.table.pager.previous' | translate}}"
+                           nextLabel="{{'management.target.table.pager.next' | translate}}"
+                           screenReaderPaginationLabel="Pagination"
+                           screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+      </pagination-controls>
+    </div>
+    <div class="d-flex justify-content-center btn-update" *ngIf="mblnShowSaveButton == true">
+      <button class="m-2 btn btn-primary" (click)="clickCancel()"><i class="fa fa-times"></i>
+        {{'management.target.button.cancel' | translate}}</button>
+      <button (click)="confirmUpdate(updateModal)" class="btn m-2 btn-primary"
+              type="button"><i class="fa fa-save"></i> {{'management.target.button.save' | translate}}
+      </button>
+    </div>
+    <!--      </div>-->
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left title-upload">{{'management.target.modal.targetHeader' | translate}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+      <span aria-hidden="true" style="border: none">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file"
+           (change)="selectFile($event)" size="6MB">
+    <div *ngIf="mblnCheckFileNull == true" style="color: red">{{'management.target.modal.fileNull' | translate}}</div>
+    <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile" style="color: #20a8d8">
+      {{'management.target.modal.uploaded' | translate}}: {{mnbrSumSuccessfulRecord}}/{{mnbrSumRecord}}
+      {{'management.target.table.record.record' | translate}}</div>
+    <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile">
+      {{'management.target.modal.resultDownload' | translate}}
+      (<a href="#/vtt-target" *ngIf="mblnIsClickHere" (click)="downloadResult(mstrResultFileName)"
+          class="a-upload">{{'management.target.modal.here' | translate}}</a><a href="#/vtt-target"
+                                                                                *ngIf="!mblnIsClickHere"
+                                                                                (click)="downloadResult(mstrResultFileName)">{{'management.target.modal.here' | translate}}</a>)
+    </div>
+    <div *ngIf="mnbrCode == 200 && mstrMessageUpload && mblnIsSelectFile" style="color: red">{{mstrMessageUpload}}</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload"
+            (click)="onBack()"><i class="fa fa-sign-out"></i> {{'management.target.button.back' | translate}}
+    </button>
+    <button (click)="upLoad()" class="btn btn-primary click-btn-upload"
+            type="button"><i class="fa fa-upload"></i> {{'management.target.button.upload' | translate}}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template class="update" #updateModal>
+  <div class="modal-body">
+    <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i> <span
+    class="mx-1">{{'management.target.modal.sure?' | translate}}</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn"
+            (click)="mobjModalRef.hide()"><i class="fa fa-times"></i> {{'management.target.button.no' | translate}}
+    </button>
+    <button (click)="onSave()" class="btn btn-primary click-btn"
+            type="button"><i class="fa fa-check"></i> {{'management.target.button.yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #deletes>
+  <div class="modal-body">
+    <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+    <span class="mx-1">{{'management.target.table.template.delete?' | translate}}
+    {{marrDataDelte.length}}
+    {{'management.target.table.template.record?' | translate}}</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn"
+            (click)="mobjModalRef.hide()"><i class="fa fa-times"></i> {{'management.target.button.no' | translate}}
+    </button>
+    <button (click)="onDelete()" class="btn btn-primary click-btn"
+            type="button"><i class="fa fa-check"></i> {{'management.target.button.yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+</div>

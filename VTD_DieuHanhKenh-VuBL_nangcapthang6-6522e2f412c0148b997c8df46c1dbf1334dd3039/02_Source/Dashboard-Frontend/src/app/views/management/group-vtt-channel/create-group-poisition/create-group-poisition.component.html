@@ -1,0 +1,147 @@
+<div class="row create-group-poistion" style="margin: 0 !important; position: relative;">
+  <div class="col-xl-12">
+    <div class="w-100">
+      <div class="vis-card-header">
+        <div class="row border-b">
+          <div class="col-md-8">
+            <h4>
+              {{'management.groupvttchannel.createPoisitionStaffTitle' | translate}}
+            </h4>
+          </div>
+
+          <div class="col-md-4 text-right">
+            <span aria-hidden="true" style="border: none; font-size: 1.5rem; cursor: pointer;"
+              (click)="close()">&times;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row align-items-center">
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label fix-mr label-fix mb-10">{{'management.groupvttchannel.group' | translate}}
+              <span [style.color]="'red'">*</span>
+            </label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+
+              <app-configwr-tree class="configtree" [(value)]="mnbrChannel" [items]="marrChannelVTTNew"
+                (valueChange)="onChange($event)" [config]="mobjConfig" (click)="checkChannel()">
+              </app-configwr-tree>
+              <div class="error">
+                {{ vblnCheckChannel == true ? ('management.service.error.required' | translate) : ""}}
+              </div>
+            </div>
+
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label fix-mr label-fix mb-10">{{'management.groupvttchannel.position' | translate}}
+              <span [style.color]="'red'">*</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <app-configwr-tree class="configtree" [(value)]="mnbrPosition" [items]="marrPositionsTree"
+                (valueChange)="onChangePosition($event)" [config]="mobjConfig" (click)="checkPosition()">
+              </app-configwr-tree>
+              <div class="error">
+                {{ vblnCheckPoisition == true ? ('management.service.error.required' | translate) : ""}}
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row align-items-center">
+
+            <label
+              class="col-xl-2 col-md-2 col-sm-12 col-form-label fix-mr label-fix">{{'management.service.info.status' | translate}}
+              <span [style.color]="'red'">*</span></label>
+            <div class="col-xl-4 col-md-4 col-sm-12">
+              <select class="select-search" disabled>
+                <option [value]="'1'">{{'management.service.info.work' | translate}}</option>
+              </select>
+            </div>
+
+
+          </div>
+          <div class="w-100 d-flex justify-content-center py-2 mb-2 mt-2">
+            <button type="button" class="btn btn-primary click-btn mr-2" (click)="close()"><i class="fa fa-times"></i>
+              {{'management.service.button.cancel' | translate}}</button>
+            <button type="button" class="btn btn-primary click-btn mr-2 ml-2" (click)="confirmEdit(show)"
+              [disabled]="mnbrChannel == 'null' || mnbrPosition == 'null'"><i class="fa fa-save"></i>
+              {{'management.service.button.save' | translate}}</button>
+              <button class="btn btn-primary click-btn ml-2" (click)="confirm(template)"><i class="fa fa-upload"></i>
+                {{'management.target.button.up' | translate}}
+              </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #show>
+    <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+      <div class="col-md-10 modal-body">
+        <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+            alt="">{{'management.service.message.confirm' | translate}}</span>
+      </div>
+
+      <div class="col-md-2 modal-body">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onBackConfirm()" size="6MB">
+          <span aria-hidden="true" style="border: none">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBackConfirm()
+        style="width: 88.64px;"><i class="fa fa-times"></i>
+        {{'management.service.button.No' | translate}}
+      </button>
+      <button class="btn btn-primary click-btn-upload" type="button" (click)=save() style="width: 88.64px;"><i
+          class="fa fa-check"></i>
+        {{'management.service.button.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left title-upload">{{'management.groupvttchannel.createPoisitionStaff' | translate}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input style="cursor: pointer" class="input-upload" type="file" accept=".xlsx" name="file"
+        (change)="selectFile($event)" size="6MB">
+      <div *ngIf="mblnCheckFileNull == true" style="color: red">{{'management.target.modal.fileNull' | translate}}
+      </div>
+
+      <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && mnbrSumRecord == 0"
+        style="color: red">
+        {{'management.service.error.emptyExcel' | translate}}
+      </div>
+
+      <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && mnbrSumRecord > 0"
+        style="color: #20a8d8">
+        {{'management.target.modal.uploaded' | translate}}: {{mnbrSumSuccessfulRecord}}/{{mnbrSumRecord}}
+        {{'management.target.table.record.record' | translate}}</div>
+      <div *ngIf="mnbrCode == 200 && mstrMessageUpload == null && mblnIsSelectFile && mnbrSumRecord > 0">
+        {{'management.target.modal.resultDownload' | translate}}
+        (<a href="#/group-vtt-channel" *ngIf="mblnIsClickHere" (click)="downloadResult(mstrResultFileName)"
+          class="a-upload">{{'management.target.modal.here' | translate}}</a>
+        <a href="#/group-vtt-channel" *ngIf="!mblnIsClickHere"
+          (click)="downloadResult(mstrResultFileName)">{{'management.target.modal.here' | translate}}</a>)
+      </div>
+      <div *ngIf="mnbrCode == 200 && mstrMessageUpload && mblnIsSelectFile" style="color: red">{{mstrMessageUpload}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary click-btn-upload" (click)="onBack()"><i class="fa fa-sign-out"></i>
+        {{'management.target.button.back' | translate}}
+      </button>
+      <button (click)="upLoad()" class="btn btn-primary click-btn-upload" type="button"><i class="fa fa-upload"></i>
+        {{'management.target.button.upload' | translate}}
+      </button>
+    </div>
+  </ng-template>
+</div>

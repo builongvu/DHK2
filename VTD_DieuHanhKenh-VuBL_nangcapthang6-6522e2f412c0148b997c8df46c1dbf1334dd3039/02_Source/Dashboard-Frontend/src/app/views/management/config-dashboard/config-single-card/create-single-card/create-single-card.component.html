@@ -1,0 +1,167 @@
+<div class="w-100 update-singleCard">
+  <div class="vis-card-header-declare">
+    <h4>
+      {{'management.single-card.create-card' | translate}}
+    </h4>
+    <span (click)="close()" style="cursor: pointer"><i class="fa fa-times"></i></span>
+  </div>
+  <div style="padding-right: 15px" class="w-100">
+    <div class="card-body">
+      <form [formGroup]="createSingleCardForm">
+        <div class="form-group row align-items-center">
+          <div class="col-xl-1 col-md-2 col-sm-12 label-start col-form-label">{{'management.single-card.card-name' | translate}}<span
+            [style.color]="'red'">*</span></div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+              <input type="text" formControlName="cardName" class="cvNumber" (input)="checkSpace($event)"
+                     maxlength="255">
+              <span class="separator"></span>
+              <mat-error class="error-message" *ngFor="let validation of validation_messages.cardName">
+                <mat-error
+                  *ngIf="createSingleCardForm.get('cardName').hasError(validation.type) && (createSingleCardForm.get('cardName').dirty || createSingleCardForm.get('cardName').touched)">
+                  {{validation.message}}
+                </mat-error>
+                <mat-error
+                  *ngIf="isPreSpace && !createSingleCardForm.get('cardName').hasError(validation.type) && (createSingleCardForm.get('cardName').dirty || createSingleCardForm.get('cardName').touched)">
+                  {{'management.group.table.validate.notNull' | translate}}</mat-error>
+              </mat-error>
+          </div>
+          <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.service' | translate}}</div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <app-config-tree class="configtree" [(value)]="value" [items]="marrNodeTreeviewServices"
+                             [config]="mobjConfig" (valueChange)="onValueChange($event)">
+            </app-config-tree>
+          </div>
+          <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.group-parent' | translate}}<span
+            [style.color]="'red'">*</span></div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="groupParent" class="select-option">
+              <option [value]='null' disabled>{{'management.service.form.choose' | translate}}</option>
+              <option *ngFor="let eachGroupCard of listGroupCard"
+                      value="{{eachGroupCard.groupId}}">{{eachGroupCard.groupName}}</option>
+            </select>
+            <mat-error class="error-message" *ngFor="let validation of validation_messages.groupParent">
+              <mat-error
+                *ngIf="createSingleCardForm.get('groupParent').hasError(validation.type) && (createSingleCardForm.get('groupParent').dirty || createSingleCardForm.get('groupParent').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <div class="col-xl-1 col-md-2 col-sm-12 label-start col-form-label">{{'management.single-card.card-type' | translate}}<span
+            [style.color]="'red'">*</span></div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="cardType" class="select-option">
+              <option [value]='null' disabled>{{'management.service.form.choose' | translate}}</option>
+              <option *ngFor="let eachCardType of listCardType"
+                      value="{{eachCardType.value}}">{{eachCardType.name}}</option>
+            </select>
+            <mat-error class="error-message" *ngFor="let validation of validation_messages.cardType">
+              <mat-error
+                *ngIf="createSingleCardForm.get('cardType').hasError(validation.type) && (createSingleCardForm.get('cardType').dirty || createSingleCardForm.get('cardType').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </div>
+          <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.zoom' | translate}}<span
+            [style.color]="'red'">*</span></div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="cardZoom" class="select-option">
+              <option [value]='null' disabled>{{'management.service.form.choose' | translate}}</option>
+              <option [value]=1>{{'management.target.button.yes' | translate}}</option>
+              <option [value]=0>{{'management.target.button.no' | translate}}</option>
+            </select>
+            <mat-error class="error-message" *ngFor="let validation of validation_messages.cardZoom">
+              <mat-error
+                *ngIf="createSingleCardForm.get('cardZoom').hasError(validation.type) && (createSingleCardForm.get('cardZoom').dirty || createSingleCardForm.get('cardZoom').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </div>
+          <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.card-size' | translate}}<span
+            [style.color]="'red'">*</span></div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="cardSize" class="select-option">
+              <option [value]='null' disabled>{{'management.service.form.choose' | translate}}</option>
+              <option *ngFor="let eachCardSize of listCardSize"
+                      value="{{eachCardSize.value}}">{{eachCardSize.name}}</option>
+            </select>
+            <mat-error class="error-message" *ngFor="let validation of validation_messages.cardSize">
+              <mat-error
+                *ngIf="createSingleCardForm.get('cardSize').hasError(validation.type) && (createSingleCardForm.get('cardSize').dirty || createSingleCardForm.get('cardSize').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <div class="col-xl-1 col-md-2 col-sm-12 label-start col-form-label">{{'management.single-card.drill-down' | translate}}<span [style.color]="'red'">*</span>
+          </div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="drillDown" class="select-option">
+              <option [value]='null' disabled>{{'management.service.form.choose' | translate}}</option>
+              <option [value]=1>{{'management.target.button.yes' | translate}}</option>
+              <option [value]=0>{{'management.target.button.no' | translate}}</option>
+            </select>
+            <mat-error class="error-message" *ngFor="let validation of validation_messages.drillDown">
+              <mat-error
+                *ngIf="createSingleCardForm.get('drillDown').hasError(validation.type) && (createSingleCardForm.get('drillDown').dirty || createSingleCardForm.get('drillDown').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </div>
+          <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.group-child' | translate}}</div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="groupChild" class="select-option">
+              <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+              <option *ngFor="let eachGroupCard of listGroupCard"
+                      value="{{eachGroupCard.groupId}}">{{eachGroupCard.groupName}}</option>
+            </select>
+          </div>
+          <div class="col-xl-1 col-md-2 col-sm-12 minWidth col-form-label">{{'management.single-card.status' | translate}}<span
+            [style.color]="'red'">*</span></div>
+          <div class="col-xl-3 col-md-4 col-sm-12 no-pd">
+            <select formControlName="cardStatus" class="select-option">
+              <option [value]='null'>{{'management.service.form.choose' | translate}}</option>
+              <option [value]=1>{{'management.weight.active' | translate}}</option>
+              <option [value]=0>{{'management.weight.notActive' | translate}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="w-100 text-center mt-0 mb-1 vis-btn-group">
+        <button (click)="close()" class="btn btn-primary">
+          <i class="fa fa-times"></i> {{'management.declareVDS.cancel' | translate}}</button>
+        <button class="btn btn-primary ml-2" (click)="clickSave(add)"
+                [disabled]="createSingleCardForm.invalid || isPreSpace">
+          <i class="fa fa-save"></i> {{'management.declareVDS.save' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #add>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{'management.service.message.confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBack() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)="saveSingleCard()" style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>

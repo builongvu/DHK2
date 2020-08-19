@@ -1,0 +1,299 @@
+
+.table-chart {
+  padding: 0 !important;
+}
+
+.table-header {
+  padding: .4rem;
+  text-align: center;
+}
+
+.box {
+  position: relative;
+}
+
+//
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1;
+}
+
+.green {
+  float: left;
+  position: relative;
+  background: transparent;
+  z-index: 2;
+}
+
+.red {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-body {
+  padding-top: 0.3rem !important;
+}
+
+.card-header {
+  position: relative;
+  padding: .2rem .4rem !important;
+
+  .button-table {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 1;
+    transform: translateY(-50%);
+
+    button {
+      border: none;
+      background: transparent;
+    }
+  }
+}
+
+.full-screen {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+
+  .card-body {
+    padding: .1rem .2rem !important;
+
+    table {
+      table-layout: fixed;
+      width: 100%;
+
+      th,
+      td {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &:nth-child(9) {
+          width: 10.5%;
+        }
+
+        &:nth-child(2) {
+          width: 7%;
+        }
+
+        &:nth-child(3) {
+          width: 6%;
+        }
+
+        &:first-child {
+          width: 50px;
+        }
+
+        &:last-child {
+          width: 14%;
+        }
+      }
+
+      tr {
+        td {
+          &:nth-of-type(2) {
+            text-align: left;
+          }
+
+          &:nth-of-type(4) {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .group {
+    &:nth-child(even) {
+      padding-right: 4px !important;
+      padding-left: 15px !important;
+    }
+
+    &:nth-child(odd) {
+      padding-left: 4px !important;
+      padding-right: 15px !important;
+    }
+
+    &:nth-child(1) {
+      padding-right: 4px !important;
+      padding-left: 15px !important;
+    }
+
+    &:nth-child(2) {
+      padding-left: 4px !important;
+      padding-right: 15px !important;
+    }
+  }
+
+  .not-group {
+    &:nth-child(even) {
+      padding-right: 4px !important;
+    }
+
+    &:nth-child(odd) {
+      padding-left: 4px !important;
+    }
+  }
+
+  .lv3-chart {
+    &:nth-child(even) {
+      padding-right: 15px !important;
+      padding-left: 4px !important;
+    }
+
+    &:nth-child(odd) {
+      padding-left: 15px !important;
+      padding-right: 4px !important;
+    }
+  }
+
+  .cardSize1-4 {
+    &:nth-child(1n) {
+      padding-left: 15px;
+      padding-right: 4px;
+    }
+
+    &:nth-child(2n) {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    &:nth-child(3n) {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    &:nth-child(4n) {
+      padding-left: 4px;
+      padding-right: 15px;
+    }
+
+  }
+}
+
+.spinner-container {
+  position: relative;
+  min-height: calc(100vh - 50px);
+  min-width: calc(100vw - 230px);
+  width: 100%;
+
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+}
+
+.month-dashboard {
+  background-color: white;
+  margin-bottom: .6rem;
+  padding: .2rem 0 .2rem 0;
+  margin-top: -.5rem;
+  border-bottom: 1px solid #c8ced3;
+
+  /deep/ .align-middle {
+    padding-left: 0 !important;
+  }
+
+  .groupName {
+    padding-left: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  .subGroupName {
+    padding-left: 15px;
+    font-weight: bold;
+    color: #979da2;
+  }
+
+  .groupName1 {
+    padding-left: 0;
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  .subGroupName1 {
+    padding-left: 0;
+    font-weight: bold;
+    color: #979da2;
+  }
+}
+
+.back-dash {
+  cursor: pointer;
+  text-align: center;
+  line-height: 43px;
+}
+
+.disableToggle {
+  display: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.fixed-setting {
+  position: fixed;
+  top: calc(1vh - 2px);
+  right: 0;
+  margin-right: 1rem;
+  z-index: 1000;
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - (100px + 1rem));
+}
+
+.stt-view {
+  position: relative;
+  z-index: 1;
+
+  &__content {
+    position: absolute;
+    display: flex;
+    height: 2rem;
+    border-radius: 5px;
+    width: 1.9rem;
+    border: 1px solid #dddd;
+    background: rgba(192, 192, 192, 0.3);
+    align-items: center;
+    justify-content: center;
+    left: -1.4rem;
+    color: darkcyan;
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+      text-decoration: none;
+      color: slateblue;
+      background: white;
+      transform: scale(1.3);
+    }
+  }
+}

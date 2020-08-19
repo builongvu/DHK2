@@ -1,0 +1,173 @@
+.treeview-container {
+  scrollbar-color: lightgray #fffff;
+  scrollbar-width: thin;
+}
+/deep/ .mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline {
+  background-image: linear-gradient(to right,rgba(0,0,0,-0.58) 0,rgba(0,0,0,.42) 100%,transparent 0) !important;
+  background-size: 4px 100%;
+  background-repeat: repeat-x;
+}
+  .show {
+    .btn-outline-secondary.dropdown-toggle {
+      background-color: unset;
+    }
+  }
+
+  .dropdown {
+     button {
+      margin-top: 0;
+      margin-bottom: .25rem;
+
+      &:active {
+        outline: none;
+        background-color: unset;
+      }
+
+      &:focus {
+        box-shadow: unset !important;
+        background-color: unset;
+      }
+
+      &::after {
+        right: .3rem;
+      }
+
+      border: none;
+      border-radius: unset;
+      border-bottom: 1px solid rgba(0,0,0,.42) !important;
+      padding-right: 0;
+      margin-right: 0;
+      padding-left: .2rem;
+      color: black !important;
+    }
+
+    .btn {
+      padding: 0;
+      padding-left: .25rem;
+    }
+  }
+
+  .dropdown-menu {
+    //dropmenu here
+    width: 100%;
+    border-radius: unset;
+    margin-top: -4px;
+
+     .dropdown-container {
+      //container here
+      padding: 0;
+      padding-left: .6rem !important;
+      padding-right: .3rem !important;
+
+       .treeview-header {
+        width: 100%;
+
+        //treeview header here
+        .dropdown-divider {
+          border: none;
+        }
+
+         .row-filter {
+          //row-filter here
+           .col-12 {
+            //col-12 here
+            .form-control {
+              border-radius: unset;
+              border: none;
+              border-bottom: 1px solid #e4e5e6;
+              outline: none !important;
+
+              &:focus {
+                border-color: #3F51B5 !important;
+                outline: none !important;
+                box-shadow: none;
+              }
+
+              //form-control here
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+.list-target-cpn {
+  /deep/ .treeview-container::-webkit-scrollbar {
+    width: 6px;
+    height: 7px;
+  }
+
+  .treeview-container {
+    scrollbar-color: lightgray #fffff;
+    scrollbar-width: thin;
+  }
+
+  /deep/ .treeview-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+  }
+
+  /deep/ .treeview-container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+    outline: 1px solid slategrey;
+  }
+
+  mat-tab {
+    width: 25%;
+  }
+
+  .target-info {
+    margin-top: 3px;
+  }
+
+  .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+  .margin-bottom{
+    margin-bottom: 0 !important;
+  }
+  .pd-5 {
+    padding: 0 5px !important;
+  }
+
+  .pad-r-0 {
+    padding: 0 5px 5px !important;
+  }
+
+  .p-t-0 {
+    padding-top: 0 !important;
+  }
+
+  .p-r-5 {
+    padding-right: 5px !important;
+  }
+
+  .p-l-0 {
+    padding-left: 0 !important;
+  }
+  .p-r-0{
+    padding-right: 0 !important;
+  }
+  .vis-card-body{
+    padding:0 .3rem;
+  }
+  .p-d-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .header {
+    height: 15px !important;
+  }
+
+  .form-check-label {
+    cursor: pointer;
+  }
+  .mat-tab-labels {
+    height: 40px !important;
+  }
+
+  .mat-tab-label {
+    height: 30px !important;
+  }
+}

@@ -1,0 +1,79 @@
+.edit-role {
+  .mat-form-field-underline {
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.42),
+      rgba(0, 0, 0, 0.42) 100%,
+      transparent 0
+    ) !important;
+    background-size: 100%;
+    background-repeat: repeat-x;
+  }
+
+  .mat-input-element:disabled {
+    color: #19191a !important;
+  }
+  input:read-only,
+  select:read-only {
+    &:active {
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .mat-dialog-content,
+  .mat-dialog-container {
+    overflow: visible !important;
+  }
+
+  .mat-dialog-actions {
+    clear: both;
+  }
+
+  .border-b {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .click-btn {
+    width: 110px;
+  }
+
+  mat-hint {
+    color: #f44336 !important;
+    font-weight: 400;
+    line-height: 1.125;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  .input-custom {
+    height: 20px !important;
+  }
+
+  .select-search {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+
+/deep/ .toast-success {
+  background-color: #63b8ff !important;
+  color: black !important;
+}
+
+/deep/ .toast-error {
+  background-color: #ff8173 !important;
+  color: black !important;
+}
+
+/deep/ .toast-warning {
+  background-color: #fac885 !important;
+  color: black !important;
+  //border: #20a8d8 !important;
+}

@@ -1,0 +1,73 @@
+<!--(clickOutside)="onClickOut()-->
+<!--<div class="demo" [class.activate]="isActivated" (clickOutside)="onClickOut()" data-toggle="tooltip"-->
+<!--     data-placement="top" title="Filter dashboard">-->
+<div class="toggle-cpn">
+  <div class="demo" (clickOutside)="shutdown()"  [class.activate]="isActivated" data-toggle="tooltip"
+       data-placement="top" title="{{'management.dashboard.toggle.filter' | translate}}">
+  <span id="demo-setting" (click)="onToggle()"><i class="fa fa-cog txt-color-blueDark"></i></span>
+  <form>
+    <div class="form-group row align-items-center">
+      <label
+        class="col-3 col-form-label col-form-label-sm font-text">{{'management.dashboard.toggle.cycle' | translate}}</label>
+      <div class="col-9">
+        <mat-form-field class="full-width">
+          <select name="ngoc" id="" matNativeControl required [(ngModel)]="cycleId"
+                  (ngModelChange)="cycleChange()" class="font-text1">
+            <option value="1">Ngày</option>
+            <option value="2">Tháng</option>
+            <option value="3">Quý</option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div id="responsive" class="form-group row align-items-center">
+      <label
+        class="col-3 col-form-label col-form-label-sm unit-css font-text">{{'management.dashboard.toggle.unit' | translate}}</label>
+      <div class="col-9">
+        <app-config-tree class="target-container" [items]="nodeTreeViews" [(value)]="value"
+                         (valueChange)="onValueChange($event)" [config]="config">
+        </app-config-tree>
+        <!--        <app-config-tree class="target-container" [items]="nodeTreeViews" (valueChange)="onValueChange($event)">-->
+        <!--        </app-config-tree>-->
+      </div>
+    </div>
+    <div class="form-group row align-items-center">
+      <label class="col-3 col-form-label col-form-label-sm font-text"
+             *ngIf="startView == 'month'">{{'management.dashboard.toggle.date' | translate}}</label>
+      <label class="col-3 col-form-label col-form-label-sm font-text"
+             *ngIf="startView == 'year'">{{'management.dashboard.toggle.month' | translate}}</label>
+      <label class="col-3 col-form-label col-form-label-sm font-text"
+             *ngIf="startView == 'multi-year'">{{'management.dashboard.toggle.year' | translate}}</label>
+      <div class="col-9 d-flex align-items-end">
+
+        <mat-form-field [style.width.%.!important]="startView != 'multi-year' ? 100 : 55 " class="font-text1">
+          <input matInput [matDatepicker]="dp" (dateInput)="noMethod($event)" [formControl]="date"
+                 (dateChange)="dateChange($event)" [hidden]=true [max]="mdtMaxDate" [min]="mdtMinDate">
+          <input matInput [ngModelOptions]="{standalone: true}"
+                 [ngModel]="date.value._d.toString() | date : 'dd/MM/yyyy'" *ngIf="startView == 'month'" name="month"
+                 (change)="dateChange($event)">
+          <input matInput [ngModelOptions]="{standalone: true}"
+                 [ngModel]="date.value._d.toString() | date : 'MM/yyyy'" *ngIf="startView == 'year'" name="year"
+                 (change)="dateChange($event)">
+          <input matInput [ngModelOptions]="{standalone: true}"
+                 [ngModel]="date.value._d.toString() | date : 'yyyy'" *ngIf="startView == 'multi-year'"
+                 name="multi-year"
+                 (change)="dateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp (monthSelected)="chosenMonthHandler($event, dp)"
+                          [startView]="startView" (yearSelected)="chosenMonthHandler($event, dp)"
+                          (select)="chosenMonthHandler($event, dp)">
+          </mat-datepicker>
+        </mat-form-field>
+
+        <select class="select-month font-text" name="tuan" (change)="changeYear()" [(ngModel)]="value1" *ngIf="hidden">
+          <option [value]="1">Quý 1</option>
+          <option [value]="2">Quý 2</option>
+          <option [value]="3">Quý 3</option>
+          <option [value]="4">Quý 4</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+</div>

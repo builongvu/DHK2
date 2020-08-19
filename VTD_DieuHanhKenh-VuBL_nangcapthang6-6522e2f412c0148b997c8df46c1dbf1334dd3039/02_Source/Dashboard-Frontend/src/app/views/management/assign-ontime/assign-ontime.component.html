@@ -1,0 +1,88 @@
+<div class="w-100 ontime-cpn">
+  <div class="card">
+    <div class="my-header-card"><span>{{'management.assign-ontime.datestart' | translate}}</span>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="form-group row">
+          <div class="col-md-6 my-3">
+            <div class="d-flex">
+              <div class="flex-25 lbname">{{'management.assign-ontime.before' | translate}}<span class="asterisk"></span>
+              </div>
+              <div class="flex-50 mx-2">
+                <mat-form-field class="w-100">
+                  <input matInput autocomplete="off" maxlength="50" type="text" name="before" formControlName="before"
+                    [(ngModel)]="mobjBefore.value" (ngModelChange)="check()">
+                  <mat-error *ngIf="hasError('before','required')">
+                    {{'management.service.error.required' | translate}}
+                  </mat-error>
+                  <mat-error *ngIf="hasError('before','pattern')">
+                    {{'management.assign-ontime.validate' | translate}}
+                  </mat-error>
+                  <mat-error *ngIf="status == '1'" style="position: relative;">
+                    {{'management.assign-ontime.validate' | translate}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="flex-10 lbname">{{'management.assign-ontime.date' | translate}}</div>
+            </div>
+
+          </div>
+          <div class="col-md-6 my-3">
+            <div class="d-flex">
+              <!--        row 2 -->
+              <div class="flex-25 lbname">{{'management.assign-ontime.after' | translate}}<span class="asterisk"></span>
+              </div>
+              <div class="flex-50 mx-2">
+                <mat-form-field class="w-100">
+                  <input matInput autocomplete="off" maxlength="50" type="text" name="after" formControlName="after"
+                    [(ngModel)]="mobjAfter.value" (ngModelChange)="checkAfter()">
+                    <mat-error *ngIf="hasError('after','required')">
+                      {{'management.service.error.required' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="hasError('after','pattern')">
+                      {{'management.assign-ontime.validate' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="statusAfter == '1'" style="position: relative;">
+                      {{'management.assign-ontime.validate' | translate}}
+                    </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="flex-10 lbname">{{'management.assign-ontime.date' | translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center btn-update">
+          <button class="btn btn-primary  click-btn" data-toggle="modal" (click)="confirm(assign)" type="button"
+            [disabled]="!form.valid || statusAfter != '0' || status != '0'">
+            <i class="fa fa-save"></i>
+            {{'management.warningconfig.Save' | translate}}
+          </button>
+        </div>
+      </form>
+      <div class="w-100 foot">
+        <p>{{'management.assign-ontime.startKPI' | translate}}</p>
+        <p>{{'management.assign-ontime.p1' | translate}}</p>
+        <p>{{'management.assign-ontime.p2' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <!--id="assign"-->
+  <ng-template #assign>
+    <div class="modal-body">
+      <i style="font-size: 1.2em; color: #20a8d8" class="fa fa-question-circle"></i>
+      <span class="mx-1"> {{'management.warningconfig.ok?' | translate}}</span>
+      <hr>
+    </div>
+    <div class="w-100 text-right btn-update">
+      <button class="m-2 btn btn-secondary click-btn" (click)="closeModal(assign)"><i class="fa fa-times"></i>
+        {{'management.warningconfig.No' | translate}}</button>
+      <button class="m-2 btn btn-primary click-btn" (click)="save()"><i class="fa fa-check"></i>
+        {{'management.warningconfig.Yes' | translate}}
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+
+<!-- Modal -->

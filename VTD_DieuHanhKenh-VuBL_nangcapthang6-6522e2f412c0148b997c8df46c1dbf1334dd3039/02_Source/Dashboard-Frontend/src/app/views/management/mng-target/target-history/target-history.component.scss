@@ -1,0 +1,54 @@
+.history-target {
+  .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+
+  table {
+    table-layout: fixed;
+    background-color: white;
+    min-width: 700px;
+    width: 100%;
+
+    .header-table {
+      background-color: #f1f7ff;
+    }
+
+    th,
+    td {
+      padding: 0.4rem !important;
+    }
+
+    tr {
+      td {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &:nth-child(8) {
+          div {
+            text-align: center;
+          }
+        }
+
+        div {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      th {
+        text-align: center;
+        vertical-align: middle;
+        border-top: none !important;
+      }
+
+      th, td {
+        &:nth-child(1) {
+          width: 60px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

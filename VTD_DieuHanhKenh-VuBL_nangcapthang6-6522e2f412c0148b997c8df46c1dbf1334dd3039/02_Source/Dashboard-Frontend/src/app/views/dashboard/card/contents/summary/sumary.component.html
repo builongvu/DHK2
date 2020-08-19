@@ -1,0 +1,13 @@
+<div *ngIf="noTopLeft" class="nodata">
+  <img src="assets/img/waining.png" width="25px" height="25px" alt="waining">
+  <span>&ensp;{{'management.layout.nodata' | translate}}</span>
+</div>
+<div *ngIf="!noTopLeft" class="rank-top">
+  <div *ngFor="let sum of summary['mlstSummary']" [style.color]="sum['color']">
+    <div class="rank-container poiter" (click)="onClickTop(summary['drilldownObject'], sum['isTarget'])">
+      <p class="percent">{{sum['viewPercent']}}</p>
+      <p class="name">{{sum['name']}}</p>
+      <p class="num">{{sum['num']}}</p>
+    </div>
+  </div>
+</div>

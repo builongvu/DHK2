@@ -1,0 +1,62 @@
+//.font-small{
+//  font-size: 0.75rem;
+//  cursor: pointer;
+//
+//}
+//
+//.spark3{
+//  height: 100%;
+//  line-height: 25px;
+//}
+//
+//.numberSparrk3{
+//  //display: flex;
+//  overflow: hidden;
+//  white-space: nowrap;
+//  text-overflow: ellipsis;
+//}
+
+.rank-top {
+  cursor: pointer;
+  flex: 8;
+  align-self: center;
+
+  .rank-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .5rem;
+
+    p {
+      margin-bottom: 0 !important;
+    }
+
+    .top-unit {
+      flex: 0.5;
+    }
+
+    .unit-name {
+      flex: 5.5;
+      align-self: center;
+      display: -webkit-box;
+      align-self: center;
+      -webkit-line-clamp: 2;
+      /* autoprefixer: off */
+      -webkit-box-orient: vertical;
+      /* autoprefixer: on */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.nodata {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

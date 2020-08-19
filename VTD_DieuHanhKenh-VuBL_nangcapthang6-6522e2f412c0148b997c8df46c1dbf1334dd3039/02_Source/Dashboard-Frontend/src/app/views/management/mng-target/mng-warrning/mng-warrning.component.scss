@@ -1,0 +1,506 @@
+$border-bottom: rgba(0, 0, 0, 0.42);
+.col-form-label {
+    padding-bottom: 0 !important;
+}
+
+// giảm khoảng cách giữa search-container và table
+.card {
+    margin-bottom: 0.75rem !important;
+    button {
+        white-space: nowrap;
+    }
+}
+
+// giảm khoảng cách giữa button và ô input-search
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-control {
+    border: 1px solid #adadad !important;
+}
+
+.span-validate {
+    color: red;
+}
+
+/// style for multi-select /
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+.example-form,
+mat-form-field {
+    width: 100%;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+/deep/ .mat-paginator-icon {
+    width: 22px !important;
+}
+
+/deep/ .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 4px 0 !important;
+}
+
+.form-group {
+    margin-bottom: 0 !important;
+}
+
+.card-body {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0 !important;
+}
+
+.card-footer {
+    padding: 0 !important;
+    border: none !important;
+}
+
+.card-footer {
+    border: none !important;
+}
+
+.btn-update {
+    margin-bottom: 0.5rem;
+    button {
+        width: 100px;
+    }
+}
+
+table {
+    table-layout: fixed;
+    background-color: white;
+    min-width: 700px;
+    width: 100%;
+    .header-table {
+        background-color: #f1f7ff;
+    }
+    th,
+    td {
+        padding: 0.4rem !important;
+    }
+    tr {
+        td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            &:nth-child(3) {
+                text-align: right;
+            }
+            div {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        th {
+            text-align: center;
+            vertical-align: middle;
+            border-top: none !important;
+        }
+        th,
+        td {
+            &:nth-child(1) {
+                width: 50px;
+                text-align: right;
+            }
+            &:nth-child(2) {
+                width: 50px;
+                text-align: center;
+            }
+            &:last-child {
+                width: 50px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+/deep/ .dropdown-btn[_ngcontent-c4] .ng-star-inserted {
+    color: black !important;
+    &:hover {
+        background: none !important;
+        border: none !important;
+    }
+}
+
+.select-search {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $border-bottom;
+}
+
+/deep/ .toast-success {
+    background-color: #63b8ff !important;
+    color: black !important;
+}
+
+/deep/ .toast-error {
+    background-color: #ff8173 !important;
+    color: black !important;
+}
+
+/deep/ .toast-warning {
+    background-color: #fac885 !important;
+    color: black !important;
+    //border: #20a8d8 !important;
+}
+
+/deep/ .ngx-pagination {
+    margin-bottom: 0 !important;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.click-btn {
+    width: 90px;
+}
+
+.title-upload {
+    font-size: 1.2rem;
+}
+
+/deep/ .modal-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.input-upload {
+    cursor: pointer;
+    outline: none;
+}
+
+/deep/ h5,
+.h5 {
+    font-size: 0.9rem !important;
+    font-style: normal !important;
+}
+
+// /deep/ .dropdown-list[_ngcontent-c4] {
+//   margin-top: 0.2px !important;
+// }
+.ellipsis {
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+}
+
+.header-table {
+    background-color: #f1f7ff;
+}
+
+/deep/ .table thead th {
+    border: #f1f7ff !important;
+}
+
+td {
+    height: 39px !important;
+}
+
+/deep/ button.pull-right {
+    outline: none !important;
+}
+
+// /deep/ .dropdown[_ngcontent-c2] button[_ngcontent-c2] {
+//   border: none;
+//   border-bottom: 1px solid black;
+//   border-radius: 0;
+// }
+// /deep/ .btn-outline-secondary {
+//   color: black !important;
+//   &:hover {
+//     outline: none;
+//     background-color: unset;
+//   }
+//   &:focus {
+//     outline: none;
+//     background-color: unset;
+//   }
+//   &:active {
+//     outline: none;
+//     background-color: unset;
+//   }
+// }
+input[type="checkbox"] {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+/deep/ .fa-expand:before {
+    margin-right: 0.5rem !important;
+}
+
+/deep/.select-search[_ngcontent-c1] {
+    padding-bottom: 3px;
+}
+
+/deep/ .fa-compress:before {
+    margin-right: 0.5rem;
+}
+
+/deep/ .fa-expand:before {
+    margin-right: 0.5rem !important;
+}
+
+.btn-confirm {
+    width: 70px;
+}
+
+.click-btn-upload {
+    width: 100px;
+}
+
+@media screen and (max-width: 1300px) {
+    table {
+        table-layout: fixed !important;
+    }
+}
+
+.cvNumber {
+    padding-top: 0.25rem;
+    background: none;
+    outline: none;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $border-bottom;
+    &:focus+.separator {
+        transform: scaleX(1) translateY(-2px);
+        opacity: 1;
+    }
+}
+
+.cvNumber {
+    &:read-only {
+        pointer-events: none;
+    }
+}
+.texta{
+    height: 22px !important;
+}
+
+.separator {
+    height: 2px;
+    width: 100%;
+    background: #3f51b5;
+    display: block;
+    transform: scaleX(0) translateY(-2px);
+    transform-origin: 50%;
+    opacity: 0;
+    transition: all 0.15s linear;
+}
+
+@media screen and (max-width: 1200px) {
+    .fix-mr {
+        margin-top: 1rem;
+    }
+}
+
+/deep/ .dropdown-toggle::after {
+    border-top: 0.485em solid;
+    border-right: 0.21em solid transparent;
+    border-bottom: 0;
+    border-left: 0.21em solid transparent;
+}
+
+.staff-fix {
+    margin-top: 0.2rem;
+}
+
+/deep/ .select-search[_ngcontent-c8] {
+    margin-top: 0.14rem;
+}
+
+// drop treeview
+@media screen and (max-width: 1200px) {
+    .fix-mr {
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .fix-mb {
+        margin: 1rem 0;
+    }
+    .fix-mt {
+        margin-top: 1rem;
+    }
+}
+
+.target-level-container {
+    /deep/.mat-form-field {
+        margin-bottom: 0.4rem !important;
+    }
+    /deep/ .show {
+        .btn-outline-secondary.dropdown-toggle {
+            background-color: unset;
+        }
+    }
+    /deep/ .dropdown {
+        /deep/ button {
+            margin-top: 0.25rem;
+            &:active {
+                outline: none;
+                background-color: unset;
+            }
+            &:focus {
+                box-shadow: unset !important;
+                background-color: unset;
+            }
+            &::after {
+                right: 0.3rem;
+            }
+            border: none;
+            border-radius: unset;
+            border-bottom: 1px solid $border-bottom !important;
+            margin-bottom: 0.1rem;
+            padding-right: 0;
+            margin-right: 0;
+            padding-left: 0.2rem;
+        }
+        .btn {
+            padding: 0;
+            padding-left: 0.25rem;
+        }
+    }
+    /deep/ .dropdown-menu {
+        //dropmenu here
+        width: 100%;
+        border-radius: unset;
+        margin-top: -2px;
+        /deep/ .dropdown-container {
+            //container here
+            padding: 0;
+            padding-left: 0.6rem !important;
+            padding-right: 0.3rem !important;
+            /deep/ .treeview-header {
+                width: 100%;
+                //treeview header here
+                .dropdown-divider {
+                    border: none;
+                }
+                /deep/ .row-filter {
+                    //row-filter here
+                    /deep/ .col-12 {
+                        //col-12 here
+                        /deep/ .form-control {
+                            border-radius: unset;
+                            border: none;
+                            border-bottom: 1px solid #e4e5e6;
+                            outline: none !important;
+                            &:focus {
+                                border-color: #3f51b5 !important;
+                                outline: none !important;
+                                box-shadow: none;
+                            }
+                            //form-control here
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.a-upload {
+    color: #551a8b;
+}
+
+.select-search-unit {
+    width: 100%;
+}
+
+/deep/.box-select-all {
+    display: none;
+}
+
+/deep/ .box-search-icon {
+    display: none;
+}
+
+/deep/ .box-search {
+    box-shadow: unset !important;
+    border-bottom: 1px solid darkgray;
+    padding: 0 0.3rem;
+    input {
+        border: none;
+    }
+}
+
+// /deep/ .mat-form-field {
+//     width: 100% !important;
+// }
+/deep/.mat-form-field-infix {
+    padding: 0.2rem !important;
+}
+
+///deep/ .ng-star-inserted{
+//  overflow-x: hidden !important;
+//}
+/deep/ .ng-tns-c10-2,
+.ng-trigger,
+.ng-trigger-transformPanel,
+.mat-select-panel {
+    //transform-origin: 50% bottom 0px;
+    //font-size: 14px;
+    //opacity: 1;
+    //min-width: calc(100%);
+    transform: scaleY(1) translate(0px, 0px) !important;
+}
+
+// remove dotted disable
+/deep/ .mat-form-field-appearance-standard.mat-form-field-disabled .mat-form-field-underline {
+    background-image: linear-gradient( to right, rgba(0, 0, 0, 0.42) 0, rgba(0, 0, 0, 0.42) 100%, transparent 0) !important;
+}
+
+.col-xl-3 {
+    padding-left: 0 !important;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.yellow {
+    color: yellow;
+}
+
+.down-upload {
+    cursor: pointer;
+    color: #0aa6d5;
+    text-decoration: underline;
+    &:hover {
+        color: #551A8B;
+    }
+}
+
+.total-row-thinh {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: space-between;
+}

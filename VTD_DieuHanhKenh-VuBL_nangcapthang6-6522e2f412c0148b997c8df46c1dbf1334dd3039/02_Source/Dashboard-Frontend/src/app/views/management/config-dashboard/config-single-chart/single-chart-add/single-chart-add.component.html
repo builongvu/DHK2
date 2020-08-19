@@ -1,0 +1,300 @@
+<div class="vis-card-header-declare">
+  <h4>{{'management.single-chart.add-title' | translate}}</h4>
+  <span (click)="onClose()" style="cursor: pointer"><i class="fa fa-times"></i></span>
+</div>
+<div class="scroll">
+<form [formGroup]="singleChartAddForm">
+  <div class="row mt-3 pl-3 pr-3 ">
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group">
+      <div class="row justify-content-center">
+        <label for="name" class="col-4 col-form-label">
+          {{'management.single-chart.chart-name' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <input matInput autocomplete="off" type="text" id="name" maxlength="255" (input)="checkSpaceOne($event)"
+                 formControlName="title">
+          <mat-error class="error" *ngFor="let validation of validation_messages.title">
+            <mat-error
+              *ngIf="singleChartAddForm.get('title').hasError(validation.type) && (singleChartAddForm.get('title').dirty || singleChartAddForm.get('title').touched)">
+              {{validation.message}}
+            </mat-error>
+            <mat-error
+              *ngIf=" isAllSpaceOne && !singleChartAddForm.get('title').hasError(validation.type) && (singleChartAddForm.get('title').dirty || singleChartAddForm.get('title').touched)">
+              {{'management.declareVDS.dataNull' | translate}}
+            </mat-error>
+          </mat-error>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group ">
+      <div class="row justify-content-center">
+        <label for="size" class="col-4 col-form-label">
+          {{'management.single-chart.chart-size' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <select id="size" formControlName="chartSize">
+            <option [value]="null" disabled>{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let chartSize of chartSize" [value]="chartSize.value">{{chartSize.name}}
+            </option>
+          </select>
+          <div
+            *ngIf="singleChartAddForm.get('chartSize').invalid&&(singleChartAddForm.get('chartSize').dirty||singleChartAddForm.get('chartSize').touched)"
+            class="error">
+            <div *ngIf="singleChartAddForm.get('chartSize').errors.required">
+              {{'management.declareVDS.dataNull' |translate}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group ">
+      <div class="row justify-content-center">
+        <label for="card-parent" class="col-4 col-form-label">
+          {{'management.single-chart.parent-card' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <select id="card-parent" formControlName="card">
+            <option [value]="null" disabled>{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let card of card" [value]="card.cardId">
+              {{card.cardName}}
+            </option>
+          </select>
+          <div
+            *ngIf="singleChartAddForm.get('card').invalid&&(singleChartAddForm.get('card').dirty||singleChartAddForm.get('card').touched)"
+            class="error">
+            <div *ngIf="singleChartAddForm.get('card').errors.required">
+              {{'management.declareVDS.dataNull' |translate}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group">
+      <div class="row justify-content-center">
+        <label for="chart-type" class="col-4 col-form-label">
+          {{'management.single-chart.chart-type' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <select id="chart-type" formControlName="chartType">
+            <option [value]="null" disabled>{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let chartType of chartType" [value]="chartType.value">{{chartType.name}}
+            </option>
+          </select>
+          <div
+            *ngIf="singleChartAddForm.get('chartType').invalid&&(singleChartAddForm.get('chartType').dirty||singleChartAddForm.get('chartType').touched)"
+            class="error">
+            <div *ngIf="singleChartAddForm.get('chartType').errors.required">
+              {{'management.declareVDS.dataNull' |translate}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group ">
+      <div class="row justify-content-center">
+        <label for="expand" class="col-4 col-form-label">
+          {{'management.single-chart.zoom' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <select id="expand" formControlName="expand">
+            <option [value]="null" disabled>{{'management.service.form.choose' | translate}}</option>
+            <option [value]="1">
+              {{'management.target.button.yes' | translate}}
+            </option>
+            <option [value]="0">
+              {{'management.target.button.no' | translate}}
+            </option>
+          </select>
+          <div
+            *ngIf="singleChartAddForm.get('expand').invalid&&(singleChartAddForm.get('expand').dirty||singleChartAddForm.get('expand').touched)"
+            class="error">
+            <div *ngIf="singleChartAddForm.get('expand').errors.required">
+              {{'management.declareVDS.dataNull' |translate}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group ">
+      <div class="row justify-content-center">
+        <label for="colFormLabelSm" class="col-4 col-form-label">
+          {{'management.single-chart.service' | translate}}</label>
+        <div class="col-8">
+          <ngx-dropdown-treeview class="target-container" id="colFormLabelSm" [config]="mobjConfig"
+                                 [items]="marrNodeTreeviewServices"
+                                 (selectedChange)="selectTree($event)">
+          </ngx-dropdown-treeview>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group">
+      <div class="row justify-content-center">
+        <label for="detail" class="col-4 col-form-label">
+          {{'management.single-chart.drilldown' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <select id="detail" formControlName="drilldown">
+            <option [value]="null" disabled>{{'management.service.form.choose' | translate}}</option>
+            <option [value]="1">
+              {{'management.target.button.yes' | translate}}
+            </option>
+            <option [value]="0">
+              {{'management.target.button.no' | translate}}
+            </option>
+          </select>
+          <div
+            *ngIf="singleChartAddForm.get('drilldown').invalid&&(singleChartAddForm.get('drilldown').dirty||singleChartAddForm.get('drilldown').touched)"
+            class="error">
+            <div *ngIf="singleChartAddForm.get('drilldown').errors.required">
+              {{'management.declareVDS.dataNull' |translate}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group ">
+      <div class="row justify-content-center">
+        <label for="drill-obj" class="col-4 col-form-label">
+          {{'management.single-chart.group-child' | translate}}</label>
+        <div class="col-8">
+          <select id="drill-obj" formControlName="drillDownObjectId">
+            <option [value]="null">{{'management.service.form.choose' | translate}}</option>
+            <option *ngFor="let group of drillDownObject" [value]="group.groupId">
+              {{group.groupName}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group">
+      <div class="row justify-content-center">
+        <label class="col-4 col-form-label mt-2">
+          {{'management.single-chart.meta-data' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <mat-form-field class="full-width" [ngClass]=" isAllSpaceTwo ? 'input-err' : '' || checktext ? 'default' : ''">
+                <textarea class="m-t-0" matInput autocomplete="off"
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"
+                          formControlName="metaData"
+                          maxlength="4000"
+                          (input)="checkSpaceTwo($event)" (click)="checktext = false"></textarea>
+            <mat-error *ngIf="singleChartAddForm.get('metaData').hasError('required') && (singleChartAddForm.get('metaData').dirty || singleChartAddForm.get('metaData').touched)">
+              {{'management.declareVDS.dataNull' |translate}}
+            </mat-error>
+            <mat-hint style="color:red"
+                      *ngIf=" isAllSpaceTwo ">
+              {{'management.declareVDS.dataNull' |translate}}
+            </mat-hint>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group ">
+      <div class="row justify-content-center">
+        <label class="col-4 col-form-label mt-2">
+          {{'management.single-chart.query-param' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <mat-form-field class="full-width" [ngClass]=" isAllSpaceThree ? 'input-err' : '' || checktexttwo ? 'default' : ''">
+                <textarea class="m-t-0" matInput autocomplete="off"
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"
+                          formControlName="queryParam"
+                          maxlength="255"
+                          (input)="checkSpaceThree($event)" (click)="checktexttwo = false"></textarea>
+            <mat-error *ngIf="singleChartAddForm.get('queryParam').hasError('required') && (singleChartAddForm.get('queryParam').dirty || singleChartAddForm.get('queryParam').touched)">
+              {{'management.declareVDS.dataNull' |translate}}
+            </mat-error>
+            <mat-hint style="color:red"
+              *ngIf=" isAllSpaceThree ">
+              {{'management.declareVDS.dataNull' |translate}}
+            </mat-hint>
+          </mat-form-field>
+<!--          <mat-error class="error" *ngFor="let validation of validation_messages.queryParam">-->
+<!--            <mat-error-->
+<!--              *ngIf=" singleChartAddForm.get('queryParam').hasError(validation.type) && (singleChartAddForm.get('queryParam').dirty || singleChartAddForm.get('queryParam').touched)">-->
+<!--              {{validation.message}}-->
+<!--            </mat-error>-->
+<!--           -->
+<!--          </mat-error>-->
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-12  form-group">
+      <div class="row justify-content-center">
+        <label for="status" class="col-4 col-form-label">
+          {{'management.single-chart.status' | translate}}<span [style.color]="'red'">*</span></label>
+        <div class="col-8">
+          <select id="status" formControlName="status">
+            <option [value]="null" disabled>{{'management.service.form.choose' | translate}}</option>
+            <option [value]="1">
+              {{'management.weight.active' | translate}}
+            </option>
+            <option [value]="0">
+              {{'management.weight.notActive' | translate}}
+            </option>
+          </select>
+          <div
+            *ngIf="singleChartAddForm.get('status').invalid&&(singleChartAddForm.get('status').dirty||singleChartAddForm.get('status').touched)"
+            class="error">
+            <div *ngIf="singleChartAddForm.get('status').errors.required">
+              {{'management.declareVDS.dataNull' |translate}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!--button-->
+  <div class="card-footer text-muted ">
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center flex-wrap">
+        <button class="btn btn-primary m-2 " (click)="closeDialog()">
+          <i class="fa fa-times"></i> {{'management.declareVDS.cancel' | translate}}
+        </button>
+        <button class="btn btn-primary m-2" (click)="clickSave(add)"
+                [disabled]="singleChartAddForm.invalid || (isAllSpaceOne && isAllSpaceTwo && isAllSpaceThree)">
+          <i class="fa fa-save"></i> {{'management.declareVDS.save' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>
+</div>
+<ng-template #add>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{'management.single-chart.create-confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBack() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)="createSingleChart()"
+            style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
+

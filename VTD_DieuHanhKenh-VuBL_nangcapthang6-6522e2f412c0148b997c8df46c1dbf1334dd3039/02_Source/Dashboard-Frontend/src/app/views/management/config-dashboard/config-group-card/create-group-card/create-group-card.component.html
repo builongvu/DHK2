@@ -1,0 +1,109 @@
+<div class="w-100 update-singleCard">
+  <div class="vis-card-header-declare">
+    <h4>
+      {{'management.group-card.title-add' | translate}}
+    </h4>
+    <span (click)="close()" style="cursor: pointer"><i class="fa fa-times"></i></span>
+  </div>
+  <div style="padding-right: 15px" class="w-100">
+    <div class="card-body">
+      <form [formGroup]="createGroupCardForm">
+        <div class="row align-items-center">
+          <label class="col-md-1 col-form-label text-no-pr">
+            {{'management.group-card.group-name' | translate}}<span [style.color]="'red'">*</span>
+          </label>
+          <div class=" col-md-5">
+            <div class="fix-mt target-level-container mtop">
+                <input matInput #message maxlength="255" autocomplete="off" formControlName="groupName" (input)="checkSpaceOne($event)">
+<!--              (blur)="checkSpace($event)"-->
+                <mat-error class="error" *ngFor="let validation of validation_messages.groupName">
+                  <mat-error
+                    *ngIf="createGroupCardForm.get('groupName').hasError(validation.type) && (createGroupCardForm.get('groupName').dirty || createGroupCardForm.get('groupName').touched)">
+                    {{validation.message}}
+                  </mat-error>
+                  <mat-error *ngIf="isAllSpace && !createGroupCardForm.get('groupName').hasError(validation.type) && (createGroupCardForm.get('groupName').dirty || createGroupCardForm.get('groupName').touched)">
+                    {{'management.group.table.validate.notNull' | translate}}
+                  </mat-error>
+                </mat-error>
+            </div>
+          </div>
+          <br><br>
+          <label class="col-md-1 col-form-label text-no-pr">
+            {{'management.group-card.default-cycle' | translate}}<span [style.color]="'red'">*</span>
+          </label>
+          <div class=" col-md-5">
+            <div class="fix-mt target-level-container mtop">
+              <select class="select-search" formControlName="defaultCycle">
+                <option [value]='null' disabled>{{'management.service.form.choose' | translate}}</option>
+                <option *ngFor="let defaultCycle of listDefaultCycle" value="{{defaultCycle.code}}">{{defaultCycle.name}}</option>
+              </select>
+              <div
+                *ngIf="createGroupCardForm.get('defaultCycle').invalid&&(createGroupCardForm.get('defaultCycle').dirty||createGroupCardForm.get('defaultCycle').touched)"
+                class="error">
+                <div *ngIf="createGroupCardForm.get('defaultCycle').errors.required">
+                  {{'management.declareVDS.dataNull' |translate}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<!--        <br>-->
+        <div class="row align-items-center mt">
+          <label class="col-md-1 col-form-label text-no-pr">
+            {{'management.group-card.shop' | translate}}<span [style.color]="'red'">*</span>
+          </label>
+          <div class=" col-md-5">
+            <div class="fix-mt target-level-container mtop treeview-unit">
+              <app-configwr-tree class="target-container product shopCodeScore" formControlName="shopCode" [items]="TreeShopCode" [(value)]="valueUnit" (valueChange)="onValueChangeUnit($event)" [config]="mobjConfigScore" (click)="clickToShop()">
+              </app-configwr-tree>
+              <p class="pos-re error">
+                {{mblnCheckShop == true && added != true ? ('management.service.error.required' | translate) : ' '}}</p>
+            </div>
+          </div>
+          <br><br>
+          <label class="col-md-1 col-form-label text-no-pr">
+            {{'management.group-card.channel' | translate}}<span [style.color]="'red'">*</span>
+          </label>
+          <div class=" col-md-5">
+            <div class="fix-mt target-level-container mtop">
+                <input readonly matInput #message maxlength="255" name="name" formControlName="vdsChannelCode"  autocomplete="off" [value]="channel">
+            </div>
+          </div>
+        </div>
+      </form>
+      <br><br><br>
+      <div class="w-100 text-center mt-0 mb-1 vis-btn-group">
+        <button (click)="close()" class="btn btn-primary">
+          <i class="fa fa-times"></i> {{'management.declareVDS.cancel' | translate}}</button>
+        <button class="btn btn-primary ml-2" (click)="clickSave(add)" [disabled]="createGroupCardForm.invalid || isAllSpace || mblnCheckShop != false || isAllSpaceOne">
+          <i class="fa fa-save"></i> {{'management.declareVDS.save' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #add>
+  <div class="row" style="margin-right: 0 !important; margin-left: 0 !important;">
+    <div class="col-md-10 modal-body">
+      <span> <img style="margin: 0 3px 3px 0;" src="assets/icons8-question-mark-16.png"
+                  alt="">{{'management.service.message.confirm' | translate}}</span>
+    </div>
+
+    <div class="col-md-2 modal-body">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="onBack()" size="6MB">
+        <span aria-hidden="true" style="border: none">&times;</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary click-btn-upload" (click)=onBack() style="width: 88.64px;"><i
+      class="fa fa-times"></i>
+      {{'management.service.button.No' | translate}}
+    </button>
+    <button class="btn btn-primary click-btn-upload" type="button" (click)="saveGroupCard()" style="width: 88.64px;"><i
+      class="fa fa-check"></i>
+      {{'management.service.button.Yes' | translate}}
+    </button>
+  </div>
+</ng-template>
